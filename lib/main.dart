@@ -1,9 +1,13 @@
+import 'package:daf_counter/services/hive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:daf_counter/pages/home.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  await hiveService.initHive();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

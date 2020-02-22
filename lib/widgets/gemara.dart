@@ -1,3 +1,4 @@
+import 'package:daf_counter/consts/shas.dart';
 import 'package:daf_counter/models/gemara.dart';
 import 'package:daf_counter/services/hive.dart';
 import 'package:daf_counter/utils/gemaraConverter.dart';
@@ -40,7 +41,7 @@ class _GemaraWidgetState extends State<GemaraWidget> {
     return Container(
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
         color: Colors.blue,
-        child: Text(widget.gemara.name));
+        child: Text(ShasConsts.GEMARA_TITLE + widget.gemara.name));
   }
 
   @override

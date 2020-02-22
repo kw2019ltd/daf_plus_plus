@@ -1,3 +1,3 @@
 class HiveConsts {
-  static const PROGRESS_BOX = "progressBox";
+  static const String PROGRESS_BOX = "progressBox";
 }

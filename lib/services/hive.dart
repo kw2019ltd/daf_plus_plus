@@ -9,8 +9,6 @@ class HiveService {
 
   Future<void> openProgressBox() async {
     await Hive.openBox(HiveConsts.PROGRESS_BOX);
-    Box progressBox = Hive.box(HiveConsts.PROGRESS_BOX);
-    progressBox.deleteAll([0, 1, 2]);
   }
 
   void closeProgressBox() {

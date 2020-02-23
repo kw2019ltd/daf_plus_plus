@@ -6,21 +6,27 @@ class GemaraConverterUtil {
   int firstCharValue = 'a'.codeUnitAt(0);
 
   String encode(List<int> gemaraProgress) {
-    List<String> encodedGemaraProgress = gemaraProgress.map(numberToString).toList();
+    List<String> encodedGemaraProgress =
+        gemaraProgress.map(_numberToString).toList();
     return encodedGemaraProgress.join();
   }
 
   List<int> decode(String gemaraProgress) {
     List<String> encodedGemaraProgress = gemaraProgress.split('');
-    return encodedGemaraProgress.map(stringToNumber).toList();
+    return encodedGemaraProgress.map(_stringToNumber).toList();
   }
 
-  String numberToString(int number) {
+  double toPercent(List<int> gemaraProgress) {
+    int gemaraDone = gemaraProgress.where((int daf) => daf > 0).length;
+    return gemaraDone / gemaraProgress.length;
+  }
+
+  String _numberToString(int number) {
     number = numberInRange(number);
     return String.fromCharCode(firstCharValue + number);
   }
 
-  int stringToNumber(String string) {
+  int _stringToNumber(String string) {
     int number = string.codeUnitAt(0);
     return numberInRange(number - firstCharValue);
   }

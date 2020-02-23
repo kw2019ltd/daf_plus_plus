@@ -12,6 +12,7 @@ class ShasWidget extends StatefulWidget {
 class _ShasWidgetState extends State<ShasWidget> {
   Widget _listOfGemaras() {
     return CustomScrollView(
+      
       slivers: ShasData.THE_SHAS
           .map((GemaraModel gemara) => GemaraWidget(gemara: gemara))
           .toList(),

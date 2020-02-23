@@ -2,16 +2,16 @@ import 'package:daf_counter/consts/consts.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-class GemaraTitleWidget extends StatelessWidget {
+class MasechetTitleWidget extends StatelessWidget {
 
-  GemaraTitleWidget({
-    @required this.gemaraName,
+  MasechetTitleWidget({
+    @required this.masechetName,
     @required this.isExpanded,
     @required this.onChangeExpanded,
     @required this.progressInPecent,
   });
 
-  final String gemaraName;
+  final String masechetName;
   final bool isExpanded;
   final Function(bool) onChangeExpanded;
   final double progressInPecent;
@@ -34,7 +34,7 @@ class GemaraTitleWidget extends StatelessWidget {
               onPressed: () => this.onChangeExpanded(!this.isExpanded),
             ),
           ),
-          Expanded(child: Text(Consts.GEMARA_TITLE + gemaraName)),
+          Expanded(child: Text(Consts.MASECHET_TITLE + masechetName)),
           CircularProgressIndicator(
             // backgroundColor: Colors.white,
             value: this.progressInPecent,

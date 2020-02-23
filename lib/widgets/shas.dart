@@ -1,8 +1,8 @@
 import 'package:daf_counter/data/shas.dart';
 import 'package:daf_counter/models/dafLocation.dart';
-import 'package:daf_counter/models/gemara.dart';
+import 'package:daf_counter/models/masechet.dart';
 import 'package:daf_counter/services/hive/index.dart';
-import 'package:daf_counter/widgets/gemara.dart';
+import 'package:daf_counter/widgets/masechet.dart';
 import 'package:flutter/material.dart';
 
 class ShasWidget extends StatefulWidget {
@@ -11,13 +11,13 @@ class ShasWidget extends StatefulWidget {
 }
 
 class _ShasWidgetState extends State<ShasWidget> {
-  Widget _listOfGemaras() {
+  Widget _listOfMasechets() {
     DafLocationModel lastDafLocation = hiveService.settings.getLastDaf();
     return CustomScrollView(
       slivers: ShasData.THE_SHAS
-          .map((GemaraModel gemara) => GemaraWidget(
-                gemara: gemara,
-                lastDafIndex: gemara.id == lastDafLocation.gemaraId
+          .map((MasechetModel masechet) => MasechetWidget(
+                masechet: masechet,
+                lastDafIndex: masechet.id == lastDafLocation.masechetId
                     ? lastDafLocation.dafIndex
                     : -1,
               ))
@@ -44,7 +44,7 @@ class _ShasWidgetState extends State<ShasWidget> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasError) return Text(snapshot.error.toString());
-          return _listOfGemaras();
+          return _listOfMasechets();
         } else {
           return Container();
         }

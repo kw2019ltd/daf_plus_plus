@@ -10,13 +10,13 @@ class ProgressBox {
     Hive.box(HiveConsts.PROGRESS_BOX).close();
   }
 
-  String getGemaraProgress(int id) {
+  String getMasechetProgress(int id) {
     Box progressBox = Hive.box(HiveConsts.PROGRESS_BOX);
     String progress = progressBox.get(id);
     return progress;
   }
 
-  void setGemaraProgress(int id, String progress) {
+  void setMasechetProgress(int id, String progress) {
     Box progressBox = Hive.box(HiveConsts.PROGRESS_BOX);
     progressBox.put(id, progress);
   }

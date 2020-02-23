@@ -1,28 +1,28 @@
 import 'package:daf_counter/consts/consts.dart';
 import 'package:daf_counter/models/dafLocation.dart';
-import 'package:daf_counter/models/gemara.dart';
+import 'package:daf_counter/models/masechet.dart';
 import 'package:daf_counter/services/hive/index.dart';
-import 'package:daf_counter/utils/gemaraConverter.dart';
+import 'package:daf_counter/utils/masechetConverter.dart';
 import 'package:daf_counter/widgets/daf.dart';
-import 'package:daf_counter/widgets/gemaraTitle.dart';
+import 'package:daf_counter/widgets/masechetTitle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';
 
-class GemaraWidget extends StatefulWidget {
-  GemaraWidget({
-    @required this.gemara,
+class MasechetWidget extends StatefulWidget {
+  MasechetWidget({
+    @required this.masechet,
     this.lastDafIndex,
   });
 
-  final GemaraModel gemara;
+  final MasechetModel masechet;
   final int lastDafIndex;
 
   @override
-  _GemaraWidgetState createState() => _GemaraWidgetState();
+  _MasechetWidgetState createState() => _MasechetWidgetState();
 }
 
-class _GemaraWidgetState extends State<GemaraWidget> {
+class _MasechetWidgetState extends State<MasechetWidget> {
   List<int> _progress = [];
   bool _isExpanded = false;
   double _progressInPecent = 0;
@@ -34,28 +34,28 @@ class _GemaraWidgetState extends State<GemaraWidget> {
 
   void _updateLastDaf(int dafIndex) {
     DafLocationModel dafLocation =
-        DafLocationModel(gemaraId: widget.gemara.id, dafIndex: dafIndex);
+        DafLocationModel(masechetId: widget.masechet.id, dafIndex: dafIndex);
     hiveService.settings.setLastDaf(dafLocation);
   }
 
   void _updateDafCount(int dafIndex, int count) {
     List<int> progress = _progress;
     progress[dafIndex] = count;
-    String encodedProgress = gemaraConverterUtil.encode(progress);
-    hiveService.progress.setGemaraProgress(widget.gemara.id, encodedProgress);
+    String encodedProgress = masechetConverterUtil.encode(progress);
+    hiveService.progress.setMasechetProgress(widget.masechet.id, encodedProgress);
     setState(() {
       _progress = progress;
-      _progressInPecent = gemaraConverterUtil.toPercent(progress);
+      _progressInPecent = masechetConverterUtil.toPercent(progress);
     });
   }
 
-  List<int> _generateNewProgress() => List.filled(widget.gemara.numOfDafs, 0);
+  List<int> _generateNewProgress() => List.filled(widget.masechet.numOfDafs, 0);
 
-  List<int> _getGemaraProgress() {
+  List<int> _getMasechetProgress() {
     String encodedProgress =
-        hiveService.progress.getGemaraProgress(widget.gemara.id);
+        hiveService.progress.getMasechetProgress(widget.masechet.id);
     return encodedProgress != null
-        ? gemaraConverterUtil.decode(encodedProgress)
+        ? masechetConverterUtil.decode(encodedProgress)
         : _generateNewProgress();
   }
 
@@ -66,10 +66,10 @@ class _GemaraWidgetState extends State<GemaraWidget> {
   @override
   void initState() {
     super.initState();
-    List<int> progress = _getGemaraProgress();
+    List<int> progress = _getMasechetProgress();
     setState(() {
       _progress = progress;
-      _progressInPecent = gemaraConverterUtil.toPercent(progress);
+      _progressInPecent = masechetConverterUtil.toPercent(progress);
       _isExpanded = widget.lastDafIndex != -1;
     });
   }
@@ -77,8 +77,8 @@ class _GemaraWidgetState extends State<GemaraWidget> {
   @override
   Widget build(BuildContext context) {
     return SliverStickyHeader(
-      header: GemaraTitleWidget(
-        gemaraName: widget.gemara.name,
+      header: MasechetTitleWidget(
+        masechetName: widget.masechet.name,
         isExpanded: _isExpanded,
         onChangeExpanded: _onChangeExpandedState,
         progressInPecent: _progressInPecent,
@@ -86,7 +86,7 @@ class _GemaraWidgetState extends State<GemaraWidget> {
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, i) => Container(
-            height: Consts.GEMARA_LIST_HEIGHT,
+            height: Consts.MASECHET_LIST_HEIGHT,
             child: ScrollablePositionedList.builder(
               initialScrollIndex:  widget.lastDafIndex != -1 ? widget.lastDafIndex : 0,
               itemBuilder: (context, dafIndex) => DafWidget(
@@ -94,7 +94,7 @@ class _GemaraWidgetState extends State<GemaraWidget> {
                 dafCount: _progress[dafIndex],
                 onChangeCount: (int count) => _onClickDaf(dafIndex, count),
               ),
-              itemCount: widget.gemara.numOfDafs,
+              itemCount: widget.masechet.numOfDafs,
             ),
           ),
           childCount: _isExpanded ? 1 : 0,

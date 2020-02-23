@@ -1,5 +1,5 @@
-class GemaraModel {
-  const GemaraModel({
+class MasechetModel {
+  const MasechetModel({
     this.id,
     this.name,
     this.numOfDafs,

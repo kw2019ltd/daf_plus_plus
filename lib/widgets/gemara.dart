@@ -1,20 +1,22 @@
-import 'dart:math';
-
-import 'package:daf_counter/consts/shas.dart';
+import 'package:daf_counter/consts/consts.dart';
+import 'package:daf_counter/models/dafLocation.dart';
 import 'package:daf_counter/models/gemara.dart';
-import 'package:daf_counter/services/hive.dart';
+import 'package:daf_counter/services/hive/index.dart';
 import 'package:daf_counter/utils/gemaraConverter.dart';
 import 'package:daf_counter/widgets/daf.dart';
 import 'package:daf_counter/widgets/gemaraTitle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:flutter_widgets/flutter_widgets.dart';
 
 class GemaraWidget extends StatefulWidget {
   GemaraWidget({
     @required this.gemara,
+    this.lastDafIndex,
   });
 
   final GemaraModel gemara;
+  final int lastDafIndex;
 
   @override
   _GemaraWidgetState createState() => _GemaraWidgetState();
@@ -25,11 +27,22 @@ class _GemaraWidgetState extends State<GemaraWidget> {
   bool _isExpanded = false;
   double _progressInPecent = 0;
 
+  void _onClickDaf(int dafIndex, int count) {
+    _updateDafCount(dafIndex, count);
+    _updateLastDaf(dafIndex);
+  }
+
+  void _updateLastDaf(int dafIndex) {
+    DafLocationModel dafLocation =
+        DafLocationModel(gemaraId: widget.gemara.id, dafIndex: dafIndex);
+    hiveService.settings.setLastDaf(dafLocation);
+  }
+
   void _updateDafCount(int dafIndex, int count) {
     List<int> progress = _progress;
     progress[dafIndex] = count;
     String encodedProgress = gemaraConverterUtil.encode(progress);
-    hiveService.setGemaraProgress(widget.gemara.id, encodedProgress);
+    hiveService.progress.setGemaraProgress(widget.gemara.id, encodedProgress);
     setState(() {
       _progress = progress;
       _progressInPecent = gemaraConverterUtil.toPercent(progress);
@@ -39,7 +52,8 @@ class _GemaraWidgetState extends State<GemaraWidget> {
   List<int> _generateNewProgress() => List.filled(widget.gemara.numOfDafs, 0);
 
   List<int> _getGemaraProgress() {
-    String encodedProgress = hiveService.getGemaraProgress(widget.gemara.id);
+    String encodedProgress =
+        hiveService.progress.getGemaraProgress(widget.gemara.id);
     return encodedProgress != null
         ? gemaraConverterUtil.decode(encodedProgress)
         : _generateNewProgress();
@@ -56,6 +70,7 @@ class _GemaraWidgetState extends State<GemaraWidget> {
     setState(() {
       _progress = progress;
       _progressInPecent = gemaraConverterUtil.toPercent(progress);
+      _isExpanded = widget.lastDafIndex != -1;
     });
   }
 
@@ -70,11 +85,19 @@ class _GemaraWidgetState extends State<GemaraWidget> {
       ),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
-          (context, dafIndex) => DafWidget(
-              dafNumber: dafIndex,
-              dafCount: _progress[dafIndex],
-              onChangeCount: (int count) => _updateDafCount(dafIndex, count)),
-          childCount: _isExpanded ? widget.gemara.numOfDafs : 0,
+          (context, i) => Container(
+            height: Consts.GEMARA_LIST_HEIGHT,
+            child: ScrollablePositionedList.builder(
+              initialScrollIndex:  widget.lastDafIndex != -1 ? widget.lastDafIndex : 0,
+              itemBuilder: (context, dafIndex) => DafWidget(
+                dafNumber: dafIndex,
+                dafCount: _progress[dafIndex],
+                onChangeCount: (int count) => _onClickDaf(dafIndex, count),
+              ),
+              itemCount: widget.gemara.numOfDafs,
+            ),
+          ),
+          childCount: _isExpanded ? 1 : 0,
         ),
       ),
     );

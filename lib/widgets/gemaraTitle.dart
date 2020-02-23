@@ -1,4 +1,4 @@
-import 'package:daf_counter/consts/shas.dart';
+import 'package:daf_counter/consts/consts.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -34,7 +34,7 @@ class GemaraTitleWidget extends StatelessWidget {
               onPressed: () => this.onChangeExpanded(!this.isExpanded),
             ),
           ),
-          Expanded(child: Text(ShasConsts.GEMARA_TITLE + gemaraName)),
+          Expanded(child: Text(Consts.GEMARA_TITLE + gemaraName)),
           CircularProgressIndicator(
             // backgroundColor: Colors.white,
             value: this.progressInPecent,

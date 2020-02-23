@@ -1,4 +1,4 @@
-import 'package:daf_counter/services/hive.dart';
+import 'package:daf_counter/services/hive/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 

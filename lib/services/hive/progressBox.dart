@@ -1,17 +1,12 @@
 import 'package:daf_counter/consts/hive.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
-class HiveService {
-  Future<void> initHive() async {
-    await Hive.initFlutter();
-  }
-
-  Future<void> openProgressBox() async {
+class ProgressBox {
+  Future<void> open() async {
     await Hive.openBox(HiveConsts.PROGRESS_BOX);
   }
 
-  void closeProgressBox() {
+  void close() {
     Hive.box(HiveConsts.PROGRESS_BOX).close();
   }
 
@@ -27,4 +22,4 @@ class HiveService {
   }
 }
 
-final HiveService hiveService = HiveService();
+final ProgressBox progressBox = ProgressBox();

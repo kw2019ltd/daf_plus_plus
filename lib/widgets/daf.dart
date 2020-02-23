@@ -1,4 +1,4 @@
-import 'package:daf_counter/consts/shas.dart';
+import 'package:daf_counter/consts/consts.dart';
 import 'package:daf_counter/utils/gematriaConverter.dart';
 import 'package:flutter/material.dart';
 
@@ -25,8 +25,8 @@ class DafWidget extends StatelessWidget {
           onChanged: _onClickCheckbox,
           value: dafCount > 0 ? true : false,
         ),
-        title: Text(ShasConsts.DAF_TITLE +
-            gematriaConverter.toGematria((dafNumber + ShasConsts.FIST_DAF))),
+        title: Text(Consts.DAF_TITLE +
+            gematriaConverter.toGematria((dafNumber + Consts.FIST_DAF))),
       ),
     );
   }

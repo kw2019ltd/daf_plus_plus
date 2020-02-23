@@ -14,7 +14,7 @@ dependencies:
   flutter_sticky_header: 0.4.1
   hive: ^1.4.0+1
   hive_flutter: ^0.3.0+1
-  path_provider: ^1.6.1
+  flutter_widgets: ^0.1.11
 
 dev_dependencies:
   flutter_test:

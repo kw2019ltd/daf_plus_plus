@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:daf_counter/consts/shas.dart';
+import 'package:daf_counter/consts/consts.dart';
 
 class GemaraConverterUtil {
   int firstCharValue = 'a'.codeUnitAt(0);
@@ -32,7 +32,7 @@ class GemaraConverterUtil {
   }
 
   int numberInRange(int number) =>
-      max(0, min(number, ShasConsts.MAX_REVISIONS));
+      max(0, min(number, Consts.MAX_REVISIONS));
 }
 
 final GemaraConverterUtil gemaraConverterUtil = GemaraConverterUtil();

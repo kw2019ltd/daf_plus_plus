@@ -1,4 +1,5 @@
 import 'package:daf_counter/consts/consts.dart';
+import 'package:daf_counter/dialogs/masechetOptions.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -19,10 +20,18 @@ class MasechetWidget extends StatelessWidget {
     this.onChangeExpanded(!this.isExpanded);
   }
 
+  void _openMasechetOptions(BuildContext context) {
+    showDialog(
+      context: context,
+      child: MasechetOptionsDialog(masechetName: this.masechetName),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: _changeExpandedState,
+      onLongPress: () => _openMasechetOptions(context),
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),

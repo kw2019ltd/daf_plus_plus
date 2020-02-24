@@ -4,6 +4,7 @@ import 'package:daf_counter/models/dafLocation.dart';
 import 'package:daf_counter/models/masechet.dart';
 import 'package:daf_counter/services/hive/index.dart';
 import 'package:daf_counter/widgets/masechetCard.dart';
+import 'package:daf_counter/widgets/sectionTitle.dart';
 import 'package:daf_counter/widgets/seder.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +38,6 @@ class _ShasWidgetState extends State<ShasWidget> {
   }
 
   Widget _listOfMasechets() {
-    DafLocationModel lastDafLocation = hiveService.settings.getLastDaf();
     return CustomScrollView(
       slivers: _generateList(),
     );
@@ -57,16 +57,25 @@ class _ShasWidgetState extends State<ShasWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _openBoxes(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasError) return Text(snapshot.error.toString());
-          return _listOfMasechets();
-        } else {
-          return Container();
-        }
-      },
+    return Column(
+      children: <Widget>[
+        SectionTitleWidget(
+          title: "כל השס",
+        ),
+        Expanded(
+          child: FutureBuilder(
+            future: _openBoxes(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasError) return Text(snapshot.error.toString());
+                return _listOfMasechets();
+              } else {
+                return Container();
+              }
+            },
+          ),
+        ),
+      ],
     );
   }
 }

@@ -37,7 +37,7 @@ class MasechetWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: Colors.blue,
+          color: Theme.of(context).accentColor,
         ),
         child: Row(
           children: <Widget>[

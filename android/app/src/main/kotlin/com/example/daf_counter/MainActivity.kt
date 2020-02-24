@@ -1,4 +1,4 @@
-package com.example.daf_counter
+package com.zektec.daf_counter
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

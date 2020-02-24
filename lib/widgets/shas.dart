@@ -2,7 +2,7 @@ import 'package:daf_counter/data/masechets.dart';
 import 'package:daf_counter/data/seders.dart';
 import 'package:daf_counter/models/masechet.dart';
 import 'package:daf_counter/widgets/masechetCard.dart';
-import 'package:daf_counter/widgets/sectionTitle.dart';
+import 'package:daf_counter/widgets/core/title.dart';
 import 'package:daf_counter/widgets/seder.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +30,7 @@ class ShasWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        SectionTitleWidget(
+        TitleWidget(
           title: "כל השס",
         ),
         Expanded(

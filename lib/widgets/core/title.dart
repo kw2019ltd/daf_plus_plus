@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
-class SectionTitleWidget extends StatelessWidget {
-  SectionTitleWidget({
+class TitleWidget extends StatelessWidget {
+  TitleWidget({
     @required this.title,
+    this.borderRadius = BorderRadius.zero,
   });
 
   final String title;
+  final BorderRadius borderRadius;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.symmetric(vertical: 16),
       decoration: new BoxDecoration(
+        borderRadius: this.borderRadius,
         color: Theme.of(context).canvasColor,
         boxShadow: [
           BoxShadow(

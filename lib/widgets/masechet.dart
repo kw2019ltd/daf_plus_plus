@@ -1,5 +1,6 @@
 import 'package:daf_counter/consts/consts.dart';
 import 'package:daf_counter/dialogs/masechetOptions.dart';
+import 'package:daf_counter/utils/transparentRoute.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -21,9 +22,10 @@ class MasechetWidget extends StatelessWidget {
   }
 
   void _openMasechetOptions(BuildContext context) {
-    showDialog(
-      context: context,
-      child: MasechetOptionsDialog(masechetName: this.masechetName),
+    Navigator.of(context).push(
+      TransparentRoute(
+        builder: (BuildContext context) => MasechetOptionsDialog(),
+      ),
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:daf_counter/consts/consts.dart';
 import 'package:daf_counter/services/hive/index.dart';
+import 'package:daf_counter/widgets/header.dart';
 import 'package:daf_counter/widgets/recent.dart';
 import 'package:daf_counter/widgets/shas.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,7 @@ class _HomePageState extends State<HomePage> {
               if (snapshot.hasError) return Text(snapshot.error.toString());
               return Column(
                 children: <Widget>[
+                  HeaderWidget(),
                   Container(
                     height: Consts.REACENT_HEIGHT,
                     child: RecentWidget(),

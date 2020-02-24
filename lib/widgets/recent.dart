@@ -4,7 +4,7 @@ import 'package:daf_counter/models/dafLocation.dart';
 import 'package:daf_counter/models/masechet.dart';
 import 'package:daf_counter/services/hive/index.dart';
 import 'package:daf_counter/widgets/masechetCard.dart';
-import 'package:daf_counter/widgets/sectionTitle.dart';
+import 'package:daf_counter/widgets/core/title.dart';
 import 'package:flutter/material.dart';
 
 class RecentWidget extends StatelessWidget {
@@ -16,7 +16,7 @@ class RecentWidget extends StatelessWidget {
 
     return Column(
       children: <Widget>[
-        SectionTitleWidget(
+        TitleWidget(
           title: Consts.REASENT_TITLE +  " - " + Consts.MASECHET_TITLE + " " + resentMasechet.name,
         ),
         Expanded(

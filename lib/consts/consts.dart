@@ -15,4 +15,7 @@ class Consts {
   static const int MAX_REVISIONS = 20;
   static const String DAF_TITLE = "דף";
 
+  // reasent consts
+  static const String REASENT_TITLE = "לומד היום";
+
 }

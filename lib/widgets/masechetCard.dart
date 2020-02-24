@@ -12,11 +12,13 @@ import 'package:flutter_widgets/flutter_widgets.dart';
 class MasechetCardWidget extends StatefulWidget {
   MasechetCardWidget({
     @required this.masechet,
-    this.lastDafIndex,
+    this.lastDafIndex = -1,
+    this.hasTitle = true,
   });
 
   final MasechetModel masechet;
   final int lastDafIndex;
+  final bool hasTitle;
 
   @override
   _MasechetCardWidgetState createState() => _MasechetCardWidgetState();
@@ -42,7 +44,8 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
     List<int> progress = _progress;
     progress[dafIndex] = count;
     String encodedProgress = masechetConverterUtil.encode(progress);
-    hiveService.progress.setMasechetProgress(widget.masechet.id, encodedProgress);
+    hiveService.progress
+        .setMasechetProgress(widget.masechet.id, encodedProgress);
     setState(() {
       _progress = progress;
       _progressInPecent = masechetConverterUtil.toPercent(progress);
@@ -77,18 +80,21 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
   @override
   Widget build(BuildContext context) {
     return SliverStickyHeader(
-      header: MasechetWidget(
-        masechetName: widget.masechet.name,
-        isExpanded: _isExpanded,
-        onChangeExpanded: _onChangeExpandedState,
-        progressInPecent: _progressInPecent,
-      ),
+      header: widget.hasTitle
+          ? MasechetWidget(
+              masechetName: widget.masechet.name,
+              isExpanded: _isExpanded,
+              onChangeExpanded: _onChangeExpandedState,
+              progressInPecent: _progressInPecent,
+            )
+          : Container(),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, i) => Container(
             height: Consts.MASECHET_LIST_HEIGHT,
             child: ScrollablePositionedList.builder(
-              initialScrollIndex:  widget.lastDafIndex != -1 ? widget.lastDafIndex : 0,
+              initialScrollIndex:
+                  widget.lastDafIndex != -1 ? widget.lastDafIndex : 0,
               itemBuilder: (context, dafIndex) => DafWidget(
                 dafNumber: dafIndex,
                 dafCount: _progress[dafIndex],

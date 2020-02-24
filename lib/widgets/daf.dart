@@ -25,7 +25,7 @@ class DafWidget extends StatelessWidget {
           onChanged: _onClickCheckbox,
           value: dafCount > 0 ? true : false,
         ),
-        title: Text(Consts.DAF_TITLE +
+        title: Text(Consts.DAF_TITLE + " " +
             gematriaConverter.toGematria((dafNumber + Consts.FIST_DAF))),
       ),
     );

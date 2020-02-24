@@ -19,7 +19,6 @@ class SettingsBox {
 
   void setLastDaf(DafLocationModel lastDaf) {
     Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-    print(lastDaf.toString());
     settingsBox.put(HiveConsts.LAST_DAF, lastDaf.toString());
   }
 }

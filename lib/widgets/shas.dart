@@ -1,8 +1,10 @@
-import 'package:daf_counter/data/shas.dart';
+import 'package:daf_counter/data/masechets.dart';
+import 'package:daf_counter/data/seders.dart';
 import 'package:daf_counter/models/dafLocation.dart';
 import 'package:daf_counter/models/masechet.dart';
 import 'package:daf_counter/services/hive/index.dart';
-import 'package:daf_counter/widgets/masechet.dart';
+import 'package:daf_counter/widgets/masechetCard.dart';
+import 'package:daf_counter/widgets/seder.dart';
 import 'package:flutter/material.dart';
 
 class ShasWidget extends StatefulWidget {
@@ -11,17 +13,33 @@ class ShasWidget extends StatefulWidget {
 }
 
 class _ShasWidgetState extends State<ShasWidget> {
+  List<Widget> _generateList() {
+    DafLocationModel lastDafLocation = hiveService.settings.getLastDaf();
+    int prevSederId = -1;
+    List<Widget> list = [];
+    MasechetsData.THE_MASECHETS.forEach((MasechetModel masechet) {
+      if (prevSederId != masechet.sederId) {
+        list.add(SederWidget(
+          seder: SedersData.THE_SEDERS[masechet.sederId],
+        ));
+        prevSederId = masechet.sederId;
+      }
+      list.add(
+        MasechetCardWidget(
+          masechet: masechet,
+          lastDafIndex: masechet.id == lastDafLocation.masechetId
+              ? lastDafLocation.dafIndex
+              : -1,
+        ),
+      );
+    });
+    return list;
+  }
+
   Widget _listOfMasechets() {
     DafLocationModel lastDafLocation = hiveService.settings.getLastDaf();
     return CustomScrollView(
-      slivers: ShasData.THE_SHAS
-          .map((MasechetModel masechet) => MasechetWidget(
-                masechet: masechet,
-                lastDafIndex: masechet.id == lastDafLocation.masechetId
-                    ? lastDafLocation.dafIndex
-                    : -1,
-              ))
-          .toList(),
+      slivers: _generateList(),
     );
   }
 

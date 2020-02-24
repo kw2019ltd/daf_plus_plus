@@ -1,104 +1,47 @@
 import 'package:daf_counter/consts/consts.dart';
-import 'package:daf_counter/models/dafLocation.dart';
-import 'package:daf_counter/models/masechet.dart';
-import 'package:daf_counter/services/hive/index.dart';
-import 'package:daf_counter/utils/masechetConverter.dart';
-import 'package:daf_counter/widgets/daf.dart';
-import 'package:daf_counter/widgets/masechetTitle.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:flutter_widgets/flutter_widgets.dart';
+import 'dart:math';
 
-class MasechetWidget extends StatefulWidget {
+class MasechetWidget extends StatelessWidget {
+
   MasechetWidget({
-    @required this.masechet,
-    this.lastDafIndex,
+    @required this.masechetName,
+    @required this.isExpanded,
+    @required this.onChangeExpanded,
+    @required this.progressInPecent,
   });
 
-  final MasechetModel masechet;
-  final int lastDafIndex;
-
-  @override
-  _MasechetWidgetState createState() => _MasechetWidgetState();
-}
-
-class _MasechetWidgetState extends State<MasechetWidget> {
-  List<int> _progress = [];
-  bool _isExpanded = false;
-  double _progressInPecent = 0;
-
-  void _onClickDaf(int dafIndex, int count) {
-    _updateDafCount(dafIndex, count);
-    _updateLastDaf(dafIndex);
-  }
-
-  void _updateLastDaf(int dafIndex) {
-    DafLocationModel dafLocation =
-        DafLocationModel(masechetId: widget.masechet.id, dafIndex: dafIndex);
-    hiveService.settings.setLastDaf(dafLocation);
-  }
-
-  void _updateDafCount(int dafIndex, int count) {
-    List<int> progress = _progress;
-    progress[dafIndex] = count;
-    String encodedProgress = masechetConverterUtil.encode(progress);
-    hiveService.progress.setMasechetProgress(widget.masechet.id, encodedProgress);
-    setState(() {
-      _progress = progress;
-      _progressInPecent = masechetConverterUtil.toPercent(progress);
-    });
-  }
-
-  List<int> _generateNewProgress() => List.filled(widget.masechet.numOfDafs, 0);
-
-  List<int> _getMasechetProgress() {
-    String encodedProgress =
-        hiveService.progress.getMasechetProgress(widget.masechet.id);
-    return encodedProgress != null
-        ? masechetConverterUtil.decode(encodedProgress)
-        : _generateNewProgress();
-  }
-
-  void _onChangeExpandedState(bool state) {
-    setState(() => _isExpanded = state);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    List<int> progress = _getMasechetProgress();
-    setState(() {
-      _progress = progress;
-      _progressInPecent = masechetConverterUtil.toPercent(progress);
-      _isExpanded = widget.lastDafIndex != -1;
-    });
-  }
+  final String masechetName;
+  final bool isExpanded;
+  final Function(bool) onChangeExpanded;
+  final double progressInPecent;
 
   @override
   Widget build(BuildContext context) {
-    return SliverStickyHeader(
-      header: MasechetTitleWidget(
-        masechetName: widget.masechet.name,
-        isExpanded: _isExpanded,
-        onChangeExpanded: _onChangeExpandedState,
-        progressInPecent: _progressInPecent,
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: Colors.blue,
       ),
-      sliver: SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, i) => Container(
-            height: Consts.MASECHET_LIST_HEIGHT,
-            child: ScrollablePositionedList.builder(
-              initialScrollIndex:  widget.lastDafIndex != -1 ? widget.lastDafIndex : 0,
-              itemBuilder: (context, dafIndex) => DafWidget(
-                dafNumber: dafIndex,
-                dafCount: _progress[dafIndex],
-                onChangeCount: (int count) => _onClickDaf(dafIndex, count),
-              ),
-              itemCount: widget.masechet.numOfDafs,
+      child: Row(
+        children: <Widget>[
+          Transform.rotate(
+            angle: this.isExpanded ? pi / 1 : 0,
+            child: IconButton(
+              icon: Icon(Icons.keyboard_arrow_down),
+              onPressed: () => this.onChangeExpanded(!this.isExpanded),
             ),
           ),
-          childCount: _isExpanded ? 1 : 0,
-        ),
+          Expanded(child: Text(Consts.MASECHET_TITLE + " " + masechetName)),
+          CircularProgressIndicator(
+            // backgroundColor: Colors.white,
+            value: this.progressInPecent,
+            strokeWidth: 3,
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+          ),
+        ],
       ),
     );
   }

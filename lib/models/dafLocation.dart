@@ -9,7 +9,6 @@ class DafLocationModel {
 
   factory DafLocationModel.fromString(String dafLocation) {
     List<String> asList = dafLocation?.split("-") ?? [];
-    print(asList);
     if (asList.length < 2) return DafLocationModel();
     return DafLocationModel(
       masechetId: int.tryParse(asList[0]),

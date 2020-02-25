@@ -35,29 +35,32 @@ class MasechetWidget extends StatelessWidget {
       onTap: _changeExpandedState,
       onLongPress: () => _openMasechetOptions(context),
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: Theme.of(context).accentColor,
-        ),
-        child: Row(
-          children: <Widget>[
-            Transform.rotate(
-              angle: this.isExpanded ? pi / 1 : 0,
-              child: IconButton(
-                icon: Icon(Icons.keyboard_arrow_down),
-                onPressed: _changeExpandedState,
+        padding: const EdgeInsets.only(top: 8),
+        margin: EdgeInsets.only(right: 8, left: 8, bottom: 8),
+        color: Theme.of(context).canvasColor,
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: Theme.of(context).accentColor,
+          ),
+          child: Row(
+            children: <Widget>[
+              Transform.rotate(
+                angle: this.isExpanded ? pi / 1 : 0,
+                child: IconButton(
+                  icon: Icon(Icons.keyboard_arrow_down),
+                  onPressed: _changeExpandedState,
+                ),
               ),
-            ),
-            Expanded(child: Text(Consts.MASECHET_TITLE + " " + masechetName)),
-            CircularProgressIndicator(
-              // backgroundColor: Colors.white,
-              value: this.progressInPecent,
-              strokeWidth: 3,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            ),
-          ],
+              Expanded(child: Text(Consts.MASECHET_TITLE + " " + masechetName)),
+              CircularProgressIndicator(
+                value: this.progressInPecent,
+                strokeWidth: 3,
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
+            ],
+          ),
         ),
       ),
     );

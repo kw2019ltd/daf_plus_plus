@@ -28,14 +28,27 @@ class ShasWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: <Widget>[
-        TitleWidget(
-          title: "כל השס",
+        Column(
+          children: <Widget>[
+            TitleWidget(
+              title: "כל השס",
+              hasShadow: false,
+            ),
+            Expanded(
+              child: CustomScrollView(
+                slivers: _generateList(),
+              ),
+            ),
+          ],
         ),
-        Expanded(
-          child: CustomScrollView(
-            slivers: _generateList(),
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: TitleWidget(
+            title: "כל השס",
           ),
         ),
       ],

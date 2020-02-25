@@ -4,10 +4,12 @@ class TitleWidget extends StatelessWidget {
   TitleWidget({
     @required this.title,
     this.borderRadius = BorderRadius.zero,
+    this.hasShadow = true,
   });
 
   final String title;
   final BorderRadius borderRadius;
+  final bool hasShadow;
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +18,13 @@ class TitleWidget extends StatelessWidget {
       decoration: new BoxDecoration(
         borderRadius: this.borderRadius,
         color: Theme.of(context).canvasColor,
-        boxShadow: [
+        boxShadow: hasShadow ? [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 4.0,
             offset: Offset(0.0, 5),
           )
-        ],
+        ] : [],
       ),
       child: Center(
         child: Text(

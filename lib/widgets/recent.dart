@@ -14,20 +14,41 @@ class RecentWidget extends StatelessWidget {
     MasechetModel resentMasechet =
         MasechetsData.THE_MASECHETS[reasentDafLocation.masechetId];
 
-    return Column(
+    return Stack(
       children: <Widget>[
-        TitleWidget(
-          title: Consts.REASENT_TITLE +  " - " + Consts.MASECHET_TITLE + " " + resentMasechet.name,
-        ),
-        Expanded(
-          child: CustomScrollView(
-            slivers: [
-              MasechetCardWidget(
-                masechet: resentMasechet,
-                lastDafIndex: reasentDafLocation.dafIndex,
-                hasTitle: false,
+        Column(
+          children: <Widget>[
+            TitleWidget(
+              title: Consts.REASENT_TITLE +
+                  " - " +
+                  Consts.MASECHET_TITLE +
+                  " " +
+                  resentMasechet.name,
+              hasShadow: false,
+            ),
+            Expanded(
+              child: CustomScrollView(
+                slivers: [
+                  MasechetCardWidget(
+                    masechet: resentMasechet,
+                    lastDafIndex: reasentDafLocation.dafIndex,
+                    hasTitle: false,
+                  ),
+                ],
               ),
-            ],
+            ),
+          ],
+        ),
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: TitleWidget(
+            title: Consts.REASENT_TITLE +
+                " - " +
+                Consts.MASECHET_TITLE +
+                " " +
+                resentMasechet.name,
           ),
         ),
       ],

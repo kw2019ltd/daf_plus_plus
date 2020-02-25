@@ -93,6 +93,7 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
           (context, i) => Container(
             height: Consts.MASECHET_LIST_HEIGHT,
             child: ScrollablePositionedList.builder(
+              physics: NeverScrollableScrollPhysics(),
               initialScrollIndex:
                   widget.lastDafIndex != -1 ? widget.lastDafIndex : 0,
               itemBuilder: (context, dafIndex) => DafWidget(

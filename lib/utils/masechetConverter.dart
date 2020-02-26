@@ -17,9 +17,11 @@ class MasechetConverterUtil {
   }
 
   double toPercent(List<int> masechetProgress) {
-    int masechetDone = masechetProgress.where((int daf) => daf > 0).length;
+    int masechetDone = countDone(masechetProgress);
     return masechetDone / masechetProgress.length;
   }
+
+  int countDone(List<int> masechetProgress) => masechetProgress.where((int daf) => daf > 0).length;
 
   String _numberToString(int number) {
     number = numberInRange(number);

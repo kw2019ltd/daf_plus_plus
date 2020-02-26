@@ -58,12 +58,21 @@ class MasechetWidget extends StatelessWidget {
                   onPressed: _changeExpandedState,
                 ),
               ),
-              Expanded(child: Text(Consts.MASECHET_TITLE + " " + this.masechet.name)),
-              CircularProgressIndicator(
-                value: masechetConverterUtil.toPercent(progress),
-                strokeWidth: 3,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              Expanded(
+                  child:
+                      Text(Consts.MASECHET_TITLE + " " + this.masechet.name)),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                    masechetConverterUtil.countDone(progress).toString() +
+                        "/" +
+                        progress.length.toString()),
               ),
+              // CircularProgressIndicator(
+              //   value: masechetConverterUtil.toPercent(progress),
+              //   strokeWidth: 3,
+              //   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              // ),
             ],
           ),
         ),

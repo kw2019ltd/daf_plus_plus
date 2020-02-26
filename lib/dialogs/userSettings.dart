@@ -108,6 +108,18 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
     setState(() => _connectionLoading = false);
   }
 
+  void _formatProgress() {
+    Map<int, String> allProgress = hiveService.progress.getAllProgress();
+    // TODO: also one of my worst codes in this project...
+    allProgress = allProgress.map((int masechetId, String progress) => MapEntry(
+      masechetId, progress?.split('')?.map((String daf) => 'a')?.toList()?.join()
+    ));
+    hiveService.progress.setAllProgress(allProgress);
+    // TODO: never ever ever put the next line in prod
+    hiveService.settings.setLastDaf(DafLocationModel.fromString('0-0'));
+    Navigator.pop(context);
+  }
+
   Widget _connectGoogleAccountWidget() {
     return Padding(
       padding: EdgeInsets.all(8),
@@ -155,7 +167,7 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
           color: Theme.of(context).primaryColor,
           loading: _deleteAllLoading,
           disabled: _deleteAllLoading,
-          onPressed: () {},
+          onPressed: _formatProgress,
         ),
       ),
     );

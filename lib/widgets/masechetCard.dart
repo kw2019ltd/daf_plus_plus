@@ -70,7 +70,6 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
       _progress = progress;
       _isExpanded = widget.lastDafIndex != -1;
     });
-    print(_progress);
   }
 
   @override

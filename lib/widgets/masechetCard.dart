@@ -93,7 +93,8 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
           (context, i) => Container(
             height: Consts.MASECHET_LIST_HEIGHT,
             child: ScrollablePositionedList.builder(
-              physics: NeverScrollableScrollPhysics(),
+              // TODO: fix this (: note that it aslo cases a white gap on top of the list
+              // physics: NeverScrollableScrollPhysics(),
               initialScrollIndex:
                   widget.lastDafIndex != -1 ? widget.lastDafIndex : 0,
               itemBuilder: (context, dafIndex) => DafWidget(

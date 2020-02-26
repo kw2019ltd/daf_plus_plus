@@ -35,7 +35,7 @@ class MasechetWidget extends StatelessWidget {
       onTap: _changeExpandedState,
       onLongPress: () => _openMasechetOptions(context),
       child: Container(
-        padding: const EdgeInsets.only(top: 8),
+        padding: const EdgeInsets.only(top: 16),
         margin: EdgeInsets.only(right: 8, left: 8, bottom: 8),
         color: Theme.of(context).canvasColor,
         child: Container(

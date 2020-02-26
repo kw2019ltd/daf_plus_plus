@@ -20,6 +20,22 @@ class SettingsBox {
   void setLastDaf(DafLocationModel lastDaf) {
     Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
     settingsBox.put(HiveConsts.LAST_DAF, lastDaf.toString());
+    setLastUpdatedNow();
+  }
+
+  DateTime getLastUpdated() {
+    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
+    DateTime lastUpdated = settingsBox.get(HiveConsts.LAST_UPDATED);
+    return lastUpdated;
+  }
+
+  void setLastUpdatedNow() {
+    setLastUpdated(DateTime.now());
+  }
+
+  void setLastUpdated(DateTime lastUpdated) {
+    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
+    settingsBox.put(HiveConsts.LAST_UPDATED, lastUpdated);
   }
 }
 

@@ -1,4 +1,7 @@
 import 'package:daf_counter/consts/hive.dart';
+import 'package:daf_counter/data/masechets.dart';
+import 'package:daf_counter/models/masechet.dart';
+import 'package:daf_counter/services/hive/index.dart';
 import 'package:hive/hive.dart';
 
 class ProgressBox {
@@ -19,6 +22,23 @@ class ProgressBox {
   void setMasechetProgress(int id, String progress) {
     Box progressBox = Hive.box(HiveConsts.PROGRESS_BOX);
     progressBox.put(id, progress);
+    hiveService.settings.setLastUpdatedNow();
+  }
+
+  void setAllProgress(Map<int, String> allProgress) {
+    Box progressBox = Hive.box(HiveConsts.PROGRESS_BOX);
+    allProgress.forEach((int masechetId, String progress) {
+      progressBox.put(masechetId, progress);
+    });
+    hiveService.settings.setLastUpdatedNow();
+  }
+
+  Map<int, String> getAllProgress() {
+    Box progressBox = Hive.box(HiveConsts.PROGRESS_BOX);
+    Map<int, String> allProgress = {};
+    MasechetsData.THE_MASECHETS.forEach((MasechetModel masechet) =>
+        allProgress[masechet.id] = progressBox.get(masechet.id));
+    return allProgress;
   }
 }
 

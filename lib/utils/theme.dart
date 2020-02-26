@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ThemeUtil {
-
   getTheme(BuildContext context) {
     return ThemeData(
       // colors
@@ -12,8 +11,17 @@ class ThemeUtil {
       accentColor: Colors.teal[200],
 
       // typography
-      textTheme: GoogleFonts.frankRuhlLibreTextTheme(
+      textTheme: GoogleFonts.alefTextTheme(
         Theme.of(context).textTheme,
+      ).merge(
+        TextTheme(
+          bodyText2: TextStyle(
+            fontSize: 18,
+          ),
+          headline6: TextStyle(
+            fontSize: 24,
+          ),
+        ),
       ),
     );
   }

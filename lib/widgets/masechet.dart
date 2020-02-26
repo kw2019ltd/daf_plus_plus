@@ -1,21 +1,23 @@
 import 'package:daf_counter/consts/consts.dart';
 import 'package:daf_counter/dialogs/masechetOptions.dart';
+import 'package:daf_counter/models/masechet.dart';
+import 'package:daf_counter/utils/masechetConverter.dart';
 import 'package:daf_counter/utils/transparentRoute.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
 class MasechetWidget extends StatelessWidget {
   MasechetWidget({
-    @required this.masechetName,
+    @required this.masechet,
     @required this.isExpanded,
     @required this.onChangeExpanded,
-    @required this.progressInPecent,
+    @required this.progress,
   });
 
-  final String masechetName;
+  final MasechetModel masechet;
   final bool isExpanded;
   final Function(bool) onChangeExpanded;
-  final double progressInPecent;
+  final List<int> progress;
 
   void _changeExpandedState() {
     this.onChangeExpanded(!this.isExpanded);
@@ -24,7 +26,10 @@ class MasechetWidget extends StatelessWidget {
   void _openMasechetOptions(BuildContext context) {
     Navigator.of(context).push(
       TransparentRoute(
-        builder: (BuildContext context) => MasechetOptionsDialog(),
+        builder: (BuildContext context) => MasechetOptionsDialog(
+          masechetId: this.masechet.id,
+          progress: this.progress,
+        ),
       ),
     );
   }
@@ -53,9 +58,9 @@ class MasechetWidget extends StatelessWidget {
                   onPressed: _changeExpandedState,
                 ),
               ),
-              Expanded(child: Text(Consts.MASECHET_TITLE + " " + masechetName)),
+              Expanded(child: Text(Consts.MASECHET_TITLE + " " + this.masechet.name)),
               CircularProgressIndicator(
-                value: this.progressInPecent,
+                value: masechetConverterUtil.toPercent(progress),
                 strokeWidth: 3,
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
               ),

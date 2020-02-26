@@ -27,7 +27,6 @@ class MasechetCardWidget extends StatefulWidget {
 class _MasechetCardWidgetState extends State<MasechetCardWidget> {
   List<int> _progress = [];
   bool _isExpanded = false;
-  double _progressInPecent = 0;
 
   void _onClickDaf(int dafIndex, int count) {
     _updateDafCount(dafIndex, count);
@@ -46,10 +45,7 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
     String encodedProgress = masechetConverterUtil.encode(progress);
     hiveService.progress
         .setMasechetProgress(widget.masechet.id, encodedProgress);
-    setState(() {
-      _progress = progress;
-      _progressInPecent = masechetConverterUtil.toPercent(progress);
-    });
+    setState(() => _progress = progress);
   }
 
   List<int> _generateNewProgress() => List.filled(widget.masechet.numOfDafs, 0);
@@ -72,9 +68,9 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
     List<int> progress = _getMasechetProgress();
     setState(() {
       _progress = progress;
-      _progressInPecent = masechetConverterUtil.toPercent(progress);
       _isExpanded = widget.lastDafIndex != -1;
     });
+    print(_progress);
   }
 
   @override
@@ -82,10 +78,10 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
     return SliverStickyHeader(
       header: widget.hasTitle
           ? MasechetWidget(
-              masechetName: widget.masechet.name,
+              masechet: widget.masechet,
               isExpanded: _isExpanded,
               onChangeExpanded: _onChangeExpandedState,
-              progressInPecent: _progressInPecent,
+              progress: _progress,
             )
           : Container(),
       sliver: SliverList(

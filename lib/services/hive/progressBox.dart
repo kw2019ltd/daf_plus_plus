@@ -13,6 +13,14 @@ class ProgressBox {
     Hive.box(HiveConsts.PROGRESS_BOX).close();
   }
 
+  Stream<String> listenToProgress(int id) {
+    Box progressBox = Hive.box(HiveConsts.PROGRESS_BOX);
+    // TODO: who said we didn't delete it and not update?
+    return progressBox
+        .watch(key: id)
+        .map((BoxEvent progress) => progress.value.toString());
+  }
+
   String getMasechetProgress(int id) {
     Box progressBox = Hive.box(HiveConsts.PROGRESS_BOX);
     String progress = progressBox.get(id);

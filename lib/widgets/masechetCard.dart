@@ -27,6 +27,7 @@ class MasechetCardWidget extends StatefulWidget {
 class _MasechetCardWidgetState extends State<MasechetCardWidget> {
   List<int> _progress = [];
   bool _isExpanded = false;
+  Stream<String> _progressUpdates;
 
   void _onClickDaf(int dafIndex, int count) {
     _updateDafCount(dafIndex, count);
@@ -45,7 +46,6 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
     String encodedProgress = masechetConverterUtil.encode(progress);
     hiveService.progress
         .setMasechetProgress(widget.masechet.id, encodedProgress);
-    setState(() => _progress = progress);
   }
 
   List<int> _generateNewProgress() => List.filled(widget.masechet.numOfDafs, 0);
@@ -62,6 +62,22 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
     setState(() => _isExpanded = state);
   }
 
+  void _listenToUpdates() {
+    _progressUpdates =
+        hiveService.progress.listenToProgress(widget.masechet.id);
+    _progressUpdates.listen((String updatedProgress) {
+      List<int> progress = masechetConverterUtil.decode(updatedProgress);
+      setState(() => _progress = progress);
+    });
+  }
+
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -70,6 +86,7 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
       _progress = progress;
       _isExpanded = widget.lastDafIndex != -1;
     });
+    _listenToUpdates();
   }
 
   @override

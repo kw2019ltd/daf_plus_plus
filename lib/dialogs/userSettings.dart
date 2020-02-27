@@ -1,3 +1,4 @@
+import 'package:daf_counter/actions/backup.dart';
 import 'package:daf_counter/consts/firestore.dart';
 import 'package:daf_counter/consts/responses.dart';
 import 'package:daf_counter/models/Response.dart';
@@ -23,42 +24,9 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
   bool _connectionLoading = false;
   bool _deleteAllLoading = false;
 
-  Future<bool> _newUserBackup() async {
-    hiveService.settings.setLastUpdatedNow();
-    Map<int, String> progress = hiveService.progress.getAllProgress();
-    DafLocationModel lastDaf = hiveService.settings.getLastDaf();
-    DateTime lastUpdated = hiveService.settings.getLastUpdated();
-    await firestoreService.progress.setProgress(progress);
-    await firestoreService.settings.updateSettings({
-      FirestoreConsts.LAST_DAF: lastDaf.toString(),
-      FirestoreConsts.LAST_UPDATED: lastUpdated,
-    });
-    return true;
-  }
-
-  Future<bool> _restoreUserData() async {
-    // TODO: could wait for both together.
-    ResponseModel settingsResponse =
-        await firestoreService.settings.getSettings();
-    if (!settingsResponse.isSuccessful()) return false;
-    ResponseModel progressResponse =
-        await firestoreService.progress.getProgress();
-    if (!progressResponse.isSuccessful()) return false;
-    Map<String, dynamic> settings = settingsResponse.data;
-    Map<int, String> progress = progressResponse.data.map(
-        (dynamic masechet, dynamic progress) =>
-            MapEntry(int.parse(masechet), progress.toString()));
-
-    // TODO: make this all a batch action
-    hiveService.settings.setLastDaf(DafLocationModel.fromString(settings[FirestoreConsts.LAST_DAF]));
-    hiveService.settings.setLastUpdated(settings[FirestoreConsts.LAST_UPDATED].toDate());
-    hiveService.progress.setAllProgress(progress);
-    return true;
-  }
-
   Future<bool> _existingUserBackup() async {
     DateTime lastUpdated = hiveService.settings.getLastUpdated();
-    if (lastUpdated == null) return _restoreUserData();
+    if (lastUpdated == null) return backupAction.restoreProgress();
     bool restore = await Navigator.of(context).push(
       TransparentRoute(
         builder: (BuildContext context) => QuestionDialogWidget(
@@ -70,8 +38,8 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
         ),
       ),
     );
-    if (restore) return _restoreUserData();
-    return true;
+    if (restore) return backupAction.restoreProgress();
+    return backupAction.backupProgress();
   }
 
   Future<bool> _getProgress() async {
@@ -80,7 +48,7 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
     if (progressResponse.isSuccessful())
       return _existingUserBackup();
     else if (progressResponse.code == ResponsesConst.DOCUMENT_NOT_FOUND.code)
-      return _newUserBackup();
+      return backupAction.backupProgress();
     else
       return false;
   }
@@ -94,10 +62,9 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
       return;
     }
     await _getAuthedState();
-    setState(() => _connectionLoading = false);
-    _getProgress();
+    await _getProgress();
     toastUtil.showInformation("החשבון התחבר בהצלחה");
-    // backup
+    setState(() => _connectionLoading = false);
   }
 
   void _onDisconnectGoogleAcount() async {
@@ -110,7 +77,7 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
 
   void _formatProgress() {
     Map<int, String> allProgress = hiveService.progress.getAllProgress();
-    // TODO: also one of my worst codes in this project...
+    // TODO: also one of my worst codes in this project... 🤮
     allProgress = allProgress.map((int masechetId, String progress) => MapEntry(
       masechetId, progress?.split('')?.map((String daf) => 'a')?.toList()?.join()
     ));

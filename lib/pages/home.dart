@@ -1,3 +1,4 @@
+import 'package:daf_counter/actions/backup.dart';
 import 'package:daf_counter/consts/consts.dart';
 import 'package:daf_counter/services/hive/index.dart';
 import 'package:daf_counter/widgets/header.dart';
@@ -11,9 +12,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool areBoxesOpen = false;
+
   Future<void> _openBoxes() async {
     await hiveService.settings.open();
     await hiveService.progress.open();
+    setState(() => areBoxesOpen = true);
+  }
+
+  Future<bool> _exitApp() async {
+    await backupAction.backupProgress();
+    return Future.value(true);
+  }
+
+  void _loadApp() async {
+    await _openBoxes();
+    backupAction.backupProgress();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadApp();
   }
 
   @override
@@ -26,26 +46,21 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: FutureBuilder(
-          future: _openBoxes(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasError) return Text(snapshot.error.toString());
-              return Column(
-                children: <Widget>[
-                  HeaderWidget(),
-                  Container(
-                    height: Consts.REACENT_HEIGHT,
-                    child: RecentWidget(),
-                  ),
-                  Expanded(child: ShasWidget())
-                ],
-              );
-            } else {
-              return Container();
-            }
-          },
+      body: WillPopScope(
+        onWillPop: _exitApp,
+        child: SafeArea(
+          child: areBoxesOpen
+              ? Column(
+                  children: <Widget>[
+                    HeaderWidget(),
+                    Container(
+                      height: Consts.REACENT_HEIGHT,
+                      child: RecentWidget(),
+                    ),
+                    Expanded(child: ShasWidget())
+                  ],
+                )
+              : Container(),
         ),
       ),
     );

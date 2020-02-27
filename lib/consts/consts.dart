@@ -1,8 +1,5 @@
 class Consts {
 
-  // home consts
-  static const double REACENT_HEIGHT = 200;
-
   // seder consts
   static const String SEDER_TITLE = "סדר";
 

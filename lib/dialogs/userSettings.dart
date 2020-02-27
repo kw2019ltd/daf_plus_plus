@@ -1,5 +1,4 @@
 import 'package:daf_counter/actions/backup.dart';
-import 'package:daf_counter/consts/firestore.dart';
 import 'package:daf_counter/consts/responses.dart';
 import 'package:daf_counter/models/Response.dart';
 import 'package:daf_counter/models/dafLocation.dart';

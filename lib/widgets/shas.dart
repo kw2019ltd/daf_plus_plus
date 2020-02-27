@@ -7,6 +7,14 @@ import 'package:daf_counter/widgets/seder.dart';
 import 'package:flutter/material.dart';
 
 class ShasWidget extends StatelessWidget {
+  ShasWidget({
+    @required this.active,
+    @required this.onActivate,
+  });
+
+  final bool active;
+  final Function onActivate;
+
   List<Widget> _generateList() {
     int prevSederId = -1;
     List<Widget> list = [];
@@ -26,32 +34,38 @@ class ShasWidget extends StatelessWidget {
     return list;
   }
 
+  Widget _title() {
+    return TitleWidget(
+      onTap: this.onActivate,
+      title: "כל השס",
+    );
+  }
+
+  Widget _openList() {
+    return Expanded(
+      child: Stack(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              TitleWidget(
+                title: "כל השס",
+                hasShadow: false,
+              ),
+              active
+                  ? Expanded(
+                      child: CustomScrollView(slivers: _generateList()),
+                    )
+                  : Container(),
+            ],
+          ),
+          Positioned(top: 0, left: 0, right: 0, child: _title()),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Column(
-          children: <Widget>[
-            TitleWidget(
-              title: "כל השס",
-              hasShadow: false,
-            ),
-            Expanded(
-              child: CustomScrollView(
-                slivers: _generateList(),
-              ),
-            ),
-          ],
-        ),
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: TitleWidget(
-            title: "כל השס",
-          ),
-        ),
-      ],
-    );
+    return active ? _openList() : _title();
   }
 }

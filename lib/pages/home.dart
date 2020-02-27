@@ -1,10 +1,11 @@
 import 'package:daf_counter/actions/backup.dart';
-import 'package:daf_counter/consts/consts.dart';
 import 'package:daf_counter/services/hive/index.dart';
 import 'package:daf_counter/widgets/header.dart';
 import 'package:daf_counter/widgets/recent.dart';
 import 'package:daf_counter/widgets/shas.dart';
 import 'package:flutter/material.dart';
+
+enum Section { RECENT, SHAS }
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,12 +13,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool areBoxesOpen = false;
+  bool _areBoxesOpen = false;
+  Section _activeSection = Section.RECENT;
 
   Future<void> _openBoxes() async {
     await hiveService.settings.open();
     await hiveService.progress.open();
-    setState(() => areBoxesOpen = true);
+    setState(() => _areBoxesOpen = true);
   }
 
   Future<bool> _exitApp() async {
@@ -28,6 +30,10 @@ class _HomePageState extends State<HomePage> {
   void _loadApp() async {
     await _openBoxes();
     backupAction.backupProgress();
+  }
+
+  void _setActive(Section activeSection) {
+    setState(() => _activeSection = activeSection);
   }
 
   @override
@@ -49,15 +55,20 @@ class _HomePageState extends State<HomePage> {
       body: WillPopScope(
         onWillPop: _exitApp,
         child: SafeArea(
-          child: areBoxesOpen
+          child: _areBoxesOpen
               ? Column(
                   children: <Widget>[
                     HeaderWidget(),
-                    Container(
-                      height: Consts.REACENT_HEIGHT,
-                      child: RecentWidget(),
+                    RecentWidget(
+                      active: _activeSection == Section.RECENT,
+                      onActivate: () => _setActive(Section.RECENT),
                     ),
-                    Expanded(child: ShasWidget())
+                    // TODO: super ugelly divider...
+                    Container(height: 1),
+                    ShasWidget(
+                      active: _activeSection == Section.SHAS,
+                      onActivate: () => _setActive(Section.SHAS),
+                    ),
                   ],
                 )
               : Container(),

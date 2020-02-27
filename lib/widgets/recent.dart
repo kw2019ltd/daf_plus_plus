@@ -8,50 +8,69 @@ import 'package:daf_counter/widgets/core/title.dart';
 import 'package:flutter/material.dart';
 
 class RecentWidget extends StatelessWidget {
+  RecentWidget({
+    @required this.active,
+    @required this.onActivate,
+  });
+
+  final bool active;
+  final Function onActivate;
+
+  Widget _title(MasechetModel resentMasechet) {
+    return TitleWidget(
+      onTap: this.onActivate,
+      title: Consts.REASENT_TITLE +
+          " - " +
+          Consts.MASECHET_TITLE +
+          " " +
+          resentMasechet.name,
+    );
+  }
+
+  Widget _openList(
+      MasechetModel resentMasechet, DafLocationModel reasentDafLocation) {
+    return Expanded(
+      child: Stack(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              TitleWidget(
+                title: Consts.REASENT_TITLE +
+                    " - " +
+                    Consts.MASECHET_TITLE +
+                    " " +
+                    resentMasechet.name,
+                hasShadow: false,
+              ),
+              this.active
+                  ? Expanded(
+                      child: CustomScrollView(
+                        slivers: [
+                          MasechetCardWidget(
+                            masechet: resentMasechet,
+                            lastDafIndex: reasentDafLocation.dafIndex,
+                            hasTitle: false,
+                          ),
+                        ],
+                      ),
+                    )
+                  : Container(),
+            ],
+          ),
+          Positioned(top: 0, left: 0, right: 0, child: _title(resentMasechet)),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     DafLocationModel reasentDafLocation = hiveService.settings.getLastDaf();
     MasechetModel resentMasechet =
         MasechetsData.THE_MASECHETS[reasentDafLocation.masechetId];
 
-    return Stack(
-      children: <Widget>[
-        Column(
-          children: <Widget>[
-            TitleWidget(
-              title: Consts.REASENT_TITLE +
-                  " - " +
-                  Consts.MASECHET_TITLE +
-                  " " +
-                  resentMasechet.name,
-              hasShadow: false,
-            ),
-            Expanded(
-              child: CustomScrollView(
-                slivers: [
-                  MasechetCardWidget(
-                    masechet: resentMasechet,
-                    lastDafIndex: reasentDafLocation.dafIndex,
-                    hasTitle: false,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: TitleWidget(
-            title: Consts.REASENT_TITLE +
-                " - " +
-                Consts.MASECHET_TITLE +
-                " " +
-                resentMasechet.name,
-          ),
-        ),
-      ],
-    );
+    return this.active
+        ? _openList(resentMasechet, reasentDafLocation)
+        : _title(resentMasechet);
   }
 }

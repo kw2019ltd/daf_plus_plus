@@ -67,6 +67,7 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
         hiveService.progress.listenToProgress(widget.masechet.id);
     _progressUpdates.listen((String updatedProgress) {
       List<int> progress = masechetConverterUtil.decode(updatedProgress);
+      if (progress == null) progress = _generateNewProgress();
       setState(() => _progress = progress);
     });
   }

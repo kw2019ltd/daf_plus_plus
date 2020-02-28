@@ -11,7 +11,7 @@ class BackupAction {
     // TODO: return other a response model
     hiveService.settings.setLastUpdatedNow();
     Map<int, String> progress = hiveService.progress.getAllProgress();
-    DafLocationModel lastDaf = hiveService.settings.getLastDaf();
+    DafLocationModel lastDaf = hiveService.settings.getLastDaf() ?? DafLocationModel.fromString("0-0");
     DateTime lastUpdated = hiveService.settings.getLastUpdated();
     // TODO: could wait for both together
     await firestoreService.progress.setProgress(progress);
@@ -35,7 +35,7 @@ class BackupAction {
     Map<String, dynamic> settings = settingsResponse.data;
     Map<int, String> progress = progressResponse.data.map(
         (dynamic masechet, dynamic progress) =>
-            MapEntry(int.parse(masechet), progress.toString()));
+            MapEntry(int.parse(masechet), progress));
 
     hiveService.settings.setLastDaf(
         DafLocationModel.fromString(settings[FirestoreConsts.LAST_DAF]));

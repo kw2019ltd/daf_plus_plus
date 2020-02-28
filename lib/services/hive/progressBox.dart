@@ -18,7 +18,7 @@ class ProgressBox {
     // TODO: who said we didn't delete it and not update?
     return progressBox
         .watch(key: id)
-        .map((BoxEvent progress) => progress.value.toString());
+        .map((BoxEvent progress) => progress.value);
   }
 
   String getMasechetProgress(int id) {

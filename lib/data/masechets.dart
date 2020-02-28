@@ -1,4 +1,4 @@
-import 'package:daf_counter/models/masechet.dart';
+import 'package:daf_plus_plus/models/masechet.dart';
 
 class MasechetsData {
   static const List<MasechetModel> THE_MASECHETS = [

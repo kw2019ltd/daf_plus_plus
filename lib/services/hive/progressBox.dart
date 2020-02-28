@@ -1,7 +1,7 @@
-import 'package:daf_counter/consts/hive.dart';
-import 'package:daf_counter/data/masechets.dart';
-import 'package:daf_counter/models/masechet.dart';
-import 'package:daf_counter/services/hive/index.dart';
+import 'package:daf_plus_plus/consts/hive.dart';
+import 'package:daf_plus_plus/data/masechets.dart';
+import 'package:daf_plus_plus/models/masechet.dart';
+import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:hive/hive.dart';
 
 class ProgressBox {

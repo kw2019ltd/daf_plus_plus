@@ -1,6 +1,6 @@
 {
-    "name": "daf_counter",
-    "short_name": "daf_counter",
+    "name": "daf_plus_plus",
+    "short_name": "daf_plus_plus",
     "start_url": ".",
     "display": "minimal-ui",
     "background_color": "#0175C2",

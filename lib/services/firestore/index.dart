@@ -1,5 +1,5 @@
-import 'package:daf_counter/services/firestore/progressCollection.dart';
-import 'package:daf_counter/services/firestore/settingsCollection.dart';
+import 'package:daf_plus_plus/services/firestore/progressCollection.dart';
+import 'package:daf_plus_plus/services/firestore/settingsCollection.dart';
 
 class FirestoreService {
   ProgressCollection progress = progressCollection;

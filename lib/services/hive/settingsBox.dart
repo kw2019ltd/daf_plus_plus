@@ -1,5 +1,5 @@
-import 'package:daf_counter/consts/hive.dart';
-import 'package:daf_counter/models/dafLocation.dart';
+import 'package:daf_plus_plus/consts/hive.dart';
+import 'package:daf_plus_plus/models/dafLocation.dart';
 import 'package:hive/hive.dart';
 
 class SettingsBox {

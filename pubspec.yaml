@@ -1,6 +1,6 @@
-name: daf_counter
-description: A new Flutter project.
-version: 1.0.0
+name: daf_plus_plus
+description: A daf a day...
+version: 0.0.1
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
@@ -26,6 +26,12 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  
+  flutter_launcher_icons: ^0.7.4
+
 flutter:
   uses-material-design: true
+
+flutter_icons:
+  android: "launcher_icon" 
+  ios: true
+  image_path: "assets/icon/icon.png"

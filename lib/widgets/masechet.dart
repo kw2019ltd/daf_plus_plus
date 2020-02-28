@@ -1,8 +1,8 @@
-import 'package:daf_counter/consts/consts.dart';
-import 'package:daf_counter/dialogs/masechetOptions.dart';
-import 'package:daf_counter/models/masechet.dart';
-import 'package:daf_counter/utils/masechetConverter.dart';
-import 'package:daf_counter/utils/transparentRoute.dart';
+import 'package:daf_plus_plus/consts/consts.dart';
+import 'package:daf_plus_plus/dialogs/masechetOptions.dart';
+import 'package:daf_plus_plus/models/masechet.dart';
+import 'package:daf_plus_plus/utils/masechetConverter.dart';
+import 'package:daf_plus_plus/utils/transparentRoute.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 

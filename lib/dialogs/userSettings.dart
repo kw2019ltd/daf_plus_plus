@@ -1,16 +1,16 @@
-import 'package:daf_counter/actions/backup.dart';
-import 'package:daf_counter/consts/responses.dart';
-import 'package:daf_counter/models/Response.dart';
-import 'package:daf_counter/models/dafLocation.dart';
-import 'package:daf_counter/services/auth.dart';
-import 'package:daf_counter/services/firestore/index.dart';
-import 'package:daf_counter/services/hive/index.dart';
-import 'package:daf_counter/utils/toast.dart';
-import 'package:daf_counter/utils/transparentRoute.dart';
-import 'package:daf_counter/widgets/core/button.dart';
-import 'package:daf_counter/widgets/core/dialog.dart';
-import 'package:daf_counter/widgets/core/questionDialog.dart';
-import 'package:daf_counter/widgets/core/title.dart';
+import 'package:daf_plus_plus/actions/backup.dart';
+import 'package:daf_plus_plus/consts/responses.dart';
+import 'package:daf_plus_plus/models/Response.dart';
+import 'package:daf_plus_plus/models/dafLocation.dart';
+import 'package:daf_plus_plus/services/auth.dart';
+import 'package:daf_plus_plus/services/firestore/index.dart';
+import 'package:daf_plus_plus/services/hive/index.dart';
+import 'package:daf_plus_plus/utils/toast.dart';
+import 'package:daf_plus_plus/utils/transparentRoute.dart';
+import 'package:daf_plus_plus/widgets/core/button.dart';
+import 'package:daf_plus_plus/widgets/core/dialog.dart';
+import 'package:daf_plus_plus/widgets/core/questionDialog.dart';
+import 'package:daf_plus_plus/widgets/core/title.dart';
 import 'package:flutter/material.dart';
 
 class UserSettingsDialog extends StatefulWidget {

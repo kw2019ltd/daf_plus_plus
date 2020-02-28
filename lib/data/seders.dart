@@ -1,4 +1,4 @@
-import 'package:daf_counter/models/seder.dart';
+import 'package:daf_plus_plus/models/seder.dart';
 
 class SedersData {
   static const List<SederModel> THE_SEDERS = [

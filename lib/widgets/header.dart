@@ -1,5 +1,5 @@
-import 'package:daf_counter/dialogs/userSettings.dart';
-import 'package:daf_counter/utils/transparentRoute.dart';
+import 'package:daf_plus_plus/dialogs/userSettings.dart';
+import 'package:daf_plus_plus/utils/transparentRoute.dart';
 import 'package:flutter/material.dart';
 
 class HeaderWidget extends StatelessWidget {
@@ -19,7 +19,7 @@ class HeaderWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(width: 48),
-          Text("מונה הדפים"),
+          Text("דף++"),
           IconButton(
             icon: Icon(Icons.more_vert),
             onPressed: () => _openUserSettings(context),

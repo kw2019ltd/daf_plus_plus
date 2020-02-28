@@ -1,8 +1,8 @@
-import 'package:daf_counter/services/hive/index.dart';
-import 'package:daf_counter/utils/masechetConverter.dart';
-import 'package:daf_counter/widgets/core/button.dart';
-import 'package:daf_counter/widgets/core/dialog.dart';
-import 'package:daf_counter/widgets/core/title.dart';
+import 'package:daf_plus_plus/services/hive/index.dart';
+import 'package:daf_plus_plus/utils/masechetConverter.dart';
+import 'package:daf_plus_plus/widgets/core/button.dart';
+import 'package:daf_plus_plus/widgets/core/dialog.dart';
+import 'package:daf_plus_plus/widgets/core/title.dart';
 import 'package:flutter/material.dart';
 
 class MasechetOptionsDialog extends StatelessWidget {

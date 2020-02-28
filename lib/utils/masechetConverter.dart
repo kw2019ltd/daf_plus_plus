@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:daf_counter/consts/consts.dart';
+import 'package:daf_plus_plus/consts/consts.dart';
 
 class MasechetConverterUtil {
   int firstCharValue = 'a'.codeUnitAt(0);

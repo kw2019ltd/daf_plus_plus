@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:daf_counter/consts/firestore.dart';
-import 'package:daf_counter/consts/responses.dart';
-import 'package:daf_counter/models/Response.dart';
-import 'package:daf_counter/services/auth.dart';
+import 'package:daf_plus_plus/consts/firestore.dart';
+import 'package:daf_plus_plus/consts/responses.dart';
+import 'package:daf_plus_plus/models/Response.dart';
+import 'package:daf_plus_plus/services/auth.dart';
 
 class SettingsCollection {
   final Firestore _db = Firestore.instance;

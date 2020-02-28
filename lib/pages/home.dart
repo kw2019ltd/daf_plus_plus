@@ -1,8 +1,8 @@
-import 'package:daf_counter/actions/backup.dart';
-import 'package:daf_counter/services/hive/index.dart';
-import 'package:daf_counter/widgets/header.dart';
-import 'package:daf_counter/widgets/recent.dart';
-import 'package:daf_counter/widgets/shas.dart';
+import 'package:daf_plus_plus/actions/backup.dart';
+import 'package:daf_plus_plus/services/hive/index.dart';
+import 'package:daf_plus_plus/widgets/header.dart';
+import 'package:daf_plus_plus/widgets/recent.dart';
+import 'package:daf_plus_plus/widgets/shas.dart';
 import 'package:flutter/material.dart';
 
 enum Section { RECENT, SHAS }

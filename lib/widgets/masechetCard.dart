@@ -1,10 +1,10 @@
-import 'package:daf_counter/consts/consts.dart';
-import 'package:daf_counter/models/dafLocation.dart';
-import 'package:daf_counter/models/masechet.dart';
-import 'package:daf_counter/services/hive/index.dart';
-import 'package:daf_counter/utils/masechetConverter.dart';
-import 'package:daf_counter/widgets/daf.dart';
-import 'package:daf_counter/widgets/masechet.dart';
+import 'package:daf_plus_plus/consts/consts.dart';
+import 'package:daf_plus_plus/models/dafLocation.dart';
+import 'package:daf_plus_plus/models/masechet.dart';
+import 'package:daf_plus_plus/services/hive/index.dart';
+import 'package:daf_plus_plus/utils/masechetConverter.dart';
+import 'package:daf_plus_plus/widgets/daf.dart';
+import 'package:daf_plus_plus/widgets/masechet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';

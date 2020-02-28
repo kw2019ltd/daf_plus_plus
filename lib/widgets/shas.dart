@@ -1,9 +1,9 @@
-import 'package:daf_counter/data/masechets.dart';
-import 'package:daf_counter/data/seders.dart';
-import 'package:daf_counter/models/masechet.dart';
-import 'package:daf_counter/widgets/masechetCard.dart';
-import 'package:daf_counter/widgets/core/title.dart';
-import 'package:daf_counter/widgets/seder.dart';
+import 'package:daf_plus_plus/data/masechets.dart';
+import 'package:daf_plus_plus/data/seders.dart';
+import 'package:daf_plus_plus/models/masechet.dart';
+import 'package:daf_plus_plus/widgets/masechetCard.dart';
+import 'package:daf_plus_plus/widgets/core/title.dart';
+import 'package:daf_plus_plus/widgets/seder.dart';
 import 'package:flutter/material.dart';
 
 class ShasWidget extends StatelessWidget {

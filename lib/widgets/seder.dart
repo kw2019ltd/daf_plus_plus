@@ -1,5 +1,5 @@
-import 'package:daf_counter/consts/consts.dart';
-import 'package:daf_counter/models/seder.dart';
+import 'package:daf_plus_plus/consts/consts.dart';
+import 'package:daf_plus_plus/models/seder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 

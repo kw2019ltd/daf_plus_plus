@@ -32,8 +32,10 @@ class _HomePageState extends State<HomePage> {
     backupAction.backupProgress();
   }
 
-  void _setActive(Section activeSection) {
-    setState(() => _activeSection = activeSection);
+  void _toggleActive() {
+    Section newActive = Section.RECENT;
+    if (_activeSection == newActive) newActive = Section.SHAS;
+    setState(() => _activeSection = newActive);
   }
 
   @override
@@ -61,13 +63,13 @@ class _HomePageState extends State<HomePage> {
                     HeaderWidget(),
                     RecentWidget(
                       active: _activeSection == Section.RECENT,
-                      onActivate: () => _setActive(Section.RECENT),
+                      onActivate: _toggleActive,
                     ),
                     // TODO: super ugelly divider...
                     Container(height: 1),
                     ShasWidget(
                       active: _activeSection == Section.SHAS,
-                      onActivate: () => _setActive(Section.SHAS),
+                      onActivate: _toggleActive,
                     ),
                   ],
                 )

@@ -6,7 +6,6 @@ import 'package:daf_counter/widgets/core/title.dart';
 import 'package:flutter/material.dart';
 
 class MasechetOptionsDialog extends StatelessWidget {
-
   MasechetOptionsDialog({
     @required this.masechetId,
     @required this.progress,
@@ -15,11 +14,13 @@ class MasechetOptionsDialog extends StatelessWidget {
   final int masechetId;
   final List<int> progress;
 
-  _learnMasechet() {
+  _learnMasechet(BuildContext context) {
     // TODO: this is probably the worst code i have written in this project.
     // but this needs to change to a counter and not a bool...
-    String progress = masechetConverterUtil.encode(this.progress.map((daf) => 1).toList());
+    String progress =
+        masechetConverterUtil.encode(this.progress.map((daf) => 1).toList());
     hiveService.progress.setMasechetProgress(masechetId, progress);
+    Navigator.pop(context);
   }
 
   @override
@@ -42,7 +43,7 @@ class MasechetOptionsDialog extends StatelessWidget {
                     text: "למדתי את כל המסכת",
                     buttonType: ButtonType.Outline,
                     color: Theme.of(context).primaryColor,
-                    onPressed: _learnMasechet,
+                    onPressed: () => _learnMasechet(context),
                   ),
                 ),
               ],

@@ -8,5 +8,8 @@ class HiveConsts {
   static const String LAST_DAF = "lastDaf";
   static const String LAST_UPDATED = "lastUpdated";
 
+  // dates consts
+  static const String DATES_BOX = "datesBox";
+
 
 }

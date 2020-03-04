@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:daf_plus_plus/actions/backup.dart';
+import 'package:daf_plus_plus/data/masechets.dart';
+import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/widgets/header.dart';
 import 'package:daf_plus_plus/widgets/recent.dart';
@@ -19,8 +23,25 @@ class _HomePageState extends State<HomePage> {
   Future<void> _openBoxes() async {
     await hiveService.settings.open();
     await hiveService.progress.open();
+    await hiveService.dates.open();
+    if (hiveService.dates.getAllDates()[0] == null) {
+      MasechetsData.THE_MASECHETS.forEach((MasechetModel masechet) {
+        if (masechet.id < 36 || masechet.id > 38) {
+          DefaultAssetBundle.of(context)
+              .loadString('assets/' + masechet.translatedName + '.json')
+              .then((value) => addDataToDB(masechet.id, value));
+        }
+      });
+    }
     setState(() => _areBoxesOpen = true);
   }
+
+  void addDataToDB(int id, String json) {
+    List datesList = jsonDecode(json) as List;
+    hiveService.dates.setMasechetDates(id, datesList.map((e) => e['date'] as String)
+        .toList(growable: false));
+  }
+
 
   Future<bool> _exitApp() async {
     await backupAction.backupProgress();

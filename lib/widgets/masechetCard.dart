@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:daf_plus_plus/consts/consts.dart';
 import 'package:daf_plus_plus/models/dafLocation.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
@@ -26,8 +28,10 @@ class MasechetCardWidget extends StatefulWidget {
 
 class _MasechetCardWidgetState extends State<MasechetCardWidget> {
   List<int> _progress = [];
+  List<String> _dates = [];
   bool _isExpanded = false;
   Stream<String> _progressUpdates;
+  Map<String, dynamic> json;
 
   void _onClickDaf(int dafIndex, int count) {
     _updateDafCount(dafIndex, count);
@@ -58,6 +62,10 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
         : _generateNewProgress();
   }
 
+  List<String> _getMasechetDates() {
+    return hiveService.dates.getMasechetDates(widget.masechet.id);
+  }
+
   void _onChangeExpandedState(bool state) {
     setState(() => _isExpanded = state);
   }
@@ -83,8 +91,10 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
   void initState() {
     super.initState();
     List<int> progress = _getMasechetProgress();
+    List<String> dates = _getMasechetDates();
     setState(() {
       _progress = progress;
+      _dates = dates;
       _isExpanded = widget.lastDafIndex != -1;
     });
     _listenToUpdates();
@@ -113,6 +123,7 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
               itemBuilder: (context, dafIndex) => DafWidget(
                 dafNumber: dafIndex,
                 dafCount: _progress[dafIndex],
+                dafDate: _dates != null && _dates.length > dafIndex && _dates[dafIndex] != null ? _dates[dafIndex] : "",
                 onChangeCount: (int count) => _onClickDaf(dafIndex, count),
               ),
               itemCount: widget.masechet.numOfDafs,

@@ -76,7 +76,7 @@ class FirstUseDialogTwo extends StatelessWidget {
                     text: "כן",
                     buttonType: ButtonType.Outline,
                     color: Theme.of(context).primaryColor,
-                    onPressed: () => _learnMasechet(context),
+                    onPressed: () => _yes(context),
                   ),
                 ),
                 ListTile(
@@ -84,7 +84,7 @@ class FirstUseDialogTwo extends StatelessWidget {
                     text: "לא",
                     buttonType: ButtonType.Outline,
                     color: Theme.of(context).primaryColor,
-                    onPressed: () => _learnMasechet(context),
+                    onPressed: () => _no(context),
                   ),
                 ),
               ],

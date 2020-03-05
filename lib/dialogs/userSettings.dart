@@ -116,8 +116,13 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
     return Padding(
       padding: EdgeInsets.all(8),
       child: ListTile(
-        title: Text(AppLocalizations.of(context).translate('settings_backuped_text')),
-        subtitle: Text(AppLocalizations.of(context).translate('settings_backuped_subtext')[0] + "12/15/19 14:20" + AppLocalizations.of(context).translate('settings_backuped_subtext')[1]),
+        title: Text(
+            AppLocalizations.of(context).translate('settings_backuped_text')),
+        subtitle: Text(AppLocalizations.of(context)
+                .translate('settings_backuped_subtext_1') +
+            "12/15/19 14:20" +
+            AppLocalizations.of(context)
+                .translate('settings_backuped_subtext_2')),
         trailing: ButtonWidget(
           text: AppLocalizations.of(context).translate('disconnect_button'),
           buttonType: ButtonType.Outline,
@@ -134,7 +139,12 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
     return Padding(
       padding: EdgeInsets.all(8),
       child: ListTile(
-        title: Text(AppLocalizations.of(context).translate('settings_reset_text')[0] + "120" + AppLocalizations.of(context).translate('settings_reset_text')[1] + "3700" + AppLocalizations.of(context).translate('settings_reset_text')[2]),
+        title: Text(AppLocalizations.of(context)
+                .translate('settings_reset_text_1') +
+            "120" +
+            AppLocalizations.of(context).translate('settings_reset_text_2') +
+            "3700" +
+            AppLocalizations.of(context).translate('settings_reset_text_3')),
         trailing: ButtonWidget(
           text: AppLocalizations.of(context).translate('reset_button'),
           buttonType: ButtonType.Outline,

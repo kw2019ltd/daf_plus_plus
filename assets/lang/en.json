@@ -26,8 +26,11 @@
   "connect_button": "Connect",
   "disconnect_button": "Disconnect",
   "settings_backuped_text": "Your data is backedup",
-  "settings_backuped_subtext": ["Last backup at: ", "."],
+  "settings_backuped_subtext_1": "Last backup at: ",
+  "settings_backuped_subtext_2": ".",
 
-  "settings_reset_text": ["You have learned ", " dapim, out of ", ", great job!"],
+  "settings_reset_text_1": "You have learned ",
+  "settings_reset_text_2": " dapim, out of ",
+  "settings_reset_text_3": ", great job!",
   "reset_button": "Reset"
 }

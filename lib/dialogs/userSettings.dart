@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'package:daf_plus_plus/actions/backup.dart';
 import 'package:daf_plus_plus/consts/responses.dart';
 import 'package:daf_plus_plus/models/Response.dart';
@@ -5,13 +7,13 @@ import 'package:daf_plus_plus/models/dafLocation.dart';
 import 'package:daf_plus_plus/services/auth.dart';
 import 'package:daf_plus_plus/services/firestore/index.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
+import 'package:daf_plus_plus/utils/appLocalizations.dart';
 import 'package:daf_plus_plus/utils/toast.dart';
 import 'package:daf_plus_plus/utils/transparentRoute.dart';
 import 'package:daf_plus_plus/widgets/core/button.dart';
 import 'package:daf_plus_plus/widgets/core/dialog.dart';
 import 'package:daf_plus_plus/widgets/core/questionDialog.dart';
 import 'package:daf_plus_plus/widgets/core/title.dart';
-import 'package:flutter/material.dart';
 
 class UserSettingsDialog extends StatefulWidget {
   @override
@@ -29,11 +31,12 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
     bool restore = await Navigator.of(context).push(
       TransparentRoute(
         builder: (BuildContext context) => QuestionDialogWidget(
-          title: "אופס",
-          text:
-              "נראה שיש לך מידע בגיבוי, האם תרצה למחוק את הנתונים הקיימים ולהשתמש בגיבוי?",
-          trueActionText: "השתמש בגיבוי",
-          falseActionText: "מחק את הגיבוי",
+          title: AppLocalizations.of(context).translate('worning_title'),
+          text: AppLocalizations.of(context).translate('backup_worning_text'),
+          trueActionText:
+              AppLocalizations.of(context).translate('use_backup_button'),
+          falseActionText:
+              AppLocalizations.of(context).translate('delete_backup_button'),
         ),
       ),
     );
@@ -57,12 +60,14 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
     String userId = await authService.loginWithGoogle();
     if (userId == null) {
       setState(() => _connectionLoading = false);
-      toastUtil.showInformation("חיבור לחשבון כשל");
+      toastUtil.showInformation(
+          AppLocalizations.of(context).translate('toast_fail_connect_account'));
       return;
     }
     await _getAuthedState();
     await _getProgress();
-    toastUtil.showInformation("החשבון התחבר בהצלחה");
+    toastUtil.showInformation(AppLocalizations.of(context)
+        .translate('toast_success_connect_account'));
     setState(() => _connectionLoading = false);
   }
 
@@ -70,7 +75,8 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
     setState(() => _connectionLoading = true);
     await authService.signOut();
     await _getAuthedState();
-    toastUtil.showInformation("החשבון נותק בהצלחה");
+    toastUtil.showInformation(AppLocalizations.of(context)
+        .translate('toast_success_disconnect_account'));
     setState(() => _connectionLoading = false);
   }
 
@@ -78,8 +84,8 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
     Map<int, String> allProgress = hiveService.progress.getAllProgress();
     // TODO: also one of my worst codes in this project... 🤮
     allProgress = allProgress.map((int masechetId, String progress) => MapEntry(
-      masechetId, progress?.split('')?.map((String daf) => 'a')?.toList()?.join()
-    ));
+        masechetId,
+        progress?.split('')?.map((String daf) => 'a')?.toList()?.join()));
     hiveService.progress.setAllProgress(allProgress);
     // TODO: never ever ever put the next line in prod
     hiveService.settings.setLastDaf(DafLocationModel.fromString('0-0'));
@@ -90,10 +96,12 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
     return Padding(
       padding: EdgeInsets.all(8),
       child: ListTile(
-        title: Text("הנתונים אינם מגובים"),
-        subtitle: Text("אם האפליקציה תמחק לא יהיה ניתן לשחזר את הנתונים שלך"),
+        title: Text(AppLocalizations.of(context)
+            .translate('settings_not_backedup_text')),
+        subtitle: Text(AppLocalizations.of(context)
+            .translate('settings_not_backedup_subtext')),
         trailing: ButtonWidget(
-          text: "התחבר",
+          text: AppLocalizations.of(context).translate('connect_button'),
           buttonType: ButtonType.Filled,
           color: Theme.of(context).primaryColor,
           loading: _connectionLoading,
@@ -108,10 +116,10 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
     return Padding(
       padding: EdgeInsets.all(8),
       child: ListTile(
-        title: Text("הנתונים מגובים לחשבון גוגל"),
-        subtitle: Text("גובה לאחרונה ב14/05/16 16:05"),
+        title: Text(AppLocalizations.of(context).translate('settings_backuped_text')),
+        subtitle: Text(AppLocalizations.of(context).translate('settings_backuped_subtext')[0] + "12/15/19 14:20" + AppLocalizations.of(context).translate('settings_backuped_subtext')[1]),
         trailing: ButtonWidget(
-          text: "נתק",
+          text: AppLocalizations.of(context).translate('disconnect_button'),
           buttonType: ButtonType.Outline,
           color: Theme.of(context).primaryColor,
           loading: _connectionLoading,
@@ -126,9 +134,9 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
     return Padding(
       padding: EdgeInsets.all(8),
       child: ListTile(
-        title: Text("למדת 137 דפים מתוך 3200, כל הכבוד!"),
+        title: Text(AppLocalizations.of(context).translate('settings_reset_text')[0] + "120" + AppLocalizations.of(context).translate('settings_reset_text')[1] + "3700" + AppLocalizations.of(context).translate('settings_reset_text')[2]),
         trailing: ButtonWidget(
-          text: "אפס",
+          text: AppLocalizations.of(context).translate('reset_button'),
           buttonType: ButtonType.Outline,
           color: Theme.of(context).primaryColor,
           loading: _deleteAllLoading,
@@ -163,7 +171,7 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             TitleWidget(
-              title: "הגדרות משתמש",
+              title: AppLocalizations.of(context).translate('settings_title'),
               borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
             ),
             ListView(

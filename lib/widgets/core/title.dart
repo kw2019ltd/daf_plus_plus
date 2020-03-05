@@ -21,7 +21,7 @@ class TitleWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 16),
         decoration: new BoxDecoration(
           borderRadius: this.borderRadius,
-          color: Theme.of(context).canvasColor,
+          color: Theme.of(context).backgroundColor,
           boxShadow: hasShadow
               ? [
                   BoxShadow(

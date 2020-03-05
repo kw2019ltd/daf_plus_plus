@@ -44,14 +44,22 @@ class RecentWidget extends StatelessWidget {
               ),
               this.active
                   ? Expanded(
-                      child: CustomScrollView(
-                        slivers: [
-                          MasechetCardWidget(
-                            masechet: resentMasechet,
-                            lastDafIndex: reasentDafLocation.dafIndex,
-                            hasTitle: false,
-                          ),
-                        ],
+                      child: LayoutBuilder(
+                        builder:
+                            (BuildContext context, BoxConstraints constraints) {
+                          print(constraints.maxHeight);
+                          return CustomScrollView(
+                            shrinkWrap: true,
+                            slivers: [
+                              MasechetCardWidget(
+                                masechet: resentMasechet,
+                                lastDafIndex: reasentDafLocation.dafIndex,
+                                hasTitle: false,
+                                listHeight: constraints.maxHeight,
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     )
                   : Container(),

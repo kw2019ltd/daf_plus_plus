@@ -19,6 +19,9 @@ class ThemeUtil {
           bodyText2: TextStyle(
             fontSize: 18,
           ),
+          headline5: TextStyle(
+            color: Colors.white,
+          ),
           headline6: TextStyle(
             fontSize: 24,
           ),

@@ -1,0 +1,40 @@
+{
+  "app_name": "דף++",
+
+  "he": "עברית",
+  "en": "English",
+
+  "seder": "סדר",
+  "masechet": "מסכת",
+  "daf": "דף",
+
+  "daf_yomi": "דף יומי",
+  "all_shas": "כל השס",
+
+  "masechet_options_title": "אפשרויות נוספות",
+  "learned_masechet": "למדתי את כל המסכת",
+
+  "worning_title": "אזהרה",
+  "backup_worning_text": "נראה שיש לך מידע בגיבוי, האם תרצה למחוק את הנתונים הקיימים ולהשתמש בגיבוי?",
+  "use_backup_button": "השתמש בגיבוי",
+  "delete_backup_button": "מחק את הגיבוי",
+
+  "toast_fail_connect_account": "חיבור לחשבון כשל",
+  "toast_success_connect_account": "החשבון התחבר בהצלחה",
+  "toast_success_disconnect_account": "החשבון התנתק בהצלחה",
+
+  "settings_title": "הגדרות משתמש",
+  "settings_not_backedup_text": "הנתונים אינם מגובים",
+  "settings_not_backedup_subtext": "אם האפליקציה תמחק לא יהיה ניתן לשחזר את הנתונים שלך.",
+  "connect_button": "התחבר",
+  "disconnect_button": "התנתק",
+  "settings_backuped_text": "המידע שלך מגובה",
+  "settings_backuped_subtext_1": "עודכן לאחרונה ב- ",
+  "settings_backuped_subtext_2": ".",
+  "settings_lang_text": "שנה שפה",
+
+  "settings_reset_text_1": "למדת ",
+  "settings_reset_text_2": " דפים מתוך ",
+  "settings_reset_text_3": ", כל הכבוד!",
+  "reset_button": "אפס"
+}

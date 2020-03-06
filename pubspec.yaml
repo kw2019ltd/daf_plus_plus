@@ -28,10 +28,15 @@ dev_dependencies:
     sdk: flutter
   flutter_launcher_icons: ^0.7.4
 
-flutter:
-  uses-material-design: true
 
 flutter_icons:
   android: "launcher_icon" 
   ios: true
   image_path: "assets/icon/'white-icon.png"
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/lang/en.json
+    - assets/lang/he.json

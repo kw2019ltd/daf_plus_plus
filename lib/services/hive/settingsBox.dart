@@ -1,6 +1,7 @@
+import 'package:hive/hive.dart';
+
 import 'package:daf_plus_plus/consts/hive.dart';
 import 'package:daf_plus_plus/models/dafLocation.dart';
-import 'package:hive/hive.dart';
 
 class SettingsBox {
   Future<void> open() async {
@@ -36,6 +37,17 @@ class SettingsBox {
   void setLastUpdated(DateTime lastUpdated) {
     Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
     settingsBox.put(HiveConsts.LAST_UPDATED, lastUpdated);
+  }
+
+  String getPreferredLanguage() {
+    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
+    String preferredLanguage = settingsBox.get(HiveConsts.PREFERRED_LANGUAGE);
+    return preferredLanguage;
+  }
+
+  void setPreferredLanguage(String preferredLanguage) {
+    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
+    settingsBox.put(HiveConsts.PREFERRED_LANGUAGE, preferredLanguage);
   }
 }
 

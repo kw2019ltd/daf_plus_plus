@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
+
 import 'package:daf_plus_plus/data/masechets.dart';
 import 'package:daf_plus_plus/data/seders.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
+import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/widgets/masechetCard.dart';
 import 'package:daf_plus_plus/widgets/core/title.dart';
 import 'package:daf_plus_plus/widgets/seder.dart';
-import 'package:flutter/material.dart';
 
 class ShasWidget extends StatelessWidget {
   ShasWidget({
@@ -34,21 +36,21 @@ class ShasWidget extends StatelessWidget {
     return list;
   }
 
-  Widget _title() {
+  Widget _title(BuildContext context) {
     return TitleWidget(
       onTap: this.onActivate,
-      title: "כל השס",
+      title: localizationUtil.translate('all_shas'),
     );
   }
 
-  Widget _openList() {
+  Widget _openList(BuildContext context) {
     return Expanded(
       child: Stack(
         children: <Widget>[
           Column(
             children: <Widget>[
               TitleWidget(
-                title: "כל השס",
+                title: localizationUtil.translate('all_shas'),
                 hasShadow: false,
               ),
               active
@@ -58,7 +60,7 @@ class ShasWidget extends StatelessWidget {
                   : Container(),
             ],
           ),
-          Positioned(top: 0, left: 0, right: 0, child: _title()),
+          Positioned(top: 0, left: 0, right: 0, child: _title(context)),
         ],
       ),
     );
@@ -66,6 +68,6 @@ class ShasWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return active ? _openList() : _title();
+    return active ? _openList(context) : _title(context);
   }
 }

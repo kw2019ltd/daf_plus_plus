@@ -1,10 +1,12 @@
-import 'package:daf_plus_plus/consts/consts.dart';
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+
 import 'package:daf_plus_plus/dialogs/masechetOptions.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
+import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/utils/masechetConverter.dart';
 import 'package:daf_plus_plus/utils/transparentRoute.dart';
-import 'package:flutter/material.dart';
-import 'dart:math';
 
 class MasechetWidget extends StatelessWidget {
   MasechetWidget({
@@ -59,8 +61,9 @@ class MasechetWidget extends StatelessWidget {
                 ),
               ),
               Expanded(
-                  child:
-                      Text(Consts.MASECHET_TITLE + " " + this.masechet.name)),
+                  child: Text(localizationUtil.translate('masechet') +
+                      " " +
+                      this.masechet.name)),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
@@ -68,11 +71,6 @@ class MasechetWidget extends StatelessWidget {
                         "/" +
                         progress.length.toString()),
               ),
-              // CircularProgressIndicator(
-              //   value: masechetConverterUtil.toPercent(progress),
-              //   strokeWidth: 3,
-              //   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-              // ),
             ],
           ),
         ),

@@ -1,6 +1,8 @@
-import 'package:daf_plus_plus/consts/consts.dart';
-import 'package:daf_plus_plus/utils/gematriaConverter.dart';
 import 'package:flutter/material.dart';
+
+import 'package:daf_plus_plus/consts/consts.dart';
+import 'package:daf_plus_plus/utils/localization.dart';
+import 'package:daf_plus_plus/utils/gematriaConverter.dart';
 
 class DafWidget extends StatelessWidget {
   DafWidget({
@@ -25,7 +27,8 @@ class DafWidget extends StatelessWidget {
           onChanged: _onClickCheckbox,
           value: dafCount > 0 ? true : false,
         ),
-        title: Text(Consts.DAF_TITLE + " " +
+        title: Text(localizationUtil.translate('daf') +
+            " " +
             gematriaConverter.toGematria((dafNumber + Consts.FIST_DAF))),
       ),
     );

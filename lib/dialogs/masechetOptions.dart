@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
+
 import 'package:daf_plus_plus/services/hive/index.dart';
+import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/utils/masechetConverter.dart';
 import 'package:daf_plus_plus/widgets/core/button.dart';
 import 'package:daf_plus_plus/widgets/core/dialog.dart';
 import 'package:daf_plus_plus/widgets/core/title.dart';
-import 'package:flutter/material.dart';
 
 class MasechetOptionsDialog extends StatelessWidget {
   MasechetOptionsDialog({
@@ -32,7 +34,7 @@ class MasechetOptionsDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             TitleWidget(
-              title: "אפשרויות נוספות",
+              title: localizationUtil.translate('masechet_options_title'),
               borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
             ),
             ListView(
@@ -40,7 +42,7 @@ class MasechetOptionsDialog extends StatelessWidget {
               children: <Widget>[
                 ListTile(
                   title: ButtonWidget(
-                    text: "למדתי את כל המסכת",
+                    text: localizationUtil.translate('learned_masechet'),
                     buttonType: ButtonType.Outline,
                     color: Theme.of(context).primaryColor,
                     onPressed: () => _learnMasechet(context),

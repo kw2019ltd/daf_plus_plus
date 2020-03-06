@@ -1,0 +1,40 @@
+{
+  "app_name": "Daf++",
+  
+  "he": "עברית",
+  "en": "English",
+
+  "seder": "Seder",
+  "masechet": "Masechet",
+  "daf": "Daf",
+
+  "daf_yomi": "Todays Daf",
+  "all_shas": "All Shas",
+
+  "masechet_options_title": "More Options",
+  "learned_masechet": "I learned the masechet",
+
+  "worning_title": "Worning",
+  "backup_worning_text": "You have a backup, do you want to use it?",
+  "use_backup_button": "Use Backup",
+  "delete_backup_button": "Delete Backup",
+
+  "toast_fail_connect_account": "Faild to connect to your account",
+  "toast_success_connect_account": "Successfully connected to your account",
+  "toast_success_disconnect_account": "Successfully disconnected to your account",
+
+  "settings_title": "User Settings",
+  "settings_not_backedup_text": "Your data is not backedup",
+  "settings_not_backedup_subtext": "If the application would get deleted, there wont be a way to retrive your data.",
+  "connect_button": "Connect",
+  "disconnect_button": "Disconnect",
+  "settings_backuped_text": "Your data is backedup",
+  "settings_backuped_subtext_1": "Last backup at: ",
+  "settings_backuped_subtext_2": ".",
+  "settings_lang_text": "Change a language",
+
+  "settings_reset_text_1": "You have learned ",
+  "settings_reset_text_2": " dapim, out of ",
+  "settings_reset_text_3": ", great job!",
+  "reset_button": "Reset"
+}

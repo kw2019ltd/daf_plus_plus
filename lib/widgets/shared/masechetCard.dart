@@ -3,8 +3,8 @@ import 'package:daf_plus_plus/models/dafLocation.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/masechetConverter.dart';
-import 'package:daf_plus_plus/widgets/daf.dart';
-import 'package:daf_plus_plus/widgets/masechet.dart';
+import 'package:daf_plus_plus/widgets/shared/daf.dart';
+import 'package:daf_plus_plus/widgets/shared/masechet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';
@@ -14,11 +14,13 @@ class MasechetCardWidget extends StatefulWidget {
     @required this.masechet,
     this.lastDafIndex = -1,
     this.hasTitle = true,
+    this.listHeight = Consts.MASECHET_LIST_HEIGHT,
   });
 
   final MasechetModel masechet;
   final int lastDafIndex;
   final bool hasTitle;
+  final double listHeight;
 
   @override
   _MasechetCardWidgetState createState() => _MasechetCardWidgetState();
@@ -104,10 +106,8 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, i) => Container(
-            height: Consts.MASECHET_LIST_HEIGHT,
+            height: widget.listHeight,
             child: ScrollablePositionedList.builder(
-              // TODO: fix this (: note that it aslo cases a white gap on top of the list
-              // physics: NeverScrollableScrollPhysics(),
               initialScrollIndex:
                   widget.lastDafIndex != -1 ? widget.lastDafIndex : 0,
               itemBuilder: (context, dafIndex) => DafWidget(

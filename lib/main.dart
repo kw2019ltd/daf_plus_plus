@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/consts/consts.dart';
@@ -8,6 +9,8 @@ import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/pages/home.dart';
 
 void main() async {
+  Crashlytics.instance.enableInDevMode = false;
+  FlutterError.onError = Crashlytics.instance.recordFlutterError;
   await hiveService.initHive();
   await localizationUtil.init();
   runApp(MyApp());

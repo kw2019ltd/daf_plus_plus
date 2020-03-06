@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/dialogs/masechetOptions.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
-import 'package:daf_plus_plus/utils/appLocalizations.dart';
+import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/utils/masechetConverter.dart';
 import 'package:daf_plus_plus/utils/transparentRoute.dart';
 
@@ -61,8 +61,9 @@ class MasechetWidget extends StatelessWidget {
                 ),
               ),
               Expanded(
-                  child:
-                      Text(AppLocalizations.of(context).translate('masechet') + " " + this.masechet.name)),
+                  child: Text(localizationUtil.translate('masechet') +
+                      " " +
+                      this.masechet.name)),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text(

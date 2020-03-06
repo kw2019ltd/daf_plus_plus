@@ -1,6 +1,9 @@
 {
   "app_name": "דף++",
 
+  "he": "עברית",
+  "en": "English",
+
   "seder": "סדר",
   "masechet": "מסכת",
   "daf": "דף",
@@ -28,6 +31,7 @@
   "settings_backuped_text": "המידע שלך מגובה",
   "settings_backuped_subtext_1": "עודכן לאחרונה ב- ",
   "settings_backuped_subtext_2": ".",
+  "settings_lang_text": "שנה שפה",
 
   "settings_reset_text_1": "למדת ",
   "settings_reset_text_2": " דפים מתוך ",

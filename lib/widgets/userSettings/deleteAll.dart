@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/models/dafLocation.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
-import 'package:daf_plus_plus/utils/appLocalizations.dart';
 import 'package:daf_plus_plus/widgets/core/button.dart';
+import 'package:daf_plus_plus/utils/localization.dart';
 
 class DeleteAllWidget extends StatefulWidget {
   @override
@@ -30,14 +30,13 @@ class _DeleteAllWidgetState extends State<DeleteAllWidget> {
     return Padding(
       padding: EdgeInsets.all(8),
       child: ListTile(
-        title: Text(AppLocalizations.of(context)
-                .translate('settings_reset_text_1') +
+        title: Text(localizationUtil.translate('settings_reset_text_1') +
             "120" +
-            AppLocalizations.of(context).translate('settings_reset_text_2') +
+            localizationUtil.translate('settings_reset_text_2') +
             "3700" +
-            AppLocalizations.of(context).translate('settings_reset_text_3')),
+            localizationUtil.translate('settings_reset_text_3')),
         trailing: ButtonWidget(
-          text: AppLocalizations.of(context).translate('reset_button'),
+          text: localizationUtil.translate('reset_button'),
           buttonType: ButtonType.Outline,
           color: Theme.of(context).primaryColor,
           loading: _deleteAllLoading,

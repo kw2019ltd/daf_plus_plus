@@ -1,5 +1,8 @@
 {
   "app_name": "Daf++",
+  
+  "he": "עברית",
+  "en": "English",
 
   "seder": "Seder",
   "masechet": "Masechet",
@@ -28,6 +31,7 @@
   "settings_backuped_text": "Your data is backedup",
   "settings_backuped_subtext_1": "Last backup at: ",
   "settings_backuped_subtext_2": ".",
+  "settings_lang_text": "Change a language",
 
   "settings_reset_text_1": "You have learned ",
   "settings_reset_text_2": " dapim, out of ",

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:daf_plus_plus/utils/appLocalizations.dart';
+import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/widgets/core/dialog.dart';
 import 'package:daf_plus_plus/widgets/core/title.dart';
 import 'package:daf_plus_plus/widgets/userSettings/deleteAll.dart';
@@ -22,7 +22,7 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             TitleWidget(
-              title: AppLocalizations.of(context).translate('settings_title'),
+              title: localizationUtil.translate('settings_title'),
               borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
             ),
             ListView(

@@ -4,7 +4,7 @@ import 'package:daf_plus_plus/data/masechets.dart';
 import 'package:daf_plus_plus/models/dafLocation.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
-import 'package:daf_plus_plus/utils/appLocalizations.dart';
+import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/widgets/masechetCard.dart';
 import 'package:daf_plus_plus/widgets/core/title.dart';
 
@@ -19,20 +19,18 @@ class RecentWidget extends StatelessWidget {
 
   Widget _title(BuildContext context, MasechetModel resentMasechet) {
     return TitleWidget(
-      onTap: this.onActivate,
-      title: AppLocalizations.of(context).translate('daf_yomi')
-    );
+        onTap: this.onActivate, title: localizationUtil.translate('daf_yomi'));
   }
 
-  Widget _openList(BuildContext context,
-      MasechetModel resentMasechet, DafLocationModel reasentDafLocation) {
+  Widget _openList(BuildContext context, MasechetModel resentMasechet,
+      DafLocationModel reasentDafLocation) {
     return Expanded(
       child: Stack(
         children: <Widget>[
           Column(
             children: <Widget>[
               TitleWidget(
-                title: AppLocalizations.of(context).translate('daf_yomi'),
+                title: localizationUtil.translate('daf_yomi'),
                 hasShadow: false,
               ),
               this.active
@@ -57,7 +55,11 @@ class RecentWidget extends StatelessWidget {
                   : Container(),
             ],
           ),
-          Positioned(top: 0, left: 0, right: 0, child: _title(context, resentMasechet)),
+          Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: _title(context, resentMasechet)),
         ],
       ),
     );

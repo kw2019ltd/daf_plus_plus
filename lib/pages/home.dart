@@ -2,14 +2,17 @@ import 'dart:convert';
 
 import 'package:daf_plus_plus/actions/backup.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
+import 'package:daf_plus_plus/dialogs/firstUseDialogOne.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
+import 'package:daf_plus_plus/utils/transparentRoute.dart';
 import 'package:daf_plus_plus/widgets/header.dart';
 import 'package:daf_plus_plus/widgets/recent.dart';
 import 'package:daf_plus_plus/widgets/shas.dart';
 import 'package:flutter/material.dart';
 
 enum Section { RECENT, SHAS }
+const String FIRST_RUN = 'firstRun';
 
 class HomePage extends StatefulWidget {
   @override
@@ -50,6 +53,9 @@ class _HomePageState extends State<HomePage> {
 
   void _loadApp() async {
     await _openBoxes();
+    if (isFirstRun()) {
+      loadFirstRun();
+    }
     backupAction.backupProgress();
   }
 
@@ -63,6 +69,18 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _loadApp();
+  }
+
+  loadFirstRun() {
+    Navigator.of(context).push(
+      TransparentRoute(
+        builder: (BuildContext context) => FirstUseDialogOne(),
+      ),
+    );
+  }
+
+  bool isFirstRun()  {
+    return !hiveService.settings.getHasOpened();
   }
 
   @override
@@ -80,20 +98,20 @@ class _HomePageState extends State<HomePage> {
         child: SafeArea(
           child: _areBoxesOpen
               ? Column(
-                  children: <Widget>[
-                    HeaderWidget(),
-                    RecentWidget(
-                      active: _activeSection == Section.RECENT,
-                      onActivate: _toggleActive,
-                    ),
-                    // TODO: super ugelly divider...
-                    Container(height: 1),
-                    ShasWidget(
-                      active: _activeSection == Section.SHAS,
-                      onActivate: _toggleActive,
-                    ),
-                  ],
-                )
+            children: <Widget>[
+              HeaderWidget(),
+              RecentWidget(
+                active: _activeSection == Section.RECENT,
+                onActivate: _toggleActive,
+              ),
+              // TODO: super ugelly divider...
+              Container(height: 1),
+              ShasWidget(
+                active: _activeSection == Section.SHAS,
+                onActivate: _toggleActive,
+              ),
+            ],
+          )
               : Container(),
         ),
       ),

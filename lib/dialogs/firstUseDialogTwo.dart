@@ -15,28 +15,13 @@ import 'package:intl/intl.dart';
 class FirstUseDialogTwo extends StatelessWidget {
 
   _yes(BuildContext context) {
-    // TODO: this is probably the worst code i have written in this project.
-    // but this needs to change to a counter and not a bool...
-//    String progress =
-//    masechetConverterUtil.encode(this.progress.map((daf) => 1).toList());
-//    hiveService.progress.setMasechetProgress(masechetId, progress);
-    //  Navigator.pop(context);
-//    Navigator.of(context).push(
-//      TransparentRoute(
-//
-////        builder: (BuildContext context) => MasechetOptionsDialog(
-////          masechetId: this.masechet.id,
-////          progress: this.progress,
-////        ),
-//        builder: (BuildContext context) => FirstUseDialog(
-//        ),
-//
-//      ),
-//    );
+
     Navigator.pop(context);
+    // TODO Set all daf done till current
   }
 
   _no(BuildContext context) {
+    Navigator.pop(context);
 
   }
 
@@ -45,7 +30,7 @@ class FirstUseDialogTwo extends StatelessWidget {
     final yest = new DateTime(now.year, now.month, now.day - 1);
     Map<int, int> mD = datesBox.getDafForDate(new DateFormat("MMMM d, y").format(yest));
     String m = MasechetsData.THE_MASECHETS[mD.keys.first].name;
-    String d =  gematriaConverter.toGematria(mD.values.first);
+    String d =  gematriaConverter.toGematria(mD.values.first + 1);
     return m + " " + d;
   }
 

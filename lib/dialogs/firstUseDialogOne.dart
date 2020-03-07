@@ -7,29 +7,34 @@ import 'package:daf_plus_plus/widgets/core/title.dart';
 import 'package:flutter/material.dart';
 import 'package:daf_plus_plus/utils/transparentRoute.dart';
 
+import 'FirstUseDialogFillIn.dart';
+
 
 class FirstUseDialogOne extends StatelessWidget {
 
-  _learnMasechet(BuildContext context) {
-    // TODO: this is probably the worst code i have written in this project.
-    // but this needs to change to a counter and not a bool...
-//    String progress =
-//    masechetConverterUtil.encode(this.progress.map((daf) => 1).toList());
-//    hiveService.progress.setMasechetProgress(masechetId, progress);
-     Navigator.pop(context);
+  _yes(BuildContext context) {
+    hiveService.settings.setIsDafYomi(true);
+    Navigator.pop(context);
     Navigator.of(context).push(
       TransparentRoute(
-
-//        builder: (BuildContext context) => MasechetOptionsDialog(
-//          masechetId: this.masechet.id,
-//          progress: this.progress,
-//        ),
         builder: (BuildContext context) => FirstUseDialogTwo(
         ),
 
       ),
     );
-   // Navigator.pop(context);
+    // Navigator.pop(context);
+  }
+
+  _no(BuildContext context) {
+    hiveService.settings.setIsDafYomi(false);
+    Navigator.pop(context);
+    Navigator.of(context).push(
+      TransparentRoute(
+        builder: (BuildContext context) => FirstUseDialogFillIn(
+        ),
+      ),
+    );
+    // Navigator.pop(context);
   }
 
   @override
@@ -55,7 +60,7 @@ class FirstUseDialogOne extends StatelessWidget {
                     text: "כן",
                     buttonType: ButtonType.Outline,
                     color: Theme.of(context).primaryColor,
-                    onPressed: () => _learnMasechet(context),
+                    onPressed: () => _yes(context),
                   ),
                 ),
                 ListTile(
@@ -63,7 +68,7 @@ class FirstUseDialogOne extends StatelessWidget {
                     text: "לא",
                     buttonType: ButtonType.Outline,
                     color: Theme.of(context).primaryColor,
-                    onPressed: () => _learnMasechet(context),
+                    onPressed: () => _no(context),
                   ),
                 ),
               ],

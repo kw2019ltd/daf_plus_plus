@@ -37,6 +37,27 @@ class SettingsBox {
     Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
     settingsBox.put(HiveConsts.LAST_UPDATED, lastUpdated);
   }
+
+  bool getHasOpened() {
+    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
+    return settingsBox.get(HiveConsts.HAS_OPENED) == null ? false : settingsBox.get(HiveConsts.HAS_OPENED);
+  }
+
+  void setHasOpened(bool hasOpened) {
+    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
+    settingsBox.put(HiveConsts.HAS_OPENED, hasOpened);
+  }
+
+  bool getIsDafYomi() {
+    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
+    settingsBox.get(HiveConsts.IS_DAF_YOMI);
+  }
+
+  void setIsDafYomi(bool isdaf) {
+    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
+    settingsBox.put(HiveConsts.IS_DAF_YOMI, isdaf);
+  }
+
 }
 
 final SettingsBox settingsBox = SettingsBox();

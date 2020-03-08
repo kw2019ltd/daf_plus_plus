@@ -1,3 +1,7 @@
+env:
+  global:
+    secure: FOLS8H4HRi36Qmquyu0s0e+Fb9HnTYKRyiHJ84f6VfhkXbyN2YDY0QCTmoa4Xhr5UKHAfIZhRDRUc6LvORnXf8nEPXxOWaC6FPyeQzL9pWUOMmNedjyVOgnRsItvFunlParuSr9gNa9NhW+9iewQGTDT69BAb37eJHsPnnnEoPqHYX+xDioQmts9j0XltDgPv2c7t0XvoXWiBbvp1pKqBM/erJicZ3PBaMYxxOUTCX80IUDPB21ySuiOt0rjtXyOEqvfIY8bhWEQ5Qg3nU0YowKj5T7b16uEOQKwDniyeUNlJ9eMiYOjMzA5I1lgFlQLy1YnMBPBzLNgKYKiA4WkOsdSXH+MmcOnmJTCNvPRnWMKGfJt52mY11y06p9R1ZT0NoKDJpAKyCccXdho5CxZj4XSkJCS0fgsjZcfhJcW1aDtP5E1dM2zrv3ljSiEqnivHZmixlnqSIM14OBp2hE5Wd4Zc4Et6TAa7+0EfuZ8L+d87IkR6nBC6WUsTL/r8EpdlaiL7jSQN5wUxlbM6RFKFuqX6ZtIEHVK4FMbk8Y63RDdw0o2Gerj2Q4upFhEI05Cj0vVLcZKURUiNj5wCq8569uvpJndpug/bEu2OU4w/NZ2yLw4Yrbgkhb6j6wJmiQZ3b4SThiqdq6XH5eHPKSkdSwgI543GHv/YK57XMBwyxs=
+
 matrix:
   include:
   - name: Android Build
@@ -8,6 +12,7 @@ matrix:
       - build-tools-28.0.3
       - android-28
     before_script:
+    - echo $password | gpg --passphrase-fd 0 secrets.tar.gpg
     - tar xvf secrets.tar
     - git clone https://github.com/flutter/flutter.git -b beta
     - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
@@ -16,9 +21,4 @@ matrix:
     - flutter packages get
     - flutter test
     - flutter build apk
-    - cd android && bundle exec fastlane internal
-env:
-  global:
-    secure: FOLS8H4HRi36Qmquyu0s0e+Fb9HnTYKRyiHJ84f6VfhkXbyN2YDY0QCTmoa4Xhr5UKHAfIZhRDRUc6LvORnXf8nEPXxOWaC6FPyeQzL9pWUOMmNedjyVOgnRsItvFunlParuSr9gNa9NhW+9iewQGTDT69BAb37eJHsPnnnEoPqHYX+xDioQmts9j0XltDgPv2c7t0XvoXWiBbvp1pKqBM/erJicZ3PBaMYxxOUTCX80IUDPB21ySuiOt0rjtXyOEqvfIY8bhWEQ5Qg3nU0YowKj5T7b16uEOQKwDniyeUNlJ9eMiYOjMzA5I1lgFlQLy1YnMBPBzLNgKYKiA4WkOsdSXH+MmcOnmJTCNvPRnWMKGfJt52mY11y06p9R1ZT0NoKDJpAKyCccXdho5CxZj4XSkJCS0fgsjZcfhJcW1aDtP5E1dM2zrv3ljSiEqnivHZmixlnqSIM14OBp2hE5Wd4Zc4Et6TAa7+0EfuZ8L+d87IkR6nBC6WUsTL/r8EpdlaiL7jSQN5wUxlbM6RFKFuqX6ZtIEHVK4FMbk8Y63RDdw0o2Gerj2Q4upFhEI05Cj0vVLcZKURUiNj5wCq8569uvpJndpug/bEu2OU4w/NZ2yLw4Yrbgkhb6j6wJmiQZ3b4SThiqdq6XH5eHPKSkdSwgI543GHv/YK57XMBwyxs=
-before_install:
-  - echo $password | gpg --passphrase-fd 0 secrets.tar.gpg
+    - cd android && bundle exec fastlane beta

@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/utils/masechetConverter.dart';
+import 'package:daf_plus_plus/utils/transparentRoute.dart';
 import 'package:daf_plus_plus/widgets/core/button.dart';
 import 'package:daf_plus_plus/widgets/core/dialog.dart';
 import 'package:daf_plus_plus/widgets/core/title.dart';
+
+import 'firstUseDialogOne.dart';
 
 class MasechetOptionsDialog extends StatelessWidget {
   MasechetOptionsDialog({
@@ -20,7 +23,7 @@ class MasechetOptionsDialog extends StatelessWidget {
     // TODO: this is probably the worst code i have written in this project.
     // but this needs to change to a counter and not a bool...
     String progress =
-        masechetConverterUtil.encode(this.progress.map((daf) => 1).toList());
+    masechetConverterUtil.encode(this.progress.map((daf) => 1).toList());
     hiveService.progress.setMasechetProgress(masechetId, progress);
     Navigator.pop(context);
   }

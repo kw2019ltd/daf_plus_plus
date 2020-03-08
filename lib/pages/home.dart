@@ -1,3 +1,9 @@
+import 'dart:convert';
+
+import 'package:daf_plus_plus/data/masechets.dart';
+import 'package:daf_plus_plus/dialogs/FirstUseDialogFillIn.dart';
+import 'package:daf_plus_plus/dialogs/firstUseDialogOne.dart';
+import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/actions/backup.dart';
@@ -21,21 +27,56 @@ class _HomePageState extends State<HomePage> {
     localizationUtil.translate('all_shas'): AllShasPage(),
   };
 
+  void addDataToDB(int id, String json) {
+    List datesList = jsonDecode(json) as List;
+    hiveService.dates.setMasechetDates(id, datesList.map((e) => e['date'] as String)
+        .toList(growable: false));
+  }
+
+
   Future<void> _openBoxes() async {
     await hiveService.settings.open();
     await hiveService.progress.open();
+    await hiveService.dates.open();
+    if (hiveService.dates.getAllDates()[0] == null) {
+      MasechetsData.THE_MASECHETS.forEach((MasechetModel masechet) {
+        if (masechet.id < 36 || masechet.id > 38) {
+          DefaultAssetBundle.of(context)
+              .loadString('assets/' + masechet.translatedName + '.json')
+              .then((value) => addDataToDB(masechet.id, value));
+        }
+      });
+    }
     setState(() => _areBoxesOpen = true);
   }
+
 
   Future<bool> _exitApp() async {
     await backupAction.backupProgress();
     return Future.value(true);
   }
 
+  bool isFirstRun()  {
+    return !hiveService.settings.getHasOpened();
+  }
+
+  loadFirstRun() {
+    Navigator.of(context).push(
+      TransparentRoute(
+        builder: (BuildContext context) => FirstUseDialogOne(),
+      ),
+    );
+  }
+
   void _loadApp() async {
     await _openBoxes();
+    if (isFirstRun()) {
+      loadFirstRun();
+    }
+
     backupAction.backupProgress();
   }
+
 
   @override
   void initState() {
@@ -58,6 +99,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -66,31 +108,31 @@ class _HomePageState extends State<HomePage> {
         onWillPop: _exitApp,
         child: _areBoxesOpen
             ? Scaffold(
-                appBar: AppBar(
-                  title: Text(
-                    localizationUtil.translate('app_name'),
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                  centerTitle: true,
-                  actions: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.more_vert),
-                      onPressed: () => _openUserSettings(context),
-                    ),
-                  ],
-                  bottom: TabBar(
-                    tabs: _tabs.keys
-                        .map((text) => Tab(
-                              child: Text(
-                                text,
-                                style: Theme.of(context).textTheme.headline5,
-                              ),
-                            ))
-                        .toList(),
-                  ),
+          appBar: AppBar(
+            title: Text(
+              localizationUtil.translate('app_name'),
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            centerTitle: true,
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.more_vert),
+                onPressed: () => _openUserSettings(context),
+              ),
+            ],
+            bottom: TabBar(
+              tabs: _tabs.keys
+                  .map((text) => Tab(
+                child: Text(
+                  text,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
-                body: TabBarView(children: _tabs.values.toList()),
-              )
+              ))
+                  .toList(),
+            ),
+          ),
+          body: TabBarView(children: _tabs.values.toList()),
+        )
             : Container(),
       ),
     );

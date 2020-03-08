@@ -49,6 +49,24 @@ class SettingsBox {
     Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
     settingsBox.put(HiveConsts.PREFERRED_LANGUAGE, preferredLanguage);
   }
-}
+
+  void setIsDafYomi(bool isdaf) {
+    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
+    settingsBox.put(HiveConsts.IS_DAF_YOMI, isdaf);
+  }
+
+    void setHasOpened(bool hasOpened) {
+      Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
+          settingsBox.put(HiveConsts.HAS_OPENED, hasOpened);
+    }
+
+  bool getHasOpened() {
+    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
+    return settingsBox.get(HiveConsts.HAS_OPENED) == null ? false : settingsBox.get(HiveConsts.HAS_OPENED);
+  }
+
+
+
+  }
 
 final SettingsBox settingsBox = SettingsBox();

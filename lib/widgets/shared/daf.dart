@@ -9,11 +9,14 @@ class DafWidget extends StatelessWidget {
     @required this.dafNumber,
     @required this.dafCount,
     @required this.onChangeCount,
+    @required this.dafDate
   });
 
   final int dafNumber;
   final int dafCount;
   final Function(int) onChangeCount;
+  final String dafDate;
+
 
   void _onClickCheckbox(bool state) {
     onChangeCount(state ? 1 : 0);
@@ -27,6 +30,7 @@ class DafWidget extends StatelessWidget {
           onChanged: _onClickCheckbox,
           value: dafCount > 0 ? true : false,
         ),
+        trailing: Text(dafDate, textScaleFactor: 0.8, style: TextStyle(color: Colors.blueGrey),),
         title: Text(localizationUtil.translate('daf') +
             " " +
             gematriaConverter.toGematria((dafNumber + Consts.FIST_DAF))),

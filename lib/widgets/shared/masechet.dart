@@ -1,5 +1,9 @@
 import 'dart:math';
 
+import 'package:daf_plus_plus/services/hive/index.dart';
+import 'package:daf_plus_plus/services/hive/settingsBox.dart';
+import 'package:daf_plus_plus/services/hive/settingsBox.dart';
+import 'package:daf_plus_plus/services/hive/settingsBox.dart';
 import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/dialogs/masechetOptions.dart';
@@ -63,7 +67,7 @@ class MasechetWidget extends StatelessWidget {
               Expanded(
                   child: Text(localizationUtil.translate('masechet') +
                       " " +
-                      this.masechet.name)),
+                      hiveService.settings.getPreferredLanguage() == "he" ? this.masechet.name : this.masechet.translatedName)),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text(

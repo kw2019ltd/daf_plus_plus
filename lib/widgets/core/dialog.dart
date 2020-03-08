@@ -7,6 +7,7 @@ class DialogWidget extends StatelessWidget {
     this.alignment = Alignment.center,
     this.margin = const EdgeInsets.symmetric(horizontal: 32, vertical: 96),
     this.borderRadius = const BorderRadius.all(Radius.circular(10)),
+    this.hasShadow = true,
   });
 
   final Widget child;
@@ -14,10 +15,11 @@ class DialogWidget extends StatelessWidget {
   final Function onTapBackground;
   final EdgeInsets margin;
   final BorderRadius borderRadius;
+  final bool hasShadow;
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xBB000000),
+      backgroundColor: hasShadow ? Color(0xBB000000) : Colors.transparent,
       body: SafeArea(
         child: GestureDetector(
           behavior: HitTestBehavior.translucent,

@@ -9,6 +9,7 @@ class ThemeUtil {
       brightness: Brightness.light,
       primaryColor: Colors.indigo[500],
       accentColor: Colors.teal[200],
+      backgroundColor: Colors.teal[50],
 
       // typography
       textTheme: GoogleFonts.alefTextTheme(
@@ -17,6 +18,9 @@ class ThemeUtil {
         TextTheme(
           bodyText2: TextStyle(
             fontSize: 18,
+          ),
+          headline5: TextStyle(
+            color: Colors.white,
           ),
           headline6: TextStyle(
             fontSize: 24,

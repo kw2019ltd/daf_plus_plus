@@ -1,18 +1,18 @@
 import 'dart:convert';
 
-import 'package:daf_plus_plus/actions/backup.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
+import 'package:daf_plus_plus/dialogs/FirstUseDialogFillIn.dart';
 import 'package:daf_plus_plus/dialogs/firstUseDialogOne.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
-import 'package:daf_plus_plus/services/hive/index.dart';
-import 'package:daf_plus_plus/utils/transparentRoute.dart';
-import 'package:daf_plus_plus/widgets/header.dart';
-import 'package:daf_plus_plus/widgets/recent.dart';
-import 'package:daf_plus_plus/widgets/shas.dart';
 import 'package:flutter/material.dart';
 
-enum Section { RECENT, SHAS }
-const String FIRST_RUN = 'firstRun';
+import 'package:daf_plus_plus/actions/backup.dart';
+import 'package:daf_plus_plus/dialogs/userSettings.dart';
+import 'package:daf_plus_plus/services/hive/index.dart';
+import 'package:daf_plus_plus/utils/localization.dart';
+import 'package:daf_plus_plus/utils/transparentRoute.dart';
+import 'package:daf_plus_plus/pages/dafYomi.dart';
+import 'package:daf_plus_plus/pages/allShas.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,7 +21,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _areBoxesOpen = false;
-  Section _activeSection = Section.RECENT;
+
+  Map<String, Widget> _tabs = {
+    localizationUtil.translate('daf_yomi'): DafYomiPage(),
+    localizationUtil.translate('all_shas'): AllShasPage(),
+  };
+
+  void addDataToDB(int id, String json) {
+    List datesList = jsonDecode(json) as List;
+    hiveService.dates.setMasechetDates(id, datesList.map((e) => e['date'] as String)
+        .toList(growable: false));
+  }
+
 
   Future<void> _openBoxes() async {
     await hiveService.settings.open();
@@ -39,36 +50,14 @@ class _HomePageState extends State<HomePage> {
     setState(() => _areBoxesOpen = true);
   }
 
-  void addDataToDB(int id, String json) {
-    List datesList = jsonDecode(json) as List;
-    hiveService.dates.setMasechetDates(id, datesList.map((e) => e['date'] as String)
-        .toList(growable: false));
-  }
-
 
   Future<bool> _exitApp() async {
     await backupAction.backupProgress();
     return Future.value(true);
   }
 
-  void _loadApp() async {
-    await _openBoxes();
-    if (isFirstRun()) {
-      loadFirstRun();
-    }
-    backupAction.backupProgress();
-  }
-
-  void _toggleActive() {
-    Section newActive = Section.RECENT;
-    if (_activeSection == newActive) newActive = Section.SHAS;
-    setState(() => _activeSection = newActive);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _loadApp();
+  bool isFirstRun()  {
+    return !hiveService.settings.getHasOpened();
   }
 
   loadFirstRun() {
@@ -79,8 +68,20 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  bool isFirstRun()  {
-    return !hiveService.settings.getHasOpened();
+  void _loadApp() async {
+    await _openBoxes();
+    if (isFirstRun()) {
+      loadFirstRun();
+    }
+
+    backupAction.backupProgress();
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    _loadApp();
   }
 
   @override
@@ -90,30 +91,49 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
+  void _openUserSettings(BuildContext context) {
+    Navigator.of(context).push(
+      TransparentRoute(
+        builder: (BuildContext context) => UserSettingsDialog(),
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: WillPopScope(
+    return DefaultTabController(
+      length: 2,
+      child: WillPopScope(
         onWillPop: _exitApp,
-        child: SafeArea(
-          child: _areBoxesOpen
-              ? Column(
-            children: <Widget>[
-              HeaderWidget(),
-              RecentWidget(
-                active: _activeSection == Section.RECENT,
-                onActivate: _toggleActive,
-              ),
-              // TODO: super ugelly divider...
-              Container(height: 1),
-              ShasWidget(
-                active: _activeSection == Section.SHAS,
-                onActivate: _toggleActive,
+        child: _areBoxesOpen
+            ? Scaffold(
+          appBar: AppBar(
+            title: Text(
+              localizationUtil.translate('app_name'),
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            centerTitle: true,
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.more_vert),
+                onPressed: () => _openUserSettings(context),
               ),
             ],
-          )
-              : Container(),
-        ),
+            bottom: TabBar(
+              tabs: _tabs.keys
+                  .map((text) => Tab(
+                child: Text(
+                  text,
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+              ))
+                  .toList(),
+            ),
+          ),
+          body: TabBarView(children: _tabs.values.toList()),
+        )
+            : Container(),
       ),
     );
   }

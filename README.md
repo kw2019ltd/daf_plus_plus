@@ -1,6 +1,6 @@
-# daf_plus_plus
+# Daf++
 
-A new Flutter project.
+[![Build Status](https://travis-ci.org/capslock-bmdc/daf_plus_plus.svg?branch=develop)](https://travis-ci.org/capslock-bmdc/daf_plus_plus)
 
 ## Getting Started
 
@@ -14,3 +14,11 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+to encrypet run
+```
+tar cvf secrets.tar android/key.properties android/app/serviceAccount.json android/app/key.jks android/app/google-services.js
+
+travis encrypt-file secrets.tar
+```

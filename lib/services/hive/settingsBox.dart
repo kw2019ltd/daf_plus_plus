@@ -1,6 +1,7 @@
+import 'package:hive/hive.dart';
+
 import 'package:daf_plus_plus/consts/hive.dart';
 import 'package:daf_plus_plus/models/dafLocation.dart';
-import 'package:hive/hive.dart';
 
 class SettingsBox {
   Future<void> open() async {
@@ -38,19 +39,15 @@ class SettingsBox {
     settingsBox.put(HiveConsts.LAST_UPDATED, lastUpdated);
   }
 
-  bool getHasOpened() {
+  String getPreferredLanguage() {
     Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-    return settingsBox.get(HiveConsts.HAS_OPENED) == null ? false : settingsBox.get(HiveConsts.HAS_OPENED);
+    String preferredLanguage = settingsBox.get(HiveConsts.PREFERRED_LANGUAGE);
+    return preferredLanguage;
   }
 
-  void setHasOpened(bool hasOpened) {
+  void setPreferredLanguage(String preferredLanguage) {
     Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-    settingsBox.put(HiveConsts.HAS_OPENED, hasOpened);
-  }
-
-  bool getIsDafYomi() {
-    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-    settingsBox.get(HiveConsts.IS_DAF_YOMI);
+    settingsBox.put(HiveConsts.PREFERRED_LANGUAGE, preferredLanguage);
   }
 
   void setIsDafYomi(bool isdaf) {
@@ -58,6 +55,18 @@ class SettingsBox {
     settingsBox.put(HiveConsts.IS_DAF_YOMI, isdaf);
   }
 
-}
+    void setHasOpened(bool hasOpened) {
+      Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
+          settingsBox.put(HiveConsts.HAS_OPENED, hasOpened);
+    }
+
+  bool getHasOpened() {
+    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
+    return settingsBox.get(HiveConsts.HAS_OPENED) == null ? false : settingsBox.get(HiveConsts.HAS_OPENED);
+  }
+
+
+
+  }
 
 final SettingsBox settingsBox = SettingsBox();

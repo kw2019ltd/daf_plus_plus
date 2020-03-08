@@ -1,0 +1,17 @@
+platform :android do
+  desc 'Push the built release APK to alpha or beta depending on current branch'
+  lane :deploy_play_store do
+    begin
+      upload_to_play_store(
+        track: 'alpha',
+        aab: '../build/app/outputs/bundle/release/app-release.aab',
+        json_key: './app/serviceAccount.json',
+        skip_upload_screenshots: true,
+        skip_upload_images: true
+      )
+    rescue => exception
+      raise exception unless exception.message.include?('apkUpgradeVersionConflict')
+      puts 'Current version already present on the Play Store. Omitting this upload.'
+    end
+  end
+end

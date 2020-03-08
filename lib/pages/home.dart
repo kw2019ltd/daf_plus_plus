@@ -21,11 +21,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool _areBoxesOpen = false;
 
-  Map<String, Widget> _tabs = {
-    'daf_yomi': DafYomiPage(),
-    'all_shas': AllShasPage(),
-  };
-
   void addDataToDB(int id, String json) {
     List datesList = jsonDecode(json) as List;
     hiveService.dates.setMasechetDates(
@@ -99,6 +94,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, Widget> _tabs = {
+      'daf_yomi': DafYomiPage(
+      ),
+      'all_shas': AllShasPage(),
+    };
     return DefaultTabController(
       length: 2,
       child: WillPopScope(

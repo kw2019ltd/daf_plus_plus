@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
 import 'package:daf_plus_plus/dialogs/firstUseDialogOne.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
-import 'package:daf_plus_plus/actions/backup.dart';
+import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/dialogs/userSettings.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<bool> _exitApp() async {
-    await backupAction.backupProgress();
+    await progressAction.backup();
     return Future.value(true);
   }
 
@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
       loadFirstRun();
     }
 
-    backupAction.backupProgress();
+    progressAction.backup();
   }
 
   @override

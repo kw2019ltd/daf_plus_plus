@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';
 
+import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/models/dafLocation.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
@@ -45,8 +46,7 @@ class _MasechetChildrenWidgetState extends State<MasechetChildrenWidget> {
     List<int> progress = _progress;
     progress[dafIndex] = count;
     String encodedProgress = masechetConverterUtil.encode(progress);
-    hiveService.progress
-        .setMasechetProgress(widget.masechet.id, encodedProgress);
+    progressAction.update(widget.masechet.id, encodedProgress);
   }
 
   List<int> _generateNewProgress() => List.filled(widget.masechet.numOfDafs, 0);

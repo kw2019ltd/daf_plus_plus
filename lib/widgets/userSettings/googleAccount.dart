@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:daf_plus_plus/actions/backup.dart';
+import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/consts/responses.dart';
 import 'package:daf_plus_plus/models/Response.dart';
 import 'package:daf_plus_plus/services/auth.dart';
@@ -27,14 +27,14 @@ class _GoogleAccountWidgetState extends State<GoogleAccountWidget> {
     if (progressResponse.isSuccessful())
       return _existingUserBackup();
     else if (progressResponse.code == ResponsesConst.DOCUMENT_NOT_FOUND.code)
-      return backupAction.backupProgress();
+      return progressAction.backup();
     else
       return false;
   }
 
   Future<bool> _existingUserBackup() async {
     DateTime lastUpdated = hiveService.settings.getLastUpdated();
-    if (lastUpdated == null) return backupAction.restoreProgress();
+    if (lastUpdated == null) return progressAction.restore();
     bool restore = await Navigator.of(context).push(
       TransparentRoute(
         builder: (BuildContext context) => QuestionDialogWidget(
@@ -45,8 +45,8 @@ class _GoogleAccountWidgetState extends State<GoogleAccountWidget> {
         ),
       ),
     );
-    if (restore) return backupAction.restoreProgress();
-    return backupAction.backupProgress();
+    if (restore) return progressAction.restore();
+    return progressAction.backup();
   }
 
   void _onConnectGoogleAccount() async {

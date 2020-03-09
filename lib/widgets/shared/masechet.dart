@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/dialogs/masechetOptions.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
@@ -63,7 +62,8 @@ class MasechetWidget extends StatelessWidget {
               ),
               Expanded(
                   child: Text(localizationUtil.translate('masechet') +
-                      " " + this.masechet.name)),
+                      " " +
+                      this.masechet.name)),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text(

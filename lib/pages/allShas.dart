@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
 import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
@@ -14,10 +15,13 @@ class AllShasPage extends StatelessWidget {
     MasechetsData.THE_MASECHETS.forEach((MasechetModel masechet) {
       if (prevSederId != masechet.sederId) {
         list.add(
-          SectionHeaderWidget(
-            header: localizationUtil.translate('seder') +
-                " " +
-                SedersData.THE_SEDERS[masechet.sederId].name,
+          SliverStickyHeader(
+            sticky: false,
+            header: SectionHeaderWidget(
+              header: localizationUtil.translate('seder') +
+                  " " +
+                  SedersData.THE_SEDERS[masechet.sederId].name,
+            ),
           ),
         );
         prevSederId = masechet.sederId;

@@ -98,19 +98,21 @@ class _MasechetChildrenWidgetState extends State<MasechetChildrenWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ScrollablePositionedList.builder(
-      initialScrollIndex: widget.lastDafIndex != -1 ? widget.lastDafIndex : 0,
-      itemBuilder: (context, dafIndex) => DafWidget(
-        dafNumber: dafIndex,
-        dafCount: _progress[dafIndex],
-        dafDate: _dates != null &&
-                _dates.length > dafIndex &&
-                _dates[dafIndex] != null
-            ? _dates[dafIndex]
-            : "",
-        onChangeCount: (int count) => _onClickDaf(dafIndex, count),
+    return Scrollbar(
+      child: ScrollablePositionedList.builder(
+        initialScrollIndex: widget.lastDafIndex != -1 ? widget.lastDafIndex : 0,
+        itemBuilder: (context, dafIndex) => DafWidget(
+          dafNumber: dafIndex,
+          dafCount: _progress[dafIndex],
+          dafDate: _dates != null &&
+                  _dates.length > dafIndex &&
+                  _dates[dafIndex] != null
+              ? _dates[dafIndex]
+              : "",
+          onChangeCount: (int count) => _onClickDaf(dafIndex, count),
+        ),
+        itemCount: widget.masechet.numOfDafs,
       ),
-      itemCount: widget.masechet.numOfDafs,
     );
   }
 }

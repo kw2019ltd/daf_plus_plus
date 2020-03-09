@@ -33,3 +33,4 @@ All Dart code must adhere to [Dart Standard Style](https://dart.dev/guides/langu
 * As best practice, try to keep all const variables in the 'consts.dart' file.
 * All text the is displayed to the user should be translatable. Also make sure that the app layout works in `RTL` and `LTR`.
 * The app should build without an error or warnings.
+* All imports shuold be absolute. (e.g. `import 'package:daf_plus_plus/models/masechet.dart';` and not `import '../models/masechet.dart';`)

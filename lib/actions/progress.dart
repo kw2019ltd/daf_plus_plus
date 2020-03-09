@@ -1,12 +1,14 @@
+import 'package:daf_plus_plus/consts/consts.dart';
 import 'package:daf_plus_plus/consts/firestore.dart';
 import 'package:daf_plus_plus/models/Response.dart';
 import 'package:daf_plus_plus/models/dafLocation.dart';
 import 'package:daf_plus_plus/services/firestore/index.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
+import 'package:daf_plus_plus/stores/actionCounter.dart';
 
-class BackupAction {
+class ProgressAction {
 
-  Future<bool> backupProgress() async {
+  Future<bool> backup() async {
     // TODO: make this all a batch action
     // TODO: return other a response model
     hiveService.settings.setLastUpdatedNow();
@@ -22,7 +24,7 @@ class BackupAction {
     return true;
   }
 
-  Future<bool> restoreProgress() async {
+  Future<bool> restore() async {
     // TODO: return other a response model
     // TODO: make this all a batch action
     // TODO: could wait for both together
@@ -44,6 +46,19 @@ class BackupAction {
     hiveService.progress.setAllProgress(progress);
     return true;
   }
+
+  void update(int masechetId, String encodedProgress,
+      [int incrementCounterBy = 1, bool checkCounter = true]) {
+    actionCounterStore.increment(incrementCounterBy);
+    hiveService.progress.setMasechetProgress(masechetId, encodedProgress);
+    if (actionCounterStore.numberOfActions >=
+        Consts.PROGRESS_BACKUP_THRESHOLD) {
+      print("passed threshold");
+      backup();
+      actionCounterStore.clear();
+    }
+  }
+  
 }
 
-final BackupAction backupAction = BackupAction();
+final ProgressAction progressAction = ProgressAction();

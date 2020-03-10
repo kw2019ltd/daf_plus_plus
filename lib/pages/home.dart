@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+import 'package:daf_plus_plus/widgets/DafYomiFab.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
 import 'package:daf_plus_plus/dialogs/firstUseDialogOne.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
@@ -95,8 +96,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Map<String, Widget> _tabs = {
-      'daf_yomi': DafYomiPage(
-      ),
+      'daf_yomi': DafYomiPage(),
       'all_shas': AllShasPage(),
     };
     return DefaultTabController(
@@ -128,6 +128,7 @@ class _HomePageState extends State<HomePage> {
                         .toList(),
                   ),
                 ),
+                floatingActionButton: DafYomiFabWidget(),
                 body: TabBarView(children: _tabs.values.toList()),
               )
             : Container(),

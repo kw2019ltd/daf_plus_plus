@@ -9,6 +9,7 @@ class HiveConsts {
   static const String PREFERRED_LANGUAGE = "preferredLanguage";
 
   static const String HAS_OPENED = "hasOpened";
+  static const String USED_FAB = "usedFab";
   static const String IS_DAF_YOMI = "isDafYomi";
 
   // dates consts

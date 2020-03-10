@@ -1,6 +1,6 @@
 {
   "app_name": "Daf++",
-  
+
   "he": "עברית",
   "en": "English",
 
@@ -36,5 +36,10 @@
   "settings_reset_text_1": "You have learned ",
   "settings_reset_text_2": " dapim, out of ",
   "settings_reset_text_3": ", great job!",
-  "reset_button": "Reset"
+  "reset_button": "Reset",
+
+  "plus_plus_dialog_title": "New Shortcut!",
+  "plus_plus_dialog_text": "Click this button to automaticlly check todays daf.",
+  "plus_plus_toast": "We checked todays daf for you!",
+  "confirm_button": "OK"
 }

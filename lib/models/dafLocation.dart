@@ -16,5 +16,13 @@ class DafLocationModel {
     );
   }
 
+  factory DafLocationModel.fromMap(Map<int, int> dafLocation) {
+    if (dafLocation.length != 1) return DafLocationModel();
+    return DafLocationModel(
+      masechetId: dafLocation.keys.first,
+      dafIndex: dafLocation.values.first,
+    );
+  }
+
   String toString() => masechetId.toString() + "-" + dafIndex.toString();
 }

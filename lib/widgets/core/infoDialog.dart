@@ -4,31 +4,21 @@ import 'package:daf_plus_plus/widgets/core/button.dart';
 import 'package:daf_plus_plus/widgets/core/dialog.dart';
 import 'package:daf_plus_plus/widgets/core/title.dart';
 
-class QuestionDialogWidget extends StatelessWidget {
-  QuestionDialogWidget({
+class InfoDialogWidget extends StatelessWidget {
+  InfoDialogWidget({
     @required this.title,
     @required this.text,
-    @required this.trueActionText,
-    this.falseActionText,
+    @required this.actionText,
   });
 
   final String title;
   final String text;
-  final String trueActionText;
-  final String falseActionText;
+  final String actionText;
 
   Widget _actionSection(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        ButtonWidget(
-          onPressed: () => Navigator.pop(context, true),
-          text: this.trueActionText,
-        ),
-        ButtonWidget(
-          onPressed: () => Navigator.pop(context, false),
-          text: this.falseActionText,
-        ),
-      ],
+    return ButtonWidget(
+      onPressed: () => Navigator.pop(context, true),
+      text: this.actionText,
     );
   }
 

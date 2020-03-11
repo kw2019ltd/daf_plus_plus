@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:daf_plus_plus/data/masechets.dart';
-import 'package:daf_plus_plus/dialogs/FirstUseDialogFillIn.dart';
-import 'package:daf_plus_plus/dialogs/firstUseDialogOne.dart';
+import 'package:daf_plus_plus/dialogs/FirstUseDialogLanguage.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:flutter/material.dart';
 
@@ -63,7 +62,7 @@ class _HomePageState extends State<HomePage> {
   loadFirstRun() {
     Navigator.of(context).push(
       TransparentRoute(
-        builder: (BuildContext context) => FirstUseDialogOne(),
+        builder: (BuildContext context) => FirstUseDialogLanguage(),
       ),
     );
   }

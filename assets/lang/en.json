@@ -36,5 +36,14 @@
   "settings_reset_text_1": "You have learned ",
   "settings_reset_text_2": " dapim, out of ",
   "settings_reset_text_3": ", great job!",
-  "reset_button": "Reset"
+  "reset_button": "Reset",
+
+  "welcome": "Welcome to Daf++",
+  "a_few_questions": "A few quick questions:",
+  "do_you_daf": "Do you learn Daf Yomi?",
+  "yes": "yes",
+  "no": "no",
+
+  "daf_holding": "Are you holding with the Daf Yomi cycle?",
+  "daf_yesterday": "Yesterday's Daf was: "
 }

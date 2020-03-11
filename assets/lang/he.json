@@ -36,5 +36,15 @@
   "settings_reset_text_1": "למדת ",
   "settings_reset_text_2": " דפים מתוך ",
   "settings_reset_text_3": ", כל הכבוד!",
-  "reset_button": "אפס"
+  "reset_button": "אפס",
+
+  "welcome": "ברוכים הבאים לדף++",
+  "a_few_questions": "כדי להתחיל, כמה שאלות קצרות:",
+  "do_you_daf": "האם אתה לומד את דף היומי?",
+  "yes": "כן",
+  "no": "לא",
+  "daf_holding": "האם אתה אוחז בדף של היום?",
+
+  "daf_yesterday": "הדף של אתמול היה: "
+
 }

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:daf_plus_plus/consts/consts.dart';
 import 'package:daf_plus_plus/models/dafLocation.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
@@ -23,7 +21,6 @@ class MasechetCardWidget extends StatefulWidget {
   final int lastDafIndex;
   final bool hasTitle;
   final double listHeight;
-
 
   @override
   _MasechetCardWidgetState createState() => _MasechetCardWidgetState();
@@ -124,7 +121,11 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
               itemBuilder: (context, dafIndex) => DafWidget(
                 dafNumber: dafIndex,
                 dafCount: _progress[dafIndex],
-                dafDate: _dates != null && _dates.length > dafIndex && _dates[dafIndex] != null ? _dates[dafIndex] : "",
+                dafDate: _dates != null &&
+                        _dates.length > dafIndex &&
+                        _dates[dafIndex] != null
+                    ? _dates[dafIndex]
+                    : "",
                 onChangeCount: (int count) => _onClickDaf(dafIndex, count),
               ),
               itemCount: widget.masechet.numOfDafs,

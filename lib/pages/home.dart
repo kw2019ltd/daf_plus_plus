@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
+import 'package:daf_plus_plus/widgets/DafYomiFab.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
 import 'package:daf_plus_plus/dialogs/FirstUseDialogLanguage.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
-import 'package:flutter/material.dart';
-
-import 'package:daf_plus_plus/actions/backup.dart';
+import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/dialogs/userSettings.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
@@ -21,17 +22,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool _areBoxesOpen = false;
 
-  Map<String, Widget> _tabs = {
-    localizationUtil.translate('daf_yomi'): DafYomiPage(),
-    localizationUtil.translate('all_shas'): AllShasPage(),
-  };
-
   void addDataToDB(int id, String json) {
     List datesList = jsonDecode(json) as List;
-    hiveService.dates.setMasechetDates(id, datesList.map((e) => e['date'] as String)
-        .toList(growable: false));
+    hiveService.dates.setMasechetDates(
+        id, datesList.map((e) => e['date'] as String).toList(growable: false));
   }
-
 
   Future<void> _openBoxes() async {
     await hiveService.settings.open();
@@ -49,13 +44,14 @@ class _HomePageState extends State<HomePage> {
     setState(() => _areBoxesOpen = true);
   }
 
-
   Future<bool> _exitApp() async {
-    await backupAction.backupProgress();
+    await progressAction.backup();
     return Future.value(true);
   }
 
-  bool isFirstRun()  {
+  bool isFirstRun() {
+    // uncomment for testing
+    hiveService.settings.setHasOpened(false);
     return !hiveService.settings.getHasOpened();
   }
 
@@ -73,9 +69,8 @@ class _HomePageState extends State<HomePage> {
       loadFirstRun();
     }
 
-    backupAction.backupProgress();
+    progressAction.backup();
   }
-
 
   @override
   void initState() {
@@ -98,40 +93,44 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
+    Map<String, Widget> _tabs = {
+      'daf_yomi': DafYomiPage(),
+      'all_shas': AllShasPage(),
+    };
     return DefaultTabController(
       length: 2,
       child: WillPopScope(
         onWillPop: _exitApp,
         child: _areBoxesOpen
             ? Scaffold(
-          appBar: AppBar(
-            title: Text(
-              localizationUtil.translate('app_name'),
-              style: Theme.of(context).textTheme.headline5,
-            ),
-            centerTitle: true,
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.more_vert),
-                onPressed: () => _openUserSettings(context),
-              ),
-            ],
-            bottom: TabBar(
-              tabs: _tabs.keys
-                  .map((text) => Tab(
-                child: Text(
-                  text,
-                  style: Theme.of(context).textTheme.headline5,
+                appBar: AppBar(
+                  title: Text(
+                    localizationUtil.translate('app_name'),
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  centerTitle: true,
+                  actions: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.more_vert),
+                      onPressed: () => _openUserSettings(context),
+                    ),
+                  ],
+                  bottom: TabBar(
+                    tabs: _tabs.keys
+                        .map((text) => Tab(
+                              child: Text(
+                                localizationUtil.translate(text),
+                                style: Theme.of(context).textTheme.headline5,
+                              ),
+                            ))
+                        .toList(),
+                  ),
                 ),
-              ))
-                  .toList(),
-            ),
-          ),
-          body: TabBarView(children: _tabs.values.toList()),
-        )
+                floatingActionButton: DafYomiFabWidget(),
+                body: TabBarView(children: _tabs.values.toList()),
+              )
             : Container(),
       ),
     );

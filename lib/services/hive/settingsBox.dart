@@ -12,61 +12,48 @@ class SettingsBox {
     Hive.box(HiveConsts.SETTINGS_BOX).close();
   }
 
-  DafLocationModel getLastDaf() {
+  void _setByKey(dynamic key, dynamic value) {
     Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-    String lastDaf = settingsBox.get(HiveConsts.LAST_DAF);
-    return DafLocationModel.fromString(lastDaf);
+    settingsBox.put(key, value);
   }
 
-  void setLastDaf(DafLocationModel lastDaf) {
+  dynamic _getByKey(dynamic key) {
     Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-    settingsBox.put(HiveConsts.LAST_DAF, lastDaf.toString());
+    return settingsBox.get(key);
+  }
+
+  // last daf
+  DafLocationModel getLastDaf() =>
+      DafLocationModel.fromString(_getByKey(HiveConsts.LAST_DAF));
+  void setLastDaf(DafLocationModel lastDaf) {
+    _setByKey(HiveConsts.LAST_DAF, lastDaf.toString());
     setLastUpdatedNow();
   }
 
-  DateTime getLastUpdated() {
-    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-    DateTime lastUpdated = settingsBox.get(HiveConsts.LAST_UPDATED);
-    return lastUpdated;
-  }
+  // last updated
+  void setLastUpdatedNow() => setLastUpdated(DateTime.now());
+  void setLastUpdated(DateTime lastUpdated) =>
+      _setByKey(HiveConsts.LAST_UPDATED, lastUpdated);
+  DateTime getLastUpdated() => _getByKey(HiveConsts.LAST_UPDATED);
 
-  void setLastUpdatedNow() {
-    setLastUpdated(DateTime.now());
-  }
+  // preferred language
+  void setPreferredLanguage(String preferredLanguage) =>
+      _setByKey(HiveConsts.PREFERRED_LANGUAGE, preferredLanguage);
+  String getPreferredLanguage() => _getByKey(HiveConsts.PREFERRED_LANGUAGE);
 
-  void setLastUpdated(DateTime lastUpdated) {
-    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-    settingsBox.put(HiveConsts.LAST_UPDATED, lastUpdated);
-  }
+  // is daf yomi
+  void setIsDafYomi(bool isDaf) => _setByKey(HiveConsts.IS_DAF_YOMI, isDaf);
+  bool getIsDafYomi() => _getByKey(HiveConsts.HAS_OPENED) ?? false;
 
-  String getPreferredLanguage() {
-    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-    String preferredLanguage = settingsBox.get(HiveConsts.PREFERRED_LANGUAGE);
-    return preferredLanguage;
-  }
+  // has opened
+  void setHasOpened(bool hasOpened) =>
+      _setByKey(HiveConsts.HAS_OPENED, hasOpened);
+  bool getHasOpened() => _getByKey(HiveConsts.HAS_OPENED) ?? false;
 
-  void setPreferredLanguage(String preferredLanguage) {
-    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-    settingsBox.put(HiveConsts.PREFERRED_LANGUAGE, preferredLanguage);
-  }
-
-  void setIsDafYomi(bool isdaf) {
-    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-    settingsBox.put(HiveConsts.IS_DAF_YOMI, isdaf);
-  }
-
-    void setHasOpened(bool hasOpened) {
-      Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-          settingsBox.put(HiveConsts.HAS_OPENED, hasOpened);
-    }
-
-  bool getHasOpened() {
-    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-    return settingsBox.get(HiveConsts.HAS_OPENED) == null ? false : settingsBox.get(HiveConsts.HAS_OPENED);
-  }
-
-
-
-  }
+  // used fab
+  void setUsedFab(bool usedFab) =>
+      _setByKey(HiveConsts.USED_FAB, usedFab);
+  bool getUsedFab() => _getByKey(HiveConsts.USED_FAB) ?? false;
+}
 
 final SettingsBox settingsBox = SettingsBox();

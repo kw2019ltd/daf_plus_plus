@@ -1,6 +1,7 @@
 {
   "app_name": "Daf++",
   
+
   "he": "עברית",
   "en": "English",
 
@@ -46,4 +47,10 @@
 
   "daf_holding": "Are you holding with the Daf Yomi cycle?",
   "daf_yesterday": "Yesterday's Daf was: "
+  "reset_button": "Reset",
+
+  "plus_plus_dialog_title": "New Shortcut!",
+  "plus_plus_dialog_text": "Click this button to automaticlly check todays daf.",
+  "plus_plus_toast": "We checked todays daf for you!",
+  "confirm_button": "OK"
 }

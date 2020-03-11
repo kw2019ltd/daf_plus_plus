@@ -3,8 +3,6 @@ import 'package:daf_plus_plus/data/masechets.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:hive/hive.dart';
 
-import 'index.dart';
-
 class DatesBox {
   Future<void> open() async {
     await Hive.openBox(HiveConsts.DATES_BOX);
@@ -13,14 +11,6 @@ class DatesBox {
   void close() {
     Hive.box(HiveConsts.DATES_BOX).close();
   }
-
-//  Stream<String> listenToProgress(int id) {
-//    Box progressBox = Hive.box(HiveConsts.DATES_BOX);
-//    // TODO: who said we didn't delete it and not update?
-//    return progressBox
-//        .watch(key: id)
-//        .map((BoxEvent progress) => progress.value);
-//  }
 
   List<String> getMasechetDates(int id) {
     Box progressBox = Hive.box(HiveConsts.DATES_BOX);
@@ -37,7 +27,7 @@ class DatesBox {
     Box dateBox = Hive.box(HiveConsts.DATES_BOX);
     Map<int, List<String>> allDates = {};
     MasechetsData.THE_MASECHETS.forEach((MasechetModel masechet) =>
-    allDates[masechet.id] = dateBox.get(masechet.id));
+        allDates[masechet.id] = dateBox.get(masechet.id));
     return allDates;
   }
 
@@ -46,18 +36,17 @@ class DatesBox {
     int d = 0;
     getAllDates().forEach((key, value) {
       if (value != null) {
-      for (int i = 0; i < value.length; i++) {
-        String element = value[i];
-        if (element == date) {
-          m = key;
-          d = i;
+        for (int i = 0; i < value.length; i++) {
+          String element = value[i];
+          if (element == date) {
+            m = key;
+            d = i;
+          }
         }
-      };
-      };
+      }
     });
-    return {m:d};
+    return {m: d};
   }
-
 }
 
 final DatesBox datesBox = DatesBox();

@@ -1,21 +1,26 @@
-import 'package:daf_plus_plus/data/masechets.dart';
-import 'package:daf_plus_plus/services/hive/datesBox.dart';
-import 'package:daf_plus_plus/utils/gematriaConverter.dart';
-import 'package:daf_plus_plus/utils/localization.dart';
-import 'package:daf_plus_plus/widgets/core/button.dart';
-import 'package:daf_plus_plus/widgets/core/dialog.dart';
-import 'package:daf_plus_plus/widgets/core/title.dart';
+import 'package:daf_plus_plus/pages/home.dart';
+import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'package:daf_plus_plus/data/masechets.dart';
+import 'package:daf_plus_plus/services/hive/datesBox.dart';
+import 'package:daf_plus_plus/utils/gematriaConverter.dart';
+import 'package:daf_plus_plus/widgets/core/button.dart';
+import 'package:daf_plus_plus/widgets/core/dialog.dart';
+import 'package:daf_plus_plus/widgets/core/title.dart';
+
 class FirstUseDialogTwo extends StatelessWidget {
   _yes(BuildContext context) {
-    Navigator.pop(context);
+    hiveService.settings.setHasOpened(true);
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (BuildContext context) => HomePage()));
     // TODO Set all daf done till current
   }
 
   _no(BuildContext context) {
-    Navigator.pop(context);
+    hiveService.settings.setHasOpened(true);
+    MaterialPageRoute(builder: (BuildContext context) => HomePage());
   }
 
   String getYesterdaysDaf() {
@@ -31,6 +36,7 @@ class FirstUseDialogTwo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DialogWidget(
+      hasShadow: false,
       onTapBackground: () => Navigator.pop(context),
       child: Center(
         child: Column(
@@ -47,7 +53,7 @@ class FirstUseDialogTwo extends StatelessWidget {
                 Padding(
                     padding: EdgeInsets.only(top: 16),
                     child: Text(
-                      localizationUtil.translate("daf_holding"),
+                      localizationUtil.translate("daf_holding", textScaleFactor: 1.2),
                       textScaleFactor: 1,
                     )),
                 Text(

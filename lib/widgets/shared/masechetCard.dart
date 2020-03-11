@@ -1,26 +1,30 @@
+<<<<<<< HEAD
 import 'package:daf_plus_plus/consts/consts.dart';
 import 'package:daf_plus_plus/models/dafLocation.dart';
-import 'package:daf_plus_plus/models/masechet.dart';
-import 'package:daf_plus_plus/services/hive/index.dart';
-import 'package:daf_plus_plus/utils/masechetConverter.dart';
-import 'package:daf_plus_plus/widgets/shared/daf.dart';
-import 'package:daf_plus_plus/widgets/shared/masechet.dart';
+=======
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:flutter_widgets/flutter_widgets.dart';
+
+>>>>>>> 81b43fa9bee8ddf9b00f0ca9e1b0aaea9f4a4769
+import 'package:daf_plus_plus/models/masechet.dart';
+import 'package:daf_plus_plus/widgets/shared/masechet.dart';
+import 'package:daf_plus_plus/consts/consts.dart';
+import 'package:daf_plus_plus/services/hive/index.dart';
+import 'package:daf_plus_plus/utils/masechetConverter.dart';
+import 'package:daf_plus_plus/widgets/shared/masechetChildren.dart';
 
 class MasechetCardWidget extends StatefulWidget {
   MasechetCardWidget({
     @required this.masechet,
-    this.lastDafIndex = -1,
-    this.hasTitle = true,
-    this.listHeight = Consts.MASECHET_LIST_HEIGHT,
   });
 
   final MasechetModel masechet;
+<<<<<<< HEAD
   final int lastDafIndex;
   final bool hasTitle;
   final double listHeight;
+=======
+>>>>>>> 81b43fa9bee8ddf9b00f0ca9e1b0aaea9f4a4769
 
   @override
   _MasechetCardWidgetState createState() => _MasechetCardWidgetState();
@@ -28,30 +32,17 @@ class MasechetCardWidget extends StatefulWidget {
 
 class _MasechetCardWidgetState extends State<MasechetCardWidget> {
   List<int> _progress = [];
-  List<String> _dates = [];
   bool _isExpanded = false;
-  Stream<String> _progressUpdates;
-  Map<String, dynamic> json;
 
-  void _onClickDaf(int dafIndex, int count) {
-    _updateDafCount(dafIndex, count);
-    _updateLastDaf(dafIndex);
+  void _onChangeExpandedState(bool state) {
+    setState(() => _isExpanded = state);
   }
 
-  void _updateLastDaf(int dafIndex) {
-    DafLocationModel dafLocation =
-        DafLocationModel(masechetId: widget.masechet.id, dafIndex: dafIndex);
-    hiveService.settings.setLastDaf(dafLocation);
+  void _updateProgress(List<int> progress) {
+    setState(() => _progress = progress);
   }
 
-  void _updateDafCount(int dafIndex, int count) {
-    List<int> progress = _progress;
-    progress[dafIndex] = count;
-    String encodedProgress = masechetConverterUtil.encode(progress);
-    hiveService.progress
-        .setMasechetProgress(widget.masechet.id, encodedProgress);
-  }
-
+  // TODO: the following two functions are duplicated in masechetCArd.dart, not ideal.
   List<int> _generateNewProgress() => List.filled(widget.masechet.numOfDafs, 0);
 
   List<int> _getMasechetProgress() {
@@ -60,24 +51,6 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
     return encodedProgress != null
         ? masechetConverterUtil.decode(encodedProgress)
         : _generateNewProgress();
-  }
-
-  List<String> _getMasechetDates() {
-    return hiveService.dates.getMasechetDates(widget.masechet.id);
-  }
-
-  void _onChangeExpandedState(bool state) {
-    setState(() => _isExpanded = state);
-  }
-
-  void _listenToUpdates() {
-    _progressUpdates =
-        hiveService.progress.listenToProgress(widget.masechet.id);
-    _progressUpdates.listen((String updatedProgress) {
-      List<int> progress = masechetConverterUtil.decode(updatedProgress);
-      if (progress == null) progress = _generateNewProgress();
-      setState(() => _progress = progress);
-    });
   }
 
   @override
@@ -90,30 +63,22 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
   @override
   void initState() {
     super.initState();
-    List<int> progress = _getMasechetProgress();
-    List<String> dates = _getMasechetDates();
-    setState(() {
-      _progress = progress;
-      _dates = dates;
-      _isExpanded = widget.lastDafIndex != -1;
-    });
-    _listenToUpdates();
+    _updateProgress(_getMasechetProgress());
   }
 
   @override
   Widget build(BuildContext context) {
     return SliverStickyHeader(
-      header: widget.hasTitle
-          ? MasechetWidget(
-              masechet: widget.masechet,
-              isExpanded: _isExpanded,
-              onChangeExpanded: _onChangeExpandedState,
-              progress: _progress,
-            )
-          : Container(),
+      header: MasechetWidget(
+        masechet: widget.masechet,
+        isExpanded: _isExpanded,
+        onChangeExpanded: _onChangeExpandedState,
+        progress: _progress,
+      ),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, i) => Container(
+<<<<<<< HEAD
             height: widget.listHeight,
             child: ScrollablePositionedList.builder(
               initialScrollIndex:
@@ -131,6 +96,13 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
               itemCount: widget.masechet.numOfDafs,
             ),
           ),
+=======
+              height: Consts.MASECHET_LIST_HEIGHT,
+              child: MasechetChildrenWidget(
+                masechet: widget.masechet,
+                onProgressChange: _updateProgress,
+              )),
+>>>>>>> 81b43fa9bee8ddf9b00f0ca9e1b0aaea9f4a4769
           childCount: _isExpanded ? 1 : 0,
         ),
       ),

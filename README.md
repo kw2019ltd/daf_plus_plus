@@ -2,23 +2,28 @@
 
 [![Build Status](https://travis-ci.org/capslock-bmdc/daf_plus_plus.svg?branch=develop)](https://travis-ci.org/capslock-bmdc/daf_plus_plus)
 
+A daf a day...
+
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-A few resources to get you started if this is your first Flutter project:
+### Prerequisites
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+* Make sure you have flutter beta installed.
+* Run `flutter doctor` in your terminal to make sure everything is fine.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Installing
 
+* Clone the project.
+* Add the `google-services.json` file to `android/app`.
+* Run `flutter get packages`.
+* Run the project on your device.
 
-to encrypet run
-```
-tar cvf secrets.tar android/key.properties android/app/serviceAccount.json android/app/key.jks android/app/google-services.js
+## Contributing
 
-travis encrypt-file secrets.tar
-```
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## License
+
+This project is licensed under the Apache License 2.0 License - see the [LICENSE](LICENSE) file for details

@@ -1,13 +1,12 @@
-import 'package:daf_plus_plus/utils/localization.dart';
-import 'package:flutter/material.dart';
-
+import 'package:daf_plus_plus/dialogs/FirstUseDialogFillIn.dart';
 import 'package:daf_plus_plus/dialogs/firstUseDialogTwo.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
+import 'package:daf_plus_plus/utils/localization.dart';
+import 'package:daf_plus_plus/utils/transparentRoute.dart';
 import 'package:daf_plus_plus/widgets/core/button.dart';
 import 'package:daf_plus_plus/widgets/core/dialog.dart';
 import 'package:daf_plus_plus/widgets/core/title.dart';
-import 'package:daf_plus_plus/utils/transparentRoute.dart';
-import 'package:daf_plus_plus/dialogs/FirstUseDialogFillIn.dart';
+import 'package:flutter/material.dart';
 
 class FirstUseDialogOne extends StatelessWidget {
   _yes(BuildContext context) {

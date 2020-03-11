@@ -44,7 +44,8 @@ class FirstUseDialogLanguage extends StatelessWidget {
               shrinkWrap: true,
               padding: EdgeInsets.all(16),
               children: <Widget>[
-                Text(localizationUtil.translate("choose_language"), textScaleFactor: 1.2),
+                Text(localizationUtil.translate("choose_language"),
+                    textScaleFactor: 1.2),
                 ListTile(
                   title: ButtonWidget(
                     text: "עברית",

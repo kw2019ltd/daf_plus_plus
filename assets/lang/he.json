@@ -42,6 +42,7 @@
   "confirm_button": "בסדר",
   "what_have_you_learned": "איזה מסכתות למדת כבר:",
   "done": "הבא",
+  "brachos": "ברכות",
   "shabbos": "שבת",
   "eruvin": "עירובין",
   "pesachim": "פסחים",
@@ -80,5 +81,11 @@
   "kinnim": "קינים",
   "midos": "מדות",
   "tamid": "תמיד",
-  "niddah": "נדה"
+  "niddah": "נדה",
+  "zeraim": "זרעים",
+  "moed": "מועד",
+  "nashim": "נשים",
+  "nizikin": "נזיקין",
+  "kedashim": "קדשים",
+  "teharos": "טהרות"
 }

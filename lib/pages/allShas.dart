@@ -20,7 +20,7 @@ class AllShasPage extends StatelessWidget {
             header: SectionHeaderWidget(
               header: localizationUtil.translate('seder') +
                   " " +
-                  SedersData.THE_SEDERS[masechet.sederId].name,
+                  localizationUtil.translate(SedersData.THE_SEDERS[masechet.sederId].translatedName),
             ),
           ),
         );

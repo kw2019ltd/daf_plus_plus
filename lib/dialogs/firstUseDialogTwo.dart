@@ -35,7 +35,7 @@ class FirstUseDialogTwo extends StatelessWidget {
     final yest = new DateTime(now.year, now.month, now.day - 1);
     Map<int, int> mD =
         datesBox.getDafForDate(new DateFormat("MMMM d, y").format(yest));
-    String m = MasechetsData.THE_MASECHETS[mD.keys.first].name;
+    String m = localizationUtil.translate(MasechetsData.THE_MASECHETS[mD.keys.first].translatedName);
     String d = gematriaConverter.toGematria(mD.values.first + 1);
     return m + " " + d;
   }

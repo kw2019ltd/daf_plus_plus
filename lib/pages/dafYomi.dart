@@ -17,7 +17,7 @@ class DafYomiPage extends StatelessWidget {
         SectionHeaderWidget(
           header: localizationUtil.translate('masechet') +
               " " +
-              resentMasechet.name,
+              localizationUtil.translate(resentMasechet.translatedName),
         ),
         Expanded(
           child: MasechetChildrenWidget(

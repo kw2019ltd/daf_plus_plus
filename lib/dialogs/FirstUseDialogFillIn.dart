@@ -73,7 +73,7 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
                 shrinkWrap: true,
                 itemCount: MasechetsData.THE_MASECHETS.length,
                 itemBuilder: (context, dafIndex) => SimpleMesechetWidget(
-                  name: MasechetsData.THE_MASECHETS[dafIndex].name,
+                  name: localizationUtil.translate(MasechetsData.THE_MASECHETS[dafIndex].translatedName),
                   checked: _progress[dafIndex],
                   onChange: (bool state) => _onClickDaf(dafIndex, state),
                 ),

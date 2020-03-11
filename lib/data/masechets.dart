@@ -42,5 +42,6 @@ class MasechetsData {
     MasechetModel(id: 37, name: "מדות", numOfDafs: 4, sederId: 4, translatedName: "midos"),
     MasechetModel(id: 38, name: "תמיד", numOfDafs: 9, sederId: 4, translatedName: "tamid"),
     MasechetModel(id: 39, name: "נדה", numOfDafs: 72, sederId: 5, translatedName: "niddah"),
+
   ];
 }

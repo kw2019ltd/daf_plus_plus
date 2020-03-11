@@ -1,5 +1,7 @@
 import 'package:daf_plus_plus/pages/home.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
+import 'package:daf_plus_plus/utils/localization.dart';
+import 'package:daf_plus_plus/utils/transparentRoute.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -10,6 +12,8 @@ import 'package:daf_plus_plus/widgets/core/button.dart';
 import 'package:daf_plus_plus/widgets/core/dialog.dart';
 import 'package:daf_plus_plus/widgets/core/title.dart';
 
+import 'FirstUseDialogFillIn.dart';
+
 class FirstUseDialogTwo extends StatelessWidget {
   _yes(BuildContext context) {
     hiveService.settings.setHasOpened(true);
@@ -19,8 +23,11 @@ class FirstUseDialogTwo extends StatelessWidget {
   }
 
   _no(BuildContext context) {
-    hiveService.settings.setHasOpened(true);
-    MaterialPageRoute(builder: (BuildContext context) => HomePage());
+    Navigator.of(context).push(
+      TransparentRoute(
+        builder: (BuildContext context) => FirstUseDialogFillIn(),
+      ),
+    );
   }
 
   String getYesterdaysDaf() {
@@ -53,8 +60,8 @@ class FirstUseDialogTwo extends StatelessWidget {
                 Padding(
                     padding: EdgeInsets.only(top: 16),
                     child: Text(
-                      localizationUtil.translate("daf_holding", textScaleFactor: 1.2),
-                      textScaleFactor: 1,
+                      localizationUtil.translate("daf_holding"),
+                      textScaleFactor: 1.2,
                     )),
                 Text(
                     localizationUtil.translate("daf_yesterday") +

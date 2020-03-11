@@ -1,3 +1,4 @@
+import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/dialogs/firstUseDialogTwo.dart';
@@ -11,7 +12,7 @@ import 'package:daf_plus_plus/dialogs/FirstUseDialogFillIn.dart';
 class FirstUseDialogOne extends StatelessWidget {
   _yes(BuildContext context) {
     hiveService.settings.setIsDafYomi(true);
-    // Navigator.pop(context);
+    Navigator.pop(context);
     Navigator.of(context).push(
       TransparentRoute(
         builder: (BuildContext context) => FirstUseDialogTwo(),
@@ -21,7 +22,7 @@ class FirstUseDialogOne extends StatelessWidget {
 
   _no(BuildContext context) {
     hiveService.settings.setIsDafYomi(false);
-    // Navigator.pop(context);
+    Navigator.pop(context);
     Navigator.of(context).push(
       TransparentRoute(
         builder: (BuildContext context) => FirstUseDialogFillIn(),
@@ -32,6 +33,7 @@ class FirstUseDialogOne extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DialogWidget(
+      hasShadow: false,
       onTapBackground: () => Navigator.pop(context),
       child: Center(
         child: Column(
@@ -45,7 +47,7 @@ class FirstUseDialogOne extends StatelessWidget {
               shrinkWrap: true,
               padding: EdgeInsets.all(16),
               children: <Widget>[
-                Text(localizationUtil.translate("a_few_questions", textScaleFactor: 1.2),
+                Text(localizationUtil.translate("a_few_questions"),
                     textScaleFactor: 1.2),
                 Padding(
                     padding: EdgeInsets.only(top: 16),

@@ -56,6 +56,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   loadFirstRun() {
+    localizationUtil.setPreferredLanguage(Localizations.localeOf(context).languageCode);
     Navigator.of(context).push(
       TransparentRoute(
         builder: (BuildContext context) => FirstUseDialogLanguage(),

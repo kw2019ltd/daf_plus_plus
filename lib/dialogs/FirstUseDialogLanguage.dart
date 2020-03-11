@@ -37,14 +37,14 @@ class FirstUseDialogLanguage extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             TitleWidget(
-              title: "ברוכים הבאים לדף++",
+              title: localizationUtil.translate("welcome"),
               borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
             ),
             ListView(
               shrinkWrap: true,
               padding: EdgeInsets.all(16),
               children: <Widget>[
-                Text("תבחר שפה:", textScaleFactor: 1.2),
+                Text(localizationUtil.translate("choose_language"), textScaleFactor: 1.2),
                 ListTile(
                   title: ButtonWidget(
                     text: "עברית",

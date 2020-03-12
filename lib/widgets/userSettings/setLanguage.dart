@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-
 import 'package:daf_plus_plus/consts/consts.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
+import 'package:flutter/material.dart';
 
 class SetLanguageWidget extends StatefulWidget {
   @override

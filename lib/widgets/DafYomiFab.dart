@@ -1,15 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
 import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/models/dafLocation.dart';
-import 'package:daf_plus_plus/utils/masechetConverter.dart';
-import 'package:daf_plus_plus/utils/toast.dart';
 import 'package:daf_plus_plus/services/hive/datesBox.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
+import 'package:daf_plus_plus/utils/masechetConverter.dart';
+import 'package:daf_plus_plus/utils/toast.dart';
 import 'package:daf_plus_plus/utils/transparentRoute.dart';
 import 'package:daf_plus_plus/widgets/core/infoDialog.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 // TODO: oh, wow, there is a lot that can be improved here:
 // 1. what if the button is pressed, do we undo it, tell him something about it

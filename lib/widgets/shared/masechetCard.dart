@@ -36,7 +36,7 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
 
   List<int> _getMasechetProgress() {
     String encodedProgress =
-        hiveService.progress.getMasechetProgress(widget.masechet.id);
+    hiveService.progress.getMasechetProgress(widget.masechet.id);
     return encodedProgress != null
         ? masechetConverterUtil.decode(encodedProgress)
         : _generateNewProgress();
@@ -66,7 +66,7 @@ class _MasechetCardWidgetState extends State<MasechetCardWidget> {
       ),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
-          (context, i) => Container(
+              (context, i) => Container(
               height: Consts.MASECHET_LIST_HEIGHT,
               child: MasechetChildrenWidget(
                 masechet: widget.masechet,

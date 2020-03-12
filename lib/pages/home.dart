@@ -1,18 +1,17 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-
-import 'package:daf_plus_plus/widgets/DafYomiFab.dart';
-import 'package:daf_plus_plus/data/masechets.dart';
-import 'package:daf_plus_plus/dialogs/firstUseDialogOne.dart';
-import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:daf_plus_plus/actions/progress.dart';
+import 'package:daf_plus_plus/data/masechets.dart';
+import 'package:daf_plus_plus/dialogs/FirstUseDialogLanguage.dart';
 import 'package:daf_plus_plus/dialogs/userSettings.dart';
+import 'package:daf_plus_plus/models/masechet.dart';
+import 'package:daf_plus_plus/pages/allShas.dart';
+import 'package:daf_plus_plus/pages/dafYomi.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/utils/transparentRoute.dart';
-import 'package:daf_plus_plus/pages/dafYomi.dart';
-import 'package:daf_plus_plus/pages/allShas.dart';
+import 'package:daf_plus_plus/widgets/DafYomiFab.dart';
+import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -51,14 +50,18 @@ class _HomePageState extends State<HomePage> {
 
   bool isFirstRun() {
     // uncomment for testing
-    hiveService.settings.setHasOpened(false);
+    //hiveService.settings.setHasOpened(false);
     return !hiveService.settings.getHasOpened();
   }
 
   loadFirstRun() {
+    localizationUtil
+        .setPreferredLanguage(Localizations
+        .localeOf(context)
+        .languageCode);
     Navigator.of(context).push(
       TransparentRoute(
-        builder: (BuildContext context) => FirstUseDialogOne(),
+        builder: (BuildContext context) => FirstUseDialogLanguage(),
       ),
     );
   }

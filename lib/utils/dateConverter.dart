@@ -1,6 +1,11 @@
 import 'package:daf_plus_plus/utils/localization.dart';
 
 class DateConverterUtil {
+  DateTime getToday() {
+    DateTime now = DateTime.now();
+    return DateTime(now.year, now.month, now.day);
+  }
+
   String toHebrewDate(DateTime date) {
     return "";
   }

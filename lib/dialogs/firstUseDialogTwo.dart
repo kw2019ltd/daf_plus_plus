@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
+import 'package:daf_plus_plus/models/dafLocation.dart';
+import 'package:daf_plus_plus/stores/dafsDates.dart';
+import 'package:daf_plus_plus/utils/dateConverter.dart';
 import 'package:daf_plus_plus/dialogs/FirstUseDialogFillIn.dart';
 import 'package:daf_plus_plus/consts/consts.dart';
-import 'package:daf_plus_plus/data/masechets.dart';
-import 'package:daf_plus_plus/services/hive/datesBox.dart';
 import 'package:daf_plus_plus/utils/gematriaConverter.dart';
 import 'package:daf_plus_plus/widgets/core/button.dart';
 import 'package:daf_plus_plus/widgets/core/dialog.dart';
@@ -30,16 +30,22 @@ class FirstUseDialogTwo extends StatelessWidget {
     );
   }
 
-  String getYesterdaysDaf() {
-    final now = DateTime.now();
-    final yest = new DateTime(now.year, now.month, now.day - 1);
-    Map<int, int> mD =
-        datesBox.getDafForDate(new DateFormat("MMMM d, y").format(yest));
+  String _getDafNumber(int daf) {
+    if (localizationUtil.translate('display_dapim_as_gematria'))
+      return gematriaConverterUtil
+          .toGematria((daf + Consts.FIST_DAF))
+          .toString();
+    return (daf + Consts.FIST_DAF).toString();
+  }
 
-    String m = localizationUtil.translate(MasechetsData.THE_MASECHETS[mD.keys.first].id);
-    String d =
-        gematriaConverterUtil.toGematria(mD.values.first + Consts.FIST_DAF);
-    return m + " " + d;
+  String getYesterdaysDaf() {
+    DateTime yesterday =
+        dateConverterUtil.getToday().subtract(Duration(days: -1));
+    DafLocationModel yesterdaysDaf = dafsDatesStore.getDafByDate(yesterday);
+
+    String masechet = localizationUtil.translate(yesterdaysDaf.masechetId);
+    String daf = _getDafNumber(yesterdaysDaf.dafIndex);
+    return masechet + " " + daf;
   }
 
   @override

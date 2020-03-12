@@ -5,33 +5,42 @@ import 'package:daf_plus_plus/models/masechet.dart';
 
 class DafsDatesStore {
   // the _masechetsDates is a map of masechets ids
-  // and the datetime of the first daf in the masechet
-  Map<String, DateTime> _masechetsDates = {};
+  // and a list of datetimes of the dafs in the masechet
+  Map<String, List<DateTime>> _masechetsDates = {};
 
   void _getMasechetDates() {
-    Map<String, DateTime> masechetsDates = {};
+    Map<String, List<DateTime>> masechetsDates = {};
     DateTime nextDate = DateTime.parse(Consts.DAF_YOMI_START_DATE);
     MasechetsData.THE_MASECHETS.forEach((MasechetModel masechet) {
-      masechetsDates[masechet.id] = nextDate;
+      masechetsDates[masechet.id] = List.generate(
+        masechet.numOfDafs,
+        ((int dafIndex) => nextDate.add(Duration(days: dafIndex))),
+      );
       nextDate = nextDate.add(Duration(days: masechet.numOfDafs));
     });
     _masechetsDates = masechetsDates;
   }
 
-  DateTime getDafDate(DafLocationModel daf) {
+  DateTime getDateByDaf(DafLocationModel daf) {
     if (_masechetsDates.length < 1) _getMasechetDates();
-    return _masechetsDates[daf.masechetId].add(Duration(days: daf.dafIndex));
+    return _masechetsDates[daf.masechetId][daf.dafIndex];
+  }
+
+  DafLocationModel getDafByDate(DateTime date) {
+    // TODO: return error if no matching date
+    DafLocationModel dafLocation = DafLocationModel();
+    _masechetsDates.forEach((String masechetId, List<DateTime> dates) {
+      if (dates.contains(date)) {
+        dafLocation = DafLocationModel(
+            masechetId: masechetId, dafIndex: dates.indexOf(date));
+      }
+    });
+    return dafLocation;
   }
 
   List<DateTime> getAllMasechetDates(String masechetId) {
     if (_masechetsDates.length < 1) _getMasechetDates();
-    MasechetModel masechet = MasechetsData.THE_MASECHETS
-        .firstWhere((MasechetModel masechet) => masechet.id == masechetId);
-    return List.generate(
-      masechet.numOfDafs,
-      ((int dafIndex) =>
-          _masechetsDates[masechetId].add(Duration(days: dafIndex))),
-    );
+    return _masechetsDates[masechetId];
   }
 }
 

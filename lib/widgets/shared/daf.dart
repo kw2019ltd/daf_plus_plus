@@ -1,3 +1,4 @@
+import 'package:daf_plus_plus/utils/dateConverter.dart';
 import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/consts/consts.dart';
@@ -15,11 +16,17 @@ class DafWidget extends StatelessWidget {
   final int dafNumber;
   final int dafCount;
   final Function(int) onChangeCount;
-  final String dafDate;
+  final DateTime dafDate;
 
 
   void _onClickCheckbox(bool state) {
     onChangeCount(state ? 1 : 0);
+  }
+
+  String _getDafNumber() {
+    if(localizationUtil.translate('display_dapim_as_gematria'))
+      return gematriaConverterUtil.toGematria((dafNumber + Consts.FIST_DAF)).toString();
+    return (dafNumber + Consts.FIST_DAF).toString();
   }
 
   @override
@@ -30,10 +37,10 @@ class DafWidget extends StatelessWidget {
           onChanged: _onClickCheckbox,
           value: dafCount > 0 ? true : false,
         ),
-        trailing: Text(dafDate, textScaleFactor: 0.8, style: TextStyle(color: Colors.blueGrey),),
+        trailing: Text(dateConverterUtil.toEnglishDate(dafDate), textScaleFactor: 0.8, style: TextStyle(color: Colors.blueGrey),),
         title: Text(localizationUtil.translate('daf') +
             " " +
-            gematriaConverter.toGematria((dafNumber + Consts.FIST_DAF))),
+            _getDafNumber()),
       ),
     );
   }

@@ -9,20 +9,20 @@ import 'package:daf_plus_plus/widgets/shared/masechetChildren.dart';
 import 'package:daf_plus_plus/widgets/core/sectionHeader.dart';
 
 class DafYomiPage extends StatelessWidget {
-  Widget _openList(BuildContext context, MasechetModel resentMasechet,
-      DafLocationModel reasentDafLocation) {
+  Widget _openList(BuildContext context, MasechetModel masechet,
+      DafLocationModel dafLocation) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         SectionHeaderWidget(
           header: localizationUtil.translate('masechet') +
               " " +
-              localizationUtil.translate(resentMasechet.translatedName),
+              localizationUtil.translate(masechet.id),
         ),
         Expanded(
           child: MasechetChildrenWidget(
-            masechet: resentMasechet,
-            lastDafIndex: reasentDafLocation.dafIndex,
+            masechet: masechet,
+            lastDafIndex: dafLocation.dafIndex,
           ),
         ),
       ],
@@ -31,10 +31,10 @@ class DafYomiPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DafLocationModel reasentDafLocation = hiveService.settings.getLastDaf();
-    MasechetModel resentMasechet =
-        MasechetsData.THE_MASECHETS[reasentDafLocation.masechetId];
+    DafLocationModel dafLocation = hiveService.settings.getLastDaf();
+    MasechetModel masechet = MasechetsData.THE_MASECHETS.firstWhere(
+        (MasechetModel masechet) => masechet.id == dafLocation.masechetId);
 
-    return _openList(context, resentMasechet, reasentDafLocation);
+    return _openList(context, masechet, dafLocation);
   }
 }

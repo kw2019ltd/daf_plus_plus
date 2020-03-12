@@ -1,3 +1,4 @@
+import 'package:daf_plus_plus/models/seder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
@@ -10,7 +11,7 @@ import 'package:daf_plus_plus/widgets/core/sectionHeader.dart';
 
 class AllShasPage extends StatelessWidget {
   List<Widget> _generateList() {
-    int prevSederId = -1;
+    String prevSederId;
     List<Widget> list = [];
     MasechetsData.THE_MASECHETS.forEach((MasechetModel masechet) {
       if (prevSederId != masechet.sederId) {
@@ -20,7 +21,10 @@ class AllShasPage extends StatelessWidget {
             header: SectionHeaderWidget(
               header: localizationUtil.translate('seder') +
                   " " +
-                  localizationUtil.translate(SedersData.THE_SEDERS[masechet.sederId].translatedName),
+                  localizationUtil.translate(SedersData.THE_SEDERS
+                      .firstWhere(
+                          (SederModel seder) => seder.id == masechet.sederId)
+                      .id),
             ),
           ),
         );

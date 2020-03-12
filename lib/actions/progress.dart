@@ -7,13 +7,13 @@ import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/stores/actionCounter.dart';
 
 class ProgressAction {
-
   Future<bool> backup() async {
     // TODO: make this all a batch action
     // TODO: return other a response model
     hiveService.settings.setLastUpdatedNow();
-    Map<int, String> progress = hiveService.progress.getAllProgress();
-    DafLocationModel lastDaf = hiveService.settings.getLastDaf() ?? DafLocationModel.fromString("0-0");
+    Map<String, String> progress = hiveService.progress.getAllProgress();
+    DafLocationModel lastDaf =
+        hiveService.settings.getLastDaf() ?? DafLocationModel.fromString("0-0");
     DateTime lastUpdated = hiveService.settings.getLastUpdated();
     // TODO: could wait for both together
     await firestoreService.progress.setProgress(progress);
@@ -35,9 +35,9 @@ class ProgressAction {
         await firestoreService.progress.getProgress();
     if (!progressResponse.isSuccessful()) return false;
     Map<String, dynamic> settings = settingsResponse.data;
-    Map<int, String> progress = progressResponse.data.map(
-        (dynamic masechet, dynamic progress) =>
-            MapEntry(int.parse(masechet), progress));
+    Map<String, String> progress = progressResponse.data.map(
+        (String masechetId, dynamic progress) =>
+            MapEntry(masechetId, progress));
 
     hiveService.settings.setLastDaf(
         DafLocationModel.fromString(settings[FirestoreConsts.LAST_DAF]));
@@ -47,18 +47,16 @@ class ProgressAction {
     return true;
   }
 
-  void update(int masechetId, String encodedProgress,
+  void update(String masechetId, String encodedProgress,
       [int incrementCounterBy = 1, bool checkCounter = true]) {
     actionCounterStore.increment(incrementCounterBy);
     hiveService.progress.setMasechetProgress(masechetId, encodedProgress);
     if (actionCounterStore.numberOfActions >=
         Consts.PROGRESS_BACKUP_THRESHOLD) {
-      print("passed threshold");
       backup();
       actionCounterStore.clear();
     }
   }
-  
 }
 
 final ProgressAction progressAction = ProgressAction();

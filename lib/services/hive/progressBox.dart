@@ -13,7 +13,7 @@ class ProgressBox {
     Hive.box(HiveConsts.PROGRESS_BOX).close();
   }
 
-  Stream<String> listenToProgress(int id) {
+  Stream<String> listenToProgress(String id) {
     Box progressBox = Hive.box(HiveConsts.PROGRESS_BOX);
     // TODO: who said we didn't delete it and not update?
     return progressBox
@@ -21,29 +21,29 @@ class ProgressBox {
         .map((BoxEvent progress) => progress.value);
   }
 
-  String getMasechetProgress(int id) {
+  String getMasechetProgress(String id) {
     Box progressBox = Hive.box(HiveConsts.PROGRESS_BOX);
     String progress = progressBox.get(id);
     return progress;
   }
 
-  void setMasechetProgress(int id, String progress) {
+  void setMasechetProgress(String id, String progress) {
     Box progressBox = Hive.box(HiveConsts.PROGRESS_BOX);
     progressBox.put(id, progress);
     hiveService.settings.setLastUpdatedNow();
   }
 
-  void setAllProgress(Map<int, String> allProgress) {
+  void setAllProgress(Map<String, String> allProgress) {
     Box progressBox = Hive.box(HiveConsts.PROGRESS_BOX);
-    allProgress.forEach((int masechetId, String progress) {
+    allProgress.forEach((String masechetId, String progress) {
       progressBox.put(masechetId, progress);
     });
     hiveService.settings.setLastUpdatedNow();
   }
 
-  Map<int, String> getAllProgress() {
+  Map<String, String> getAllProgress() {
     Box progressBox = Hive.box(HiveConsts.PROGRESS_BOX);
-    Map<int, String> allProgress = {};
+    Map<String, String> allProgress = {};
     MasechetsData.THE_MASECHETS.forEach((MasechetModel masechet) =>
         allProgress[masechet.id] = progressBox.get(masechet.id));
     return allProgress;

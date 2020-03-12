@@ -41,6 +41,12 @@
   "plus_plus_dialog_text": "לחץ על הכפתור כדי לסמן שלמדת את הדף היומי.",
   "plus_plus_toast": "כל הכבוד שלמדת את הדף היום!",
   "confirm_button": "בסדר",
+  
+  "hebrew_months": ["תשרי","חשוון","כסלו","טבת","שבט","אדר","ניסן","אייר","סיון","תמוז","אב","אלול"],
+  "english_months": ["ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"],
+  "display_hebrew_dates_as_gematria": true,
+  "display_dapim_as_gematria": true,
+  
   "what_have_you_learned": "איזה מסכתות למדת כבר:",
   "done": "הבא",
   "brachos": "ברכות",

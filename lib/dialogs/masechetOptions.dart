@@ -13,14 +13,14 @@ class MasechetOptionsDialog extends StatelessWidget {
     @required this.progress,
   });
 
-  final int masechetId;
+  final String masechetId;
   final List<int> progress;
 
   _learnMasechet(BuildContext context) {
     // TODO: this is probably the worst code i have written in this project.
     // but this needs to change to a counter and not a bool...
     String progress =
-    masechetConverterUtil.encode(this.progress.map((daf) => 1).toList());
+        masechetConverterUtil.encode(this.progress.map((daf) => 1).toList());
     progressAction.update(masechetId, progress);
     Navigator.pop(context);
   }

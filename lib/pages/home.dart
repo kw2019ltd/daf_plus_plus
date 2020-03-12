@@ -1,17 +1,14 @@
-import 'dart:convert';
+import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/actions/progress.dart';
-import 'package:daf_plus_plus/data/masechets.dart';
 import 'package:daf_plus_plus/dialogs/FirstUseDialogLanguage.dart';
 import 'package:daf_plus_plus/dialogs/userSettings.dart';
-import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:daf_plus_plus/pages/allShas.dart';
 import 'package:daf_plus_plus/pages/dafYomi.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/utils/transparentRoute.dart';
-import 'package:daf_plus_plus/widgets/DafYomiFab.dart';
-import 'package:flutter/material.dart';
+import 'package:daf_plus_plus/widgets/dafYomiFab.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,25 +18,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool _areBoxesOpen = false;
 
-  void addDataToDB(int id, String json) {
-    List datesList = jsonDecode(json) as List;
-    hiveService.dates.setMasechetDates(
-        id, datesList.map((e) => e['date'] as String).toList(growable: false));
-  }
-
   Future<void> _openBoxes() async {
     await hiveService.settings.open();
     await hiveService.progress.open();
-    await hiveService.dates.open();
-    if (hiveService.dates.getAllDates()[0] == null) {
-      MasechetsData.THE_MASECHETS.forEach((MasechetModel masechet) {
-        if (masechet.id < 36 || masechet.id > 38) {
-          DefaultAssetBundle.of(context)
-              .loadString('assets/' + masechet.translatedName + '.json')
-              .then((value) => addDataToDB(masechet.id, value));
-        }
-      });
-    }
     setState(() => _areBoxesOpen = true);
   }
 
@@ -56,9 +37,7 @@ class _HomePageState extends State<HomePage> {
 
   loadFirstRun() {
     localizationUtil
-        .setPreferredLanguage(Localizations
-        .localeOf(context)
-        .languageCode);
+        .setPreferredLanguage(Localizations.localeOf(context).languageCode);
     Navigator.of(context).push(
       TransparentRoute(
         builder: (BuildContext context) => FirstUseDialogLanguage(),
@@ -71,7 +50,6 @@ class _HomePageState extends State<HomePage> {
     if (isFirstRun()) {
       loadFirstRun();
     }
-
     progressAction.backup();
   }
 

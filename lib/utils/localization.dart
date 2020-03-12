@@ -38,7 +38,7 @@ class LocalizationUtil {
         await rootBundle.loadString('assets/lang/${_locale.languageCode}.json');
     Map<String, dynamic> jsonMap = json.decode(jsonString);
     _localizedStrings = jsonMap.map((key, value) {
-      return MapEntry(key, value.toString());
+      return MapEntry(key, value);
     });
   }
 

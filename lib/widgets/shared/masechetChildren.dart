@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';
 
+import 'package:daf_plus_plus/stores/dafsDates.dart';
 import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/models/dafLocation.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
@@ -28,7 +29,7 @@ class MasechetChildrenWidget extends StatefulWidget {
 
 class _MasechetChildrenWidgetState extends State<MasechetChildrenWidget> {
   List<int> _progress = [];
-  List<String> _dates = [];
+  List<DateTime> _dates = [];
   Stream<String> _progressUpdates;
 
   void _onClickDaf(int dafIndex, int count) {
@@ -59,10 +60,6 @@ class _MasechetChildrenWidgetState extends State<MasechetChildrenWidget> {
         : _generateNewProgress();
   }
 
-  List<String> _getMasechetDates() {
-    return hiveService.dates.getMasechetDates(widget.masechet.id);
-  }
-
   void _listenToUpdates() {
     _progressUpdates =
         hiveService.progress.listenToProgress(widget.masechet.id);
@@ -85,7 +82,8 @@ class _MasechetChildrenWidgetState extends State<MasechetChildrenWidget> {
   void initState() {
     super.initState();
     List<int> progress = _getMasechetProgress();
-    List<String> dates = _getMasechetDates();
+    List<DateTime> dates =
+        dafsDatesStore.getAllMasechetDates(widget.masechet.id);
     setState(() {
       _progress = progress;
       _dates = dates;

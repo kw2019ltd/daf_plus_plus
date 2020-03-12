@@ -1,4 +1,4 @@
-class GematriaConverter {
+class GematriaConverterUtil {
 // this converter can convert numbers under 400.
 
   List<List<String>> _alphabet = [
@@ -15,7 +15,7 @@ class GematriaConverter {
   }
 
   String toGematria(int number) {
-    List<String> numbers = (number + 1).toString().split('').reversed.toList();
+    List<String> numbers = number.toString().split('').reversed.toList();
     List<String> letters = numbers
         .asMap()
         .map((int index, String number) {
@@ -29,4 +29,4 @@ class GematriaConverter {
   }
 }
 
-final GematriaConverter gematriaConverter = GematriaConverter();
+final GematriaConverterUtil gematriaConverterUtil = GematriaConverterUtil();

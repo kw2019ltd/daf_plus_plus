@@ -34,6 +34,9 @@ class _SetDafYomiWidgetState extends State<SetDafYomiWidget> {
         title: Text(localizationUtil.translate('do_you_daf')),
         trailing: Checkbox(
           value: _doesDafYomi,
+          activeColor: Theme
+              .of(context)
+              .primaryColor,
           onChanged: _changeDafYomi,
         ),
       ),

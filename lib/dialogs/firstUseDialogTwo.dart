@@ -1,3 +1,4 @@
+import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -29,7 +30,8 @@ class FirstUseDialogTwo extends StatelessWidget {
     final yest = new DateTime(now.year, now.month, now.day - 1);
     Map<int, int> mD =
         datesBox.getDafForDate(new DateFormat("MMMM d, y").format(yest));
-    String m = MasechetsData.THE_MASECHETS[mD.keys.first].name;
+
+    String m = localizationUtil.translate(MasechetsData.THE_MASECHETS[mD.keys.first].id);
     String d =
         gematriaConverterUtil.toGematria(mD.values.first + Consts.FIST_DAF);
     return m + " " + d;

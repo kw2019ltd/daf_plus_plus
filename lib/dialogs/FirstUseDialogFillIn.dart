@@ -1,5 +1,6 @@
 import 'package:daf_plus_plus/pages/home.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
+import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/data/masechets.dart';
@@ -80,7 +81,7 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
                 shrinkWrap: true,
                 itemCount: MasechetsData.THE_MASECHETS.length,
                 itemBuilder: (context, dafIndex) => SimpleMesechetWidget(
-                  name: MasechetsData.THE_MASECHETS[dafIndex].name,
+                  name: localizationUtil.translate(MasechetsData.THE_MASECHETS[dafIndex].id),
                   checked: _progress[dafIndex],
                   onChange: (bool state) => _onClickDaf(dafIndex, state),
                 ),

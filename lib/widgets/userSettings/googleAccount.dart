@@ -113,10 +113,6 @@ class _GoogleAccountWidgetState extends State<GoogleAccountWidget> {
       padding: EdgeInsets.all(8),
       child: ListTile(
         title: Text(localizationUtil.translate('settings_backuped_text')),
-        subtitle: Text(
-            localizationUtil.translate('settings_backuped_subtext_1') +
-                "12/15/19 14:20" +
-                localizationUtil.translate('settings_backuped_subtext_2')),
         trailing: ButtonWidget(
           text: localizationUtil.translate('disconnect_button'),
           buttonType: ButtonType.Outline,

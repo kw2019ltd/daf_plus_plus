@@ -30,11 +30,7 @@ class _DeleteAllWidgetState extends State<DeleteAllWidget> {
     return Padding(
       padding: EdgeInsets.all(8),
       child: ListTile(
-        title: Text(localizationUtil.translate('settings_reset_text_1') +
-            "120" +
-            localizationUtil.translate('settings_reset_text_2') +
-            "3700" +
-            localizationUtil.translate('settings_reset_text_3')),
+        title: Text(localizationUtil.translate('settings_reset_text')),
         trailing: ButtonWidget(
           text: localizationUtil.translate('reset_button'),
           buttonType: ButtonType.Outline,

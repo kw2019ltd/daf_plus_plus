@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class SederModel {
   const SederModel({
+    @required this.index,
     @required this.id,
-    @required this.name,
   });
 
-  final int id;
-  final String name;
+  final int index;
+  final String id;
 }

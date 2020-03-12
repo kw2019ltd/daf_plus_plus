@@ -28,7 +28,7 @@ class MasechetChildrenWidget extends StatefulWidget {
 
 class _MasechetChildrenWidgetState extends State<MasechetChildrenWidget> {
   List<int> _progress = [];
-  List<String> _dates = [];
+  List<DateTime> _dates = [];
   Stream<String> _progressUpdates;
 
   void _onClickDaf(int dafIndex, int count) {
@@ -59,8 +59,8 @@ class _MasechetChildrenWidgetState extends State<MasechetChildrenWidget> {
         : _generateNewProgress();
   }
 
-  List<String> _getMasechetDates() {
-    return hiveService.dates.getMasechetDates(widget.masechet.id);
+  List<DateTime> _getMasechetDates() {
+    return hiveService.dates.getMasechetDates(widget.masechet.id).map((String date) => DateTime.parse(date)).toList();
   }
 
   void _listenToUpdates() {
@@ -85,7 +85,8 @@ class _MasechetChildrenWidgetState extends State<MasechetChildrenWidget> {
   void initState() {
     super.initState();
     List<int> progress = _getMasechetProgress();
-    List<String> dates = _getMasechetDates();
+    List<DateTime> dates = _getMasechetDates();
+    print(dates);
     setState(() {
       _progress = progress;
       _dates = dates;
@@ -104,11 +105,12 @@ class _MasechetChildrenWidgetState extends State<MasechetChildrenWidget> {
         itemBuilder: (context, dafIndex) => DafWidget(
           dafNumber: dafIndex,
           dafCount: _progress[dafIndex],
-          dafDate: _dates != null &&
-                  _dates.length > dafIndex &&
-                  _dates[dafIndex] != null
-              ? _dates[dafIndex]
-              : "",
+          // dafDate: _dates != null &&
+          //         _dates.length > dafIndex &&
+          //         _dates[dafIndex] != null
+          //     ? _dates[dafIndex]
+          //     : "",
+          dafDate: DateTime.now(),
           onChangeCount: (int count) => _onClickDaf(dafIndex, count),
         ),
         itemCount: widget.masechet.numOfDafs,

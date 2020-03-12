@@ -2,16 +2,14 @@ import 'package:flutter/cupertino.dart';
 
 class MasechetModel {
   const MasechetModel({
+    @required this.index,
     @required this.id,
-    @required this.name,
     @required this.numOfDafs,
     @required this.sederId,
-    @required this.translatedName
   });
 
-  final int id;
-  final String name;
+  final int index;
+  final String id;
   final int numOfDafs;
-  final int sederId;
-  final String translatedName;
+  final String sederId;
 }

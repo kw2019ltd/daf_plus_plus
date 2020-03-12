@@ -1,8 +1,9 @@
-import 'package:daf_plus_plus/pages/home.dart';
-import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'package:daf_plus_plus/consts/consts.dart';
+import 'package:daf_plus_plus/pages/home.dart';
+import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
 import 'package:daf_plus_plus/services/hive/datesBox.dart';
 import 'package:daf_plus_plus/utils/gematriaConverter.dart';
@@ -29,7 +30,8 @@ class FirstUseDialogTwo extends StatelessWidget {
     Map<int, int> mD =
         datesBox.getDafForDate(new DateFormat("MMMM d, y").format(yest));
     String m = MasechetsData.THE_MASECHETS[mD.keys.first].name;
-    String d = gematriaConverter.toGematria(mD.values.first + 1);
+    String d =
+        gematriaConverterUtil.toGematria(mD.values.first + Consts.FIST_DAF);
     return m + " " + d;
   }
 

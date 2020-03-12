@@ -41,5 +41,10 @@
   "plus_plus_dialog_title": "New Shortcut!",
   "plus_plus_dialog_text": "Click this button to automaticlly check todays daf.",
   "plus_plus_toast": "We checked todays daf for you!",
-  "confirm_button": "OK"
+  "confirm_button": "OK",
+
+  "hebrew_months": ["Tishrai", "Cheshvan", "Cislev", "Tevet", "Shvat", "Adar", "Nisan", "Iar", "Sivan", "Tamuz", "Av", "Elul"],
+  "english_months": ["January","February","March","April","May","June","July","August","September","October","November","December"],
+  "display_hebrew_dates_as_gematria": false,
+  "display_dapim_as_gematria": false
 }

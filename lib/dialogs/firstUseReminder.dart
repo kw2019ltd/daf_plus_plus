@@ -167,11 +167,11 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
 
   String _getTodaysDafString() {
     DafLocationModel dafLocationModel = _getTodaysDaf();
-    String m = localizationUtil.translate(MasechetsData.THE_MASECHETS[dafLocationModel.masechetId].translatedName);
+    String m = localizationUtil.translate(MasechetsData
+        .THE_MASECHETS[dafLocationModel.masechetId].translatedName);
     String d = gematriaConverter.toGematria(dafLocationModel.dafIndex + 1);
     return m + " " + d;
   }
-
 
   Future onDidReceiveLocalNotification(
       int id, String title, String body, String payload) async {

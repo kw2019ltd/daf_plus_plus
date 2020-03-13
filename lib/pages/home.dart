@@ -5,6 +5,7 @@ import 'package:daf_plus_plus/dialogs/FirstUseDialogLanguage.dart';
 import 'package:daf_plus_plus/dialogs/userSettings.dart';
 import 'package:daf_plus_plus/pages/allShas.dart';
 import 'package:daf_plus_plus/pages/dafYomi.dart';
+import 'package:daf_plus_plus/pages/todaysDaf.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/utils/transparentRoute.dart';
@@ -76,10 +77,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, Widget> _tabs = {
-      'daf_yomi': DafYomiPage(),
-      'all_shas': AllShasPage(),
-    };
+    bool leaningDafYomi = hiveService.settings.getIsDafYomi();
+    Map<String, Widget> tabs = {};
+    if (leaningDafYomi)
+      tabs['daf_yomi'] = DafYomiPage();
+    else
+      tabs['todays_daf'] = TodaysDafPage();
+    tabs['all_shas'] = AllShasPage();
     return DefaultTabController(
       length: 2,
       child: WillPopScope(
@@ -99,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                   bottom: TabBar(
-                    tabs: _tabs.keys
+                    tabs: tabs.keys
                         .map((text) => Tab(
                               child: Text(
                                 localizationUtil.translate(text),
@@ -110,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 floatingActionButton: DafYomiFabWidget(),
-                body: TabBarView(children: _tabs.values.toList()),
+                body: TabBarView(children: tabs.values.toList()),
               )
             : Container(),
       ),

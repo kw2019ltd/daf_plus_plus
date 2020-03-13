@@ -92,6 +92,7 @@ class _HomePageState extends State<HomePage> {
                     style: Theme.of(context).textTheme.headline5,
                   ),
                   centerTitle: true,
+                  leading: Container(),
                   actions: <Widget>[
                     IconButton(
                       icon: Icon(Icons.more_vert),

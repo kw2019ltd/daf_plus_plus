@@ -21,12 +21,17 @@ class DafsDatesStore {
     _masechetsDates = masechetsDates;
   }
 
-  DateTime getDateByDaf(DafLocationModel daf) {
+  void _checkLoadedDates() {
     if (_masechetsDates.length < 1) _getMasechetDates();
+  }
+
+  DateTime getDateByDaf(DafLocationModel daf) {
+    _checkLoadedDates();
     return _masechetsDates[daf.masechetId][daf.dafIndex];
   }
 
   DafLocationModel getDafByDate(DateTime date) {
+    _checkLoadedDates();
     // TODO: return error if no matching date
     DafLocationModel dafLocation = DafLocationModel();
     _masechetsDates.forEach((String masechetId, List<DateTime> dates) {
@@ -39,7 +44,7 @@ class DafsDatesStore {
   }
 
   List<DateTime> getAllMasechetDates(String masechetId) {
-    if (_masechetsDates.length < 1) _getMasechetDates();
+    _checkLoadedDates();
     return _masechetsDates[masechetId];
   }
 }

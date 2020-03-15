@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 class FirstUseDialogOne extends StatelessWidget {
   _yes(BuildContext context) {
     hiveService.settings.setIsDafYomi(true);
-    Navigator.pop(context);
     Navigator.of(context).push(
       TransparentRoute(
         builder: (BuildContext context) => FirstUseDialogTwo(),
@@ -21,7 +20,6 @@ class FirstUseDialogOne extends StatelessWidget {
 
   _no(BuildContext context) {
     hiveService.settings.setIsDafYomi(false);
-    Navigator.pop(context);
     Navigator.of(context).push(
       TransparentRoute(
         builder: (BuildContext context) => FirstUseDialogFillIn(),

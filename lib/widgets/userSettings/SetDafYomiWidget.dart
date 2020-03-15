@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
-import 'package:flutter/material.dart';
 
 class SetDafYomiWidget extends StatefulWidget {
   @override
@@ -11,13 +12,12 @@ class _SetDafYomiWidgetState extends State<SetDafYomiWidget> {
   bool _doesDafYomi = false;
 
   void _changeDafYomi(bool doesDaf) async {
-    _doesDafYomi = doesDaf;
-    hiveService.settings.setIsDafYomi(_doesDafYomi);
-    setState(() {});
+    hiveService.settings.setIsDafYomi(doesDaf);
+    _getDoesDaf();
   }
 
   void _getDoesDaf() {
-    _doesDafYomi = hiveService.settings.getIsDafYomi();
+    setState(() => _doesDafYomi = hiveService.settings.getIsDafYomi());
   }
 
   @override
@@ -34,9 +34,7 @@ class _SetDafYomiWidgetState extends State<SetDafYomiWidget> {
         title: Text(localizationUtil.translate('do_you_daf')),
         trailing: Checkbox(
           value: _doesDafYomi,
-          activeColor: Theme
-              .of(context)
-              .primaryColor,
+          activeColor: Theme.of(context).primaryColor,
           onChanged: _changeDafYomi,
         ),
       ),

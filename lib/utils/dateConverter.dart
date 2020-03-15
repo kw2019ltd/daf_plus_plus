@@ -7,7 +7,12 @@ class DateConverterUtil {
   }
 
   String toHebrewDate(DateTime date) {
+    // TODO: to be implemented
     return "";
+  }
+
+  String getDayInWeek(DateTime date) {
+    return localizationUtil.translate('days_in_week')[date.weekday%7];
   }
 
   String toEnglishDate(DateTime date) {

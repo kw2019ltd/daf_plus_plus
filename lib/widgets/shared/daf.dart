@@ -40,7 +40,9 @@ class DafWidget extends StatelessWidget {
           value: dafCount > 0 ? true : false,
         ),
         trailing: Text(
-          dateConverterUtil.toEnglishDate(dafDate),
+          dateConverterUtil.getDayInWeek(dafDate) +
+              ", " +
+              dateConverterUtil.toEnglishDate(dafDate),
           textScaleFactor: 0.8,
           style: TextStyle(color: Colors.blueGrey),
         ),

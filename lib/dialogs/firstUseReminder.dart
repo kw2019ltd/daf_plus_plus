@@ -1,8 +1,8 @@
-import 'package:daf_plus_plus/data/masechets.dart';
+import 'package:daf_plus_plus/consts/consts.dart';
 import 'package:daf_plus_plus/models/dafLocation.dart';
-import 'package:daf_plus_plus/pages/home.dart';
-import 'package:daf_plus_plus/services/hive/datesBox.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
+import 'package:daf_plus_plus/stores/dafsDates.dart';
+import 'package:daf_plus_plus/utils/dateConverter.dart';
 import 'package:daf_plus_plus/utils/gematriaConverter.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/utils/toast.dart';
@@ -12,7 +12,6 @@ import 'package:daf_plus_plus/widgets/core/title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:intl/intl.dart';
 
 class FirstUseReminder extends StatefulWidget {
   @override
@@ -159,18 +158,22 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
 //    );
   }
 
-  // TODO: this function is from dialogs/firstUseDialogTwo. should have it in only one place.
-  DafLocationModel _getTodaysDaf() {
-    String today = DateFormat("MMMM d, y").format(DateTime.now());
-    return DafLocationModel.fromMap(datesBox.getDafForDate(today));
+    String _getDafNumber(int daf) {
+    if (localizationUtil.translate('display_dapim_as_gematria'))
+      return gematriaConverterUtil
+          .toGematria((daf + Consts.FIST_DAF))
+          .toString();
+    return (daf + Consts.FIST_DAF).toString();
   }
 
-  String _getTodaysDafString() {
-    DafLocationModel dafLocationModel = _getTodaysDaf();
-    String m = localizationUtil.translate(MasechetsData
-        .THE_MASECHETS[dafLocationModel.masechetId].translatedName);
-    String d = gematriaConverter.toGematria(dafLocationModel.dafIndex + 1);
-    return m + " " + d;
+  String _getTodaysDaf() {
+    DateTime today =
+    dateConverterUtil.getToday();
+    DafLocationModel todaysDaf = dafsDatesStore.getDafByDate(today);
+
+    String masechet = localizationUtil.translate(todaysDaf.masechetId);
+    String daf = _getDafNumber(todaysDaf.dafIndex);
+    return masechet + " " + daf;
   }
 
   Future onDidReceiveLocalNotification(
@@ -180,19 +183,13 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
       context: context,
       builder: (BuildContext context) => new CupertinoAlertDialog(
         title: new Text(title),
-        content: new Text(_getTodaysDafString()),
+        content: new Text(_getTodaysDaf()),
         actions: [
           CupertinoDialogAction(
             isDefaultAction: true,
             child: new Text('Ok'),
             onPressed: () async {
               Navigator.of(context, rootNavigator: true).pop();
-              await Navigator.push(
-                context,
-                new MaterialPageRoute(
-                  // builder: (context) => new SecondScreen(payload),
-                ),
-              );
             },
           )
         ],
@@ -220,10 +217,10 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
 
   String timeFormat(TimeOfDay picked) {
     var hour = picked.hour;
-    var Time = "";
+    var time = "";
     if (hiveService.settings.getPreferredLanguage() == "en") {
       if (picked.hour >= 12) {
-        Time = "PM";
+        time = "PM";
         if (picked.hour > 12) {
           hour = picked.hour - 12;
         } else if (picked.hour == 00) {
@@ -232,7 +229,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
           hour = picked.hour;
         }
       } else {
-        Time = "AM";
+        time = "AM";
         if (picked.hour == 00) {
           hour = 12;
         } else {
@@ -253,6 +250,6 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
     else
       m = minute.toString();
 
-    return h + ":" + m + " " + Time;
+    return h + ":" + m + " " + time;
   }
 }

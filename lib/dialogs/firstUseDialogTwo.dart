@@ -66,7 +66,7 @@ class FirstUseDialogTwo extends StatelessWidget {
     return (daf + Consts.FIST_DAF).toString();
   }
 
-  String getYesterdaysDaf() {
+  String _getYesterdaysDaf() {
     DateTime yesterday =
     dateConverterUtil.getToday().subtract(Duration(days: 1));
     DafLocationModel yesterdaysDaf = dafsDatesStore.getDafByDate(yesterday);
@@ -101,7 +101,7 @@ class FirstUseDialogTwo extends StatelessWidget {
                     )),
                 Text(
                     localizationUtil.translate("daf_yesterday") +
-                        getYesterdaysDaf(),
+                        _getYesterdaysDaf(),
                     style: TextStyle(
                         color: Colors.blueGrey, fontWeight: FontWeight.bold),
                     textScaleFactor: 0.8),

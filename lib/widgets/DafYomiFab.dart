@@ -21,9 +21,7 @@ import 'package:daf_plus_plus/widgets/core/infoDialog.dart';
 // 5. if not doing the daf yomi, dont show
 
 class DafYomiFabWidget extends StatelessWidget {
-  // TODO: this function is from dialogs/firstUseDialogTwo. should have it in only one place.
   DafLocationModel _getTodaysDaf() {
-    print(dafsDatesStore.getDafByDate(dateConverterUtil.getToday()));
     return dafsDatesStore.getDafByDate(dateConverterUtil.getToday());
   }
 

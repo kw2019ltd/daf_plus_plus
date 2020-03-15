@@ -25,14 +25,16 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
               title: localizationUtil.translate('settings_title'),
               borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
             ),
-            ListView(
-              shrinkWrap: true,
-              children: <Widget>[
-                GoogleAccountWidget(),
-                SetLanguageWidget(),
-                SetDafYomiWidget(),
-                DeleteAllWidget(),
-              ],
+            Expanded(
+              child: ListView(
+                shrinkWrap: true,
+                children: <Widget>[
+                  GoogleAccountWidget(),
+                  SetLanguageWidget(),
+                  SetDafYomiWidget(),
+                  DeleteAllWidget(),
+                ],
+              ),
             )
           ],
         ),

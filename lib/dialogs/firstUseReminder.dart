@@ -1,3 +1,7 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 import 'package:daf_plus_plus/consts/consts.dart';
 import 'package:daf_plus_plus/models/dafLocation.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
@@ -9,9 +13,6 @@ import 'package:daf_plus_plus/utils/toast.dart';
 import 'package:daf_plus_plus/widgets/core/button.dart';
 import 'package:daf_plus_plus/widgets/core/dialog.dart';
 import 'package:daf_plus_plus/widgets/core/title.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class FirstUseReminder extends StatefulWidget {
   @override
@@ -37,21 +38,14 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
     }
   }
 
-  _set(BuildContext context) {
-    setNotification();
+  _set(BuildContext context) async {
+    await setNotification();
     Navigator.pop(context);
-//    Navigator.pushReplacement(context,
-//        MaterialPageRoute(builder: (BuildContext context) => HomePage()));
-    // TODO Set all daf done till current
+    // TODO: Set all daf done till current
   }
 
   _no(BuildContext context) {
     Navigator.pop(context);
-//    Navigator.of(context).push(
-//      TransparentRoute(
-//        builder: (BuildContext context) => FirstUseDialogFillIn(),
-//      ),
-//    );
   }
 
   @override
@@ -152,10 +146,6 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
     if (payload != null) {
       debugPrint('notification payload: ' + payload);
     }
-//    await Navigator.push(
-//      context,
-//      new MaterialPageRoute(builder: (context) => new SecondScreen(payload)),
-//    );
   }
 
     String _getDafNumber(int daf) {
@@ -187,7 +177,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
         actions: [
           CupertinoDialogAction(
             isDefaultAction: true,
-            child: new Text('Ok'),
+            child: new Text(localizationUtil.translate('confirm_button')),
             onPressed: () async {
               Navigator.of(context, rootNavigator: true).pop();
             },

@@ -18,6 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _areBoxesOpen = false;
+  Map<String, Widget> _tabs = {};
 
   Future<void> _openBoxes() async {
     await hiveService.settings.open();
@@ -51,8 +52,32 @@ class _HomePageState extends State<HomePage> {
     if (isFirstRun()) {
       loadFirstRun();
     }
+    _updateTabs(hiveService.settings.getIsDafYomi());
+    _listenToIsDafYomiUpdate();
     progressAction.backup();
   }
+
+  void _openUserSettings(BuildContext context) {
+    Navigator.of(context).push(
+      TransparentRoute(
+        builder: (BuildContext context) => UserSettingsDialog(),
+      ),
+    );
+  }
+
+  void _listenToIsDafYomiUpdate() {
+    hiveService.settings.listenToIsDafYomi().listen(_updateTabs);
+  }
+
+  void _updateTabs(bool isDafYomi) {
+    Map<String, Widget> tabs = {};
+    if (isDafYomi)
+      tabs['daf_yomi'] = DafYomiPage();
+    else
+      tabs['todays_daf'] = TodaysDafPage();
+    tabs['all_shas'] = AllShasPage();
+    setState(() => _tabs = tabs);
+    }
 
   @override
   void initState() {
@@ -67,25 +92,10 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  void _openUserSettings(BuildContext context) {
-    Navigator.of(context).push(
-      TransparentRoute(
-        builder: (BuildContext context) => UserSettingsDialog(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    bool leaningDafYomi = hiveService.settings.getIsDafYomi();
-    Map<String, Widget> tabs = {};
-    if (leaningDafYomi)
-      tabs['daf_yomi'] = DafYomiPage();
-    else
-      tabs['todays_daf'] = TodaysDafPage();
-    tabs['all_shas'] = AllShasPage();
     return DefaultTabController(
-      length: 2,
+      length: _tabs.length,
       child: WillPopScope(
         onWillPop: _exitApp,
         child: _areBoxesOpen
@@ -104,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                   bottom: TabBar(
-                    tabs: tabs.keys
+                    tabs: _tabs.keys
                         .map((text) => Tab(
                               child: Text(
                                 localizationUtil.translate(text),
@@ -115,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 floatingActionButton: DafYomiFabWidget(),
-                body: TabBarView(children: tabs.values.toList()),
+                body: TabBarView(children: _tabs.values.toList()),
               )
             : Container(),
       ),

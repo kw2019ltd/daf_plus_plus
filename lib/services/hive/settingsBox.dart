@@ -1,6 +1,7 @@
+import 'package:hive/hive.dart';
+
 import 'package:daf_plus_plus/consts/hive.dart';
 import 'package:daf_plus_plus/models/dafLocation.dart';
-import 'package:hive/hive.dart';
 
 class SettingsBox {
   Future<void> open() async {
@@ -45,14 +46,18 @@ class SettingsBox {
 
   bool getIsDafYomi() => _getByKey(HiveConsts.IS_DAF_YOMI) ?? false;
 
+  Stream<bool> listenToIsDafYomi() {
+    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
+    return settingsBox.watch(key: HiveConsts.IS_DAF_YOMI).map((BoxEvent setting) => setting.value);
+  }
+
   // has opened
   void setHasOpened(bool hasOpened) =>
       _setByKey(HiveConsts.HAS_OPENED, hasOpened);
   bool getHasOpened() => _getByKey(HiveConsts.HAS_OPENED) ?? false;
 
   // used fab
-  void setUsedFab(bool usedFab) =>
-      _setByKey(HiveConsts.USED_FAB, usedFab);
+  void setUsedFab(bool usedFab) => _setByKey(HiveConsts.USED_FAB, usedFab);
   bool getUsedFab() => _getByKey(HiveConsts.USED_FAB) ?? false;
 }
 

@@ -1,12 +1,14 @@
-import 'package:flutter/material.dart';
-
+import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
+import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:daf_plus_plus/pages/home.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
+import 'package:daf_plus_plus/utils/masechetConverter.dart';
 import 'package:daf_plus_plus/widgets/SimpleMesechetWidget.dart';
 import 'package:daf_plus_plus/widgets/core/button.dart';
 import 'package:daf_plus_plus/widgets/core/dialog.dart';
+import 'package:flutter/material.dart';
 
 class FirstUseDialogFillIn extends StatefulWidget {
   @override
@@ -20,22 +22,25 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
   void initState() {
     super.initState();
     setState(() {
-      for (int i = 0; i < MasechetsData.THE_MASECHETS.length; i++) {
-        _progress.add(false);
-      }
+      _progress = List.filled(MasechetsData.THE_MASECHETS.length, false);
     });
   }
 
   _done(BuildContext context) {
-//    _progress.forEach((element) {
-//
-//    })
+    for (int i = 0; i < _progress.length; i++) {
+      if (_progress[i]) {
+        MasechetModel masechetModel = MasechetsData.THE_MASECHETS[i];
+        List<int> progressMap = List.filled(masechetModel.numOfDafs, 1);
+        String progressString =
+        masechetConverterUtil.encode(progressMap.map((daf) => 1).toList());
+        progressAction.update(masechetModel.id, progressString);
+      }
+    }
 
     hiveService.settings.setHasOpened(true);
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (BuildContext context) => HomePage()));
-
-}
+  }
 
   void _onClickDaf(int masechetIndex, bool state) {
     _updateDafCount(masechetIndex, state);
@@ -67,21 +72,23 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(10),
-                child: Text(localizationUtil.translate("what_have_you_learned"), textScaleFactor: 1.2),
+                child: Text(localizationUtil.translate("what_have_you_learned"),
+                    textScaleFactor: 1.2),
               ),
               Expanded(
                   child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: MasechetsData.THE_MASECHETS.length,
                 itemBuilder: (context, dafIndex) => SimpleMesechetWidget(
-                  name: localizationUtil.translate(MasechetsData.THE_MASECHETS[dafIndex].id),
+                  name: localizationUtil
+                      .translate(MasechetsData.THE_MASECHETS[dafIndex].id),
                   checked: _progress[dafIndex],
                   onChange: (bool state) => _onClickDaf(dafIndex, state),
                 ),
               )),
               ListTile(
                 title: ButtonWidget(
-                  text:localizationUtil.translate("done"),
+                  text: localizationUtil.translate("done"),
                   buttonType: ButtonType.Outline,
                   color: Theme.of(context).primaryColor,
                   onPressed: () => _done(context),

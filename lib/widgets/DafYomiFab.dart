@@ -17,13 +17,11 @@ import 'package:daf_plus_plus/widgets/core/infoDialog.dart';
 // 1. what if the button is pressed, do we undo it, tell him something about it
 // 2. what if he didn't press the button but the daf was learned, is it any differant?
 // 3. should we tell him what daf it is today?
-// 4. an undo option in the toast
+// 4. an undo option in the toast (maybe snackbar)
 // 5. if not doing the daf yomi, dont show
 
 class DafYomiFabWidget extends StatelessWidget {
-  // TODO: this function is from dialogs/firstUseDialogTwo. should have it in only one place.
   DafLocationModel _getTodaysDaf() {
-    print(dafsDatesStore.getDafByDate(dateConverterUtil.getToday()));
     return dafsDatesStore.getDafByDate(dateConverterUtil.getToday());
   }
 

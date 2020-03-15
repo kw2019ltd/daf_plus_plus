@@ -16,12 +16,10 @@ class _DeleteAllWidgetState extends State<DeleteAllWidget> {
   void _formatProgress() {
     Map<String, String> allProgress = hiveService.progress.getAllProgress();
     // TODO: also one of my worst codes in this project... 🤮
-    allProgress = allProgress.map((String masechetId, String progress) =>
-        MapEntry(masechetId,
-            progress?.split('')?.map((String daf) => 'a')?.toList()?.join()));
+    allProgress = allProgress.map(
+        (String masechetId, String progress) => MapEntry(masechetId, null));
     hiveService.progress.setAllProgress(allProgress);
-    // TODO: never ever ever put the next line in prod
-    hiveService.settings.setLastDaf(DafLocationModel.fromString('0-0'));
+    hiveService.settings.setLastDaf(DafLocationModel.empty());
     Navigator.pop(context);
   }
 

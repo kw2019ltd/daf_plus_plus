@@ -13,7 +13,7 @@ class ProgressAction {
     hiveService.settings.setLastUpdatedNow();
     Map<String, String> progress = hiveService.progress.getAllProgress();
     DafLocationModel lastDaf =
-        hiveService.settings.getLastDaf() ?? DafLocationModel.fromString("0-0");
+        hiveService.settings.getLastDaf() ?? DafLocationModel.empty();
     DateTime lastUpdated = hiveService.settings.getLastUpdated();
     // TODO: could wait for both together
     await firestoreService.progress.setProgress(progress);

@@ -6,7 +6,7 @@ import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/consts/consts.dart';
 import 'package:daf_plus_plus/utils/theme.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
-import 'package:daf_plus_plus/pages/home.dart';
+import 'package:daf_plus_plus/pages/splash.dart';
 
 void main() async {
   Crashlytics.instance.enableInDevMode = false;
@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
       ],
       supportedLocales: Consts.LOCALES,
       locale: _locale,
-      home: HomePage(),
+      home: SplashPage(),
       theme: themeUtil.getTheme(context),
     );
   }

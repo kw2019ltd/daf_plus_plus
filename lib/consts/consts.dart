@@ -11,6 +11,8 @@ class Consts {
   static const String DATA_DIVIDER = ',';
   static const int MAX_REVISIONS = 10000;
 
+  static const String PROJECT_URL = "https://github.com/capslock-bmdc/daf_plus_plus";
+
   static const List<Locale> LOCALES = [Locale("he", "IL"), Locale("en", "US")];
   static const Locale DEFAULT_LOCALE = Locale("he", "IL");
 }

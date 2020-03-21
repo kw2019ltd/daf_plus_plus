@@ -50,6 +50,8 @@
   "display_hebrew_dates_as_gematria": true,
   "display_dapim_as_gematria": true,
   
+  "about_us": ["הפרויקט נוצר על ידי מתכנתים מCAPSLOCK כקוד פתוח.", "כל השתתפות בתכנות תתקבל בברכה ב", "GitHub", "."],
+
   "what_have_you_learned": "איזה מסכתות למדת כבר:",
   "done": "הבא",
   "brachos": "ברכות",

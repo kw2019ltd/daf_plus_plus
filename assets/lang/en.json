@@ -51,6 +51,9 @@
   "english_months": ["January","February","March","April","May","June","July","August","September","October","November","December"],
   "display_hebrew_dates_as_gematria": false,
   "display_dapim_as_gematria": false,
+
+  "about_us": ["This open source project was created by developers from CAPSLOCK.", "Any contribution would be welcomed on ", "GitHub", "."],
+
   "brachos": "brachos",
   "shabbos": "shabbos",
   "eruvin": "eruvin",

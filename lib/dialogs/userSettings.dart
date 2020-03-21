@@ -2,6 +2,7 @@ import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/widgets/core/dialog.dart';
 import 'package:daf_plus_plus/widgets/core/title.dart';
 import 'package:daf_plus_plus/widgets/userSettings/SetDafYomiWidget.dart';
+import 'package:daf_plus_plus/widgets/userSettings/about.dart';
 import 'package:daf_plus_plus/widgets/userSettings/deleteAll.dart';
 import 'package:daf_plus_plus/widgets/userSettings/googleAccount.dart';
 import 'package:daf_plus_plus/widgets/userSettings/setLanguage.dart';
@@ -33,6 +34,8 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
                   SetLanguageWidget(),
                   SetDafYomiWidget(),
                   DeleteAllWidget(),
+                  Divider(),
+                  AboutWidget(),
                 ],
               ),
             )

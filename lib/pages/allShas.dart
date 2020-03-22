@@ -39,8 +39,12 @@ class AllShasPage extends StatelessWidget {
     return list;
   }
 
+  Widget _bottomSpacer() {
+    return SliverStickyHeader(header: Container(height: 100,),);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(slivers: _generateList());
+    return CustomScrollView(slivers: [..._generateList(), _bottomSpacer()]);
   }
 }

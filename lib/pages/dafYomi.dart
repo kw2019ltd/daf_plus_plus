@@ -24,6 +24,7 @@ class DafYomiPage extends StatelessWidget {
           child: MasechetChildrenWidget(
             masechet: masechet,
             lastDafIndex: dafLocation.dafIndex,
+            hasPadding:true,
           ),
         ),
       ],

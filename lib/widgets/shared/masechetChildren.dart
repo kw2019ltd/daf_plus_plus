@@ -11,17 +11,18 @@ import 'package:daf_plus_plus/utils/masechetConverter.dart';
 import 'package:daf_plus_plus/widgets/shared/daf.dart';
 
 class MasechetChildrenWidget extends StatefulWidget {
-  MasechetChildrenWidget({
-    @required this.masechet,
-    this.lastDafIndex = -1,
-    this.onProgressChange = _dontChangeProgress,
-  });
+  MasechetChildrenWidget(
+      {@required this.masechet,
+      this.lastDafIndex = -1,
+      this.onProgressChange = _dontChangeProgress,
+      this.hasPadding = false});
 
   static dynamic _dontChangeProgress(List<int> progress) {}
 
   final MasechetModel masechet;
   final int lastDafIndex;
   final Function(List<int>) onProgressChange;
+  final bool hasPadding;
 
   @override
   _MasechetChildrenWidgetState createState() => _MasechetChildrenWidgetState();
@@ -96,20 +97,26 @@ class _MasechetChildrenWidgetState extends State<MasechetChildrenWidget> {
 
   @override
   Widget build(BuildContext context) {
+    int count = widget.masechet.numOfDafs;
+    count = widget.hasPadding ? count + 1 : count;
     return Scrollbar(
       child: ScrollablePositionedList.builder(
         initialScrollIndex: widget.lastDafIndex != -1 ? widget.lastDafIndex : 0,
-        itemBuilder: (context, dafIndex) => DafWidget(
-          dafNumber: dafIndex,
-          dafCount: _progress[dafIndex],
-          dafDate: _dates != null &&
-                  _dates.length > dafIndex &&
-                  _dates[dafIndex] != null
-              ? _dates[dafIndex]
-              : "",
-          onChangeCount: (int count) => _onClickDaf(dafIndex, count),
-        ),
-        itemCount: widget.masechet.numOfDafs,
+        itemBuilder: (context, dafIndex) {
+          if (widget.hasPadding && count == dafIndex + 1)
+            return Container(height: 100);
+          return DafWidget(
+            dafNumber: dafIndex,
+            dafCount: _progress[dafIndex],
+            dafDate: _dates != null &&
+                    _dates.length > dafIndex &&
+                    _dates[dafIndex] != null
+                ? _dates[dafIndex]
+                : "",
+            onChangeCount: (int count) => _onClickDaf(dafIndex, count),
+          );
+        },
+        itemCount: count,
       ),
     );
   }

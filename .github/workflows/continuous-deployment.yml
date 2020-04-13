@@ -1,3 +1,11 @@
+name: Continuous Development
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
   # deploy_web:
   #   name: Deploy Web to Firebase Hosting
   #   needs: build_web

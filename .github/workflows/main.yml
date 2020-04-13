@@ -49,12 +49,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Decrypt secret
-      run: |
-        mkdir $HOME/secrets
-        gpg --quiet --batch --yes --decrypt --passphrase="$SECRET_PASSPHRASE" \
-        --output $HOME/secrets/secrets.tar secrets.tar.gpg
-        tar xvf $HOME/secrets/secrets.tar
       env:
         SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}
     - uses: actions/checkout@v1
@@ -64,11 +58,16 @@ jobs:
     - uses: subosito/flutter-action@v1
       with:
           channel: 'beta'
-    - run: ls $HOME/work/daf_plus_plus/daf_plus_plus/android/app
     - run: flutter pub get
 #     - run: flutter build apk --target-platform android-arm,android-arm64 --split-per-abi
 #     - run: flutter build appbundle --target-platform android-arm,android-arm64
-    - run: flutter build appbundle
+    - run: |
+        mkdir $HOME/secrets
+        gpg --quiet --batch --yes --decrypt --passphrase="$SECRET_PASSPHRASE" \
+        --output $HOME/secrets/secrets.tar secrets.tar.gpg
+        tar xvf $HOME/secrets/secrets.tar
+        flutter build appbundle
+    # - run: flutter build appbundle
     - name: Upload APK
       uses: actions/upload-artifact@master
       with:

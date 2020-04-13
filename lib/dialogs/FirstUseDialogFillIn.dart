@@ -5,7 +5,7 @@ import 'package:daf_plus_plus/pages/home.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/utils/masechetConverter.dart';
-import 'package:daf_plus_plus/widgets/SimpleMesechetWidget.dart';
+import 'package:daf_plus_plus/widgets/simpleMesechetWidget.dart';
 import 'package:daf_plus_plus/widgets/core/button.dart';
 import 'package:daf_plus_plus/widgets/core/dialog.dart';
 import 'package:flutter/material.dart';

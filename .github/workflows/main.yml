@@ -50,10 +50,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Decrypt secret
-      run: |
+      run: | 
         mkdir $HOME/secrets
-        gpg --quiet --batch --yes --decrypt --passphrase="$SECRET_PASSPHRASE" \
-        --output $HOME/secrets/secrets.tar secrets.tar.gpg
+        gpg --quiet --batch --yes --decrypt --passphrase="$SECRET_PASSPHRASE" --output $HOME/secrets/secrets.tar secrets.tar.gpg
         tar xvf $HOME/secrets/secrets.tar
       env:
         SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}

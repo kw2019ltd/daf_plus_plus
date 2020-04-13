@@ -4,5 +4,5 @@
 gpg --quiet --batch --yes --decrypt --passphrase="$SECRET_PASSPHRASE" \
 --output $HOME/secrets.tar secrets.tar.gpg
 tar xvf  $HOME/secrets.tar
-ls $HOME/android/app
+ls android/app
 tar somthing

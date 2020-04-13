@@ -18,7 +18,7 @@ env:
     - tar xvf secrets.tar
     - git clone https://github.com/flutter/flutter.git -b beta
     - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-    - gem install bundler --pre && cd android && bundle install && cd ..
+    - gem install bundler && cd android && bundle install && cd ..
     script:
     - flutter packages get
     - flutter test

@@ -5,7 +5,7 @@ on:
       - master
       - develop
 
-# jobs:
+jobs:
   # deploy_web:
   #   name: Deploy Web to Firebase Hosting
   #   needs: build_web
@@ -44,8 +44,8 @@ on:
 #         env:
 #           GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-#   deploy_apk:
-#     name: Deploy Android Beta
+  deploy_apk:
+    name: Deploy Android Beta
 #     needs: [build_apk]
 #     runs-on: ubuntu-latest
 #     steps:

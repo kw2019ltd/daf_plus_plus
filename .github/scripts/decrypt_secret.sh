@@ -11,4 +11,4 @@ tar xvf $HOME/secrets/secrets.tar
 # ls $HOME/work/daf_plus_plus
 ls $HOME/work/daf_plus_plus/daf_plus_plus/android/app
 # ls $HOME/secrets
-tar somthing
+# tar somthing

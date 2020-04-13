@@ -5,7 +5,7 @@ on:
       - master
       - develop
 
-jobs:
+# jobs:
   # deploy_web:
   #   name: Deploy Web to Firebase Hosting
   #   needs: build_web

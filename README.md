@@ -1,6 +1,8 @@
 # Daf++
 
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/capslock-bmdc/daf_plus_plus)
 [![Build Status](https://travis-ci.org/capslock-bmdc/daf_plus_plus.svg?branch=develop)](https://travis-ci.org/capslock-bmdc/daf_plus_plus)
+[![GitHub license](https://img.shields.io/github/license/capslock-bmdc/daf_plus_plus)](https://github.com/capslock-bmdc/daf_plus_plus/blob/develop/LICENSE)
 
 A daf a day...
 
@@ -23,7 +25,3 @@ These instructions will get you a copy of the project up and running on your loc
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## License
-
-This project is licensed under the Apache License 2.0 License - see the [LICENSE](LICENSE) file for details

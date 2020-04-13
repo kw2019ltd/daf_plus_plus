@@ -1,8 +1,10 @@
 #!/bin/sh
 
 # Decrypt the file
+mkdir $HOME/secrets
 gpg --quiet --batch --yes --decrypt --passphrase="$SECRET_PASSPHRASE" \
---output $HOME/daf_plus_plus/daf_plus_plus/secrets.tar secrets.tar.gpg
-tar xvf  $HOME/daf_plus_plus/daf_plus_plus/secrets.tar
-ls $HOME/daf_plus_plus/daf_plus_plus/android/app
+--output $HOME/secrets/secrets.tar secrets.tar.gpg
+tar xvf $HOME/secrets/secrets.tar
+ls $HOME/secrets
+ls $HOME/android/app
 tar somthing

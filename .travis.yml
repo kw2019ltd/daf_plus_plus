@@ -1,21 +1,20 @@
 env:
   global:
-    secure: FOLS8H4HRi36Qmquyu0s0e+Fb9HnTYKRyiHJ84f6VfhkXbyN2YDY0QCTmoa4Xhr5UKHAfIZhRDRUc6LvORnXf8nEPXxOWaC6FPyeQzL9pWUOMmNedjyVOgnRsItvFunlParuSr9gNa9NhW+9iewQGTDT69BAb37eJHsPnnnEoPqHYX+xDioQmts9j0XltDgPv2c7t0XvoXWiBbvp1pKqBM/erJicZ3PBaMYxxOUTCX80IUDPB21ySuiOt0rjtXyOEqvfIY8bhWEQ5Qg3nU0YowKj5T7b16uEOQKwDniyeUNlJ9eMiYOjMzA5I1lgFlQLy1YnMBPBzLNgKYKiA4WkOsdSXH+MmcOnmJTCNvPRnWMKGfJt52mY11y06p9R1ZT0NoKDJpAKyCccXdho5CxZj4XSkJCS0fgsjZcfhJcW1aDtP5E1dM2zrv3ljSiEqnivHZmixlnqSIM14OBp2hE5Wd4Zc4Et6TAa7+0EfuZ8L+d87IkR6nBC6WUsTL/r8EpdlaiL7jSQN5wUxlbM6RFKFuqX6ZtIEHVK4FMbk8Y63RDdw0o2Gerj2Q4upFhEI05Cj0vVLcZKURUiNj5wCq8569uvpJndpug/bEu2OU4w/NZ2yLw4Yrbgkhb6j6wJmiQZ3b4SThiqdq6XH5eHPKSkdSwgI543GHv/YK57XMBwyxs=
+  - secure: fS4SKKQueUog7+QUMYc4XmERfVUHRQYgDw4YsCC0hYKPzTpfoGwfZgUfg9DIQp8QbmY5bHCbABvN/gsD1pvKG19dfUTxSYTmwLHx9mm2zFOlM0lyxhNRgwZ8B4Y0Fu8N9rQqO/fjFAV35/jnH8YrEWgJ6aKYNr2feMRzGQL69e3Txq3r2WRiqzL0FUCw5gDUOjLoqyvy3/YJvDm0rNenmx0jV8RME0GOS8jT6TdbsCv6dcYtOR9TSFqe9O8wjhIkhY4wEwJnSo8UmMB7hJgyLDrQUDcGP9XQal/8kuGAY+KDyTPYcIOHszusPhBv7N48X8MR2ef9pa5W65f6fYUIjgTThnFiKWOIlZP+YdPhPHJzPAOgmCqHWx24zQYrNgFsZGu1ChZffzN9v99h5vV0ramDRqKbWCiovUNK6ol6Dc8SGIBiTZgvhFUiyFtD1Bk3r+ll+NhkrYtsG19cQ6ikdyJbQOMCerNBshx69/LrbAXQPOKxibqPqmNP+3h83vzv/WA879UpgECgS+zB4lZbmtirAhCbxN8lSQjUoSJj2dah0FbYHV8i1Qmt22NyMXDAAREHmMq6CYmq89095B+G8tDammD+4JGBhRjwLAhRPiF5hNiABzTgAcLsLVs+lg9rbZNl/Drm4gxeumyt2zho3EaBrIaBPnuwKL+BquLYg80=
 
-matrix:
+  matrix:
   include:
   - name: Android Build
-    # if: branch = master
     language: android
     jdk: openjdk8
     android:
       components:
       - build-tools-28.0.3
       - android-28
-    before_install:        
-      - yes | sdkmanager --update
+    before_install:
+    - yes | sdkmanager --update
     before_script:
-    - echo $password | gpg2 --passphrase-fd 0 secrets.tar.gpg
+    - openssl aes-256-cbc -k "$travis_password" -in secrets.tar.enc -out secrets.tar -d
     - tar xvf secrets.tar
     - git clone https://github.com/flutter/flutter.git -b beta
     - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
@@ -24,4 +23,3 @@ matrix:
     - flutter packages get
     - flutter test
     - flutter build apk
-    # - cd android && bundle exec fastlane beta

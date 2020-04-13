@@ -15,7 +15,7 @@ matrix:
     before_install:        
       - yes | sdkmanager --update
     before_script:
-    - echo $password | gpg --passphrase-fd 0 secrets.tar.gpg
+    - echo $password | gpg2 --passphrase-fd 0 secrets.tar.gpg
     - tar xvf secrets.tar
     - git clone https://github.com/flutter/flutter.git -b beta
     - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH

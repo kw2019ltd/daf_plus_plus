@@ -2,7 +2,6 @@ import 'package:hive/hive.dart';
 
 import 'package:daf_plus_plus/consts/hive.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
-import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:daf_plus_plus/models/progress.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 
@@ -46,10 +45,9 @@ class ProgressBox {
   Map<String, ProgressModel> getProgressMap() {
     Box progressBox = Hive.box(HiveConsts.PROGRESS_BOX);
     Map<String, ProgressModel> progressMap = {};
-    MasechetsData.THE_MASECHETS.forEach((MasechetModel masechet) {
-      String progress = progressBox.get(masechet.id);
-      progressMap[masechet.id] =
-          ProgressModel.fromString(progress, masechet.id);
+    MasechetsData.THE_MASECHETS.keys.forEach((String masechetId) {
+      String progress = progressBox.get(masechetId);
+      progressMap[masechetId] = ProgressModel.fromString(progress, masechetId);
     });
     return progressMap;
   }

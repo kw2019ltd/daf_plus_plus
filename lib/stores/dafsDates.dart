@@ -11,7 +11,7 @@ class DafsDatesStore {
   void _getMasechetDates() {
     Map<String, List<DateTime>> masechetsDates = {};
     DateTime nextDate = DateTime.parse(Consts.DAF_YOMI_START_DATE);
-    MasechetsData.THE_MASECHETS.forEach((MasechetModel masechet) {
+    MasechetsData.THE_MASECHETS.values.forEach((MasechetModel masechet) {
       masechetsDates[masechet.id] = List.generate(
         masechet.numOfDafs,
         ((int dafIndex) => nextDate.add(Duration(days: dafIndex))),

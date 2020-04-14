@@ -18,6 +18,5 @@ class MasechetModel {
   final ProgressModel progress;
 
   factory MasechetModel.byMasechetId(String masechetId) =>
-      MasechetsData.THE_MASECHETS
-          .firstWhere((MasechetModel masechet) => masechet.id == masechetId);
+      MasechetsData.THE_MASECHETS[masechetId];
 }

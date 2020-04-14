@@ -17,18 +17,16 @@ abstract class _ProgressStore with Store {
 
   @action
   void setProgress(String masechetId, ProgressModel progress) {
-    _progressMap[masechetId] = progress;
+    _progressMap.remove(masechetId);
+    _progressMap.putIfAbsent(masechetId, () => progress);
   }
-
-  @action
-  ProgressModel getProgress(String masechetId) =>
-      _progressMap[masechetId] ?? ProgressModel.fromString(null, masechetId);
 
   @action
   void setProgressMap(Map<String, ProgressModel> progressMap) {
-    _progressMap = ObservableMap<String, ProgressModel>.linkedHashMapFrom(progressMap);
+    _progressMap =
+        ObservableMap<String, ProgressModel>.linkedHashMapFrom(progressMap);
   }
 
-  @action
-  Map<String, ProgressModel> getProgressMap() => _progressMap;
+  @computed
+  ObservableMap<String, ProgressModel> get getProgressMap => _progressMap;
 }

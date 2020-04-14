@@ -9,6 +9,15 @@ part of 'progress.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ProgressStore on _ProgressStore, Store {
+  Computed<ObservableMap<String, ProgressModel>> _$getProgressMapComputed;
+
+  @override
+  ObservableMap<String, ProgressModel> get getProgressMap =>
+      (_$getProgressMapComputed ??=
+              Computed<ObservableMap<String, ProgressModel>>(
+                  () => super.getProgressMap))
+          .value;
+
   final _$_progressMapAtom = Atom(name: '_ProgressStore._progressMap');
 
   @override
@@ -40,10 +49,10 @@ mixin _$ProgressStore on _ProgressStore, Store {
   }
 
   @override
-  ProgressModel getProgress(String masechetId) {
+  void setProgressMap(Map<String, ProgressModel> progressMap) {
     final _$actionInfo = _$_ProgressStoreActionController.startAction();
     try {
-      return super.getProgress(masechetId);
+      return super.setProgressMap(progressMap);
     } finally {
       _$_ProgressStoreActionController.endAction(_$actionInfo);
     }
@@ -51,7 +60,7 @@ mixin _$ProgressStore on _ProgressStore, Store {
 
   @override
   String toString() {
-    final string = '';
+    final string = 'getProgressMap: ${getProgressMap.toString()}';
     return '{$string}';
   }
 }

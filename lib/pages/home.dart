@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:provider/provider.dart';
-
-import 'package:daf_plus_plus/data/masechets.dart';
-import 'package:daf_plus_plus/models/progress.dart';
-import 'package:daf_plus_plus/models/masechet.dart';
-import 'package:daf_plus_plus/stores/progress.dart';
 import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/dialogs/FirstUseDialogLanguage.dart';
 import 'package:daf_plus_plus/dialogs/userSettings.dart';
@@ -29,24 +23,14 @@ class _HomePageState extends State<HomePage> {
   Future<void> _loadProgress() async {
     await hiveService.settings.open();
     await hiveService.progress.open();
-    // final ProgressStore progressStore =
-    //     Provider.of<ProgressStore>(context, listen: false);
-    // MasechetsData.THE_MASECHETS.forEach((MasechetModel masechet) {
-    //   ProgressModel progress =
-    //       hiveService.progress.getMasechetProgress(masechet.id);
-    //   progressStore.setProgress(masechet.id, progress);
-    // });
     setState(() => _areBoxesOpen = true);
   }
 
   Future<bool> _exitApp() async {
-    // await progressAction.localToRomote();
     return Future.value(true);
   }
 
   bool isFirstRun() {
-    // uncomment for testing
-    //hiveService.settings.setHasOpened(false);
     return !hiveService.settings.getHasOpened();
   }
 
@@ -69,7 +53,6 @@ class _HomePageState extends State<HomePage> {
     _listenToIsDafYomiUpdate();
     SchedulerBinding.instance.addPostFrameCallback((_) {});
     progressAction.localToStore(context);
-    // progressAction.localToRomote();
   }
 
   void _openUserSettings(BuildContext context) {
@@ -97,9 +80,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // SchedulerBinding.instance.addPostFrameCallback((_) {
     _loadApp();
-    // });
   }
 
   @override
@@ -111,7 +92,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // _loadProgress();
     return DefaultTabController(
       length: _tabs.length,
       child: WillPopScope(

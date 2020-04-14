@@ -28,9 +28,7 @@ class FirstUseDialogTwo extends StatelessWidget {
   _fillIn(BuildContext context) {
     DafModel todaysDaf =
     dafsDatesStore.getDafByDate(dateConverterUtil.getToday());
-    int mesechta = MasechetsData.THE_MASECHETS
-        .firstWhere((element) => element.id == todaysDaf.masechetId)
-        .index;
+    int mesechta = MasechetsData.THE_MASECHETS[todaysDaf.masechetId].index;
     if (mesechta > 0) {
       for (int i = 0; i < mesechta; i++) {
         MasechetModel masechet = MasechetsData.THE_MASECHETS[i];

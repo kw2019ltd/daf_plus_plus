@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:daf_plus_plus/consts/consts.dart';
-import 'package:daf_plus_plus/models/dafLocation.dart';
+import 'package:daf_plus_plus/models/daf.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/stores/dafsDates.dart';
 import 'package:daf_plus_plus/utils/dateConverter.dart';
@@ -159,10 +159,10 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
   String _getTodaysDaf() {
     DateTime today =
     dateConverterUtil.getToday();
-    DafLocationModel todaysDaf = dafsDatesStore.getDafByDate(today);
+    DafModel todaysDaf = dafsDatesStore.getDafByDate(today);
 
     String masechet = localizationUtil.translate(todaysDaf.masechetId);
-    String daf = _getDafNumber(todaysDaf.dafIndex);
+    String daf = _getDafNumber(todaysDaf.number);
     return masechet + " " + daf;
   }
 

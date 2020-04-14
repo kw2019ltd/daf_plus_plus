@@ -4,14 +4,14 @@ import 'package:daf_plus_plus/stores/dafsDates.dart';
 import 'package:daf_plus_plus/utils/dateConverter.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
-import 'package:daf_plus_plus/models/dafLocation.dart';
+import 'package:daf_plus_plus/models/daf.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:daf_plus_plus/widgets/shared/masechetChildren.dart';
 import 'package:daf_plus_plus/widgets/core/sectionHeader.dart';
 
 class DafYomiPage extends StatelessWidget {
   Widget _openList(BuildContext context, MasechetModel masechet,
-      DafLocationModel dafLocation) {
+      DafModel daf) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -23,7 +23,7 @@ class DafYomiPage extends StatelessWidget {
         Expanded(
           child: MasechetChildrenWidget(
             masechet: masechet,
-            lastDafIndex: dafLocation.dafIndex,
+            lastDafIndex: daf.number,
             hasPadding:true,
           ),
         ),
@@ -34,10 +34,10 @@ class DafYomiPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime today = dateConverterUtil.getToday();
-    DafLocationModel dafLocation = dafsDatesStore.getDafByDate(today);
+    DafModel daf = dafsDatesStore.getDafByDate(today);
     MasechetModel masechet = MasechetsData.THE_MASECHETS.firstWhere(
-        (MasechetModel masechet) => masechet.id == dafLocation.masechetId);
+        (MasechetModel masechet) => masechet.id == daf.masechetId);
 
-    return _openList(context, masechet, dafLocation);
+    return _openList(context, masechet, daf);
   }
 }

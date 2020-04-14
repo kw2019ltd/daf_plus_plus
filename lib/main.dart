@@ -1,3 +1,4 @@
+import 'package:daf_plus_plus/stores/progress.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -7,6 +8,7 @@ import 'package:daf_plus_plus/consts/consts.dart';
 import 'package:daf_plus_plus/utils/theme.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/pages/home.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   Crashlytics.instance.enableInDevMode = false;
@@ -44,7 +46,10 @@ class _MyAppState extends State<MyApp> {
       ],
       supportedLocales: Consts.LOCALES,
       locale: _locale,
-      home: HomePage(),
+      home: Provider<ProgressStore>(
+        create: (_) => ProgressStore(),
+        child: HomePage(),
+      ),
       theme: themeUtil.getTheme(context),
     );
   }

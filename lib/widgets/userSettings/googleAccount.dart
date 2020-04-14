@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import 'package:daf_plus_plus/actions/progress.dart';
-import 'package:daf_plus_plus/consts/responses.dart';
-import 'package:daf_plus_plus/models/Response.dart';
+// import 'package:daf_plus_plus/actions/progress.dart';
+// import 'package:daf_plus_plus/consts/responses.dart';
+// import 'package:daf_plus_plus/models/Response.dart';
 import 'package:daf_plus_plus/services/auth.dart';
-import 'package:daf_plus_plus/services/firestore/index.dart';
-import 'package:daf_plus_plus/services/hive/index.dart';
+// import 'package:daf_plus_plus/services/firestore/index.dart';
+// import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
-import 'package:daf_plus_plus/utils/toast.dart';
-import 'package:daf_plus_plus/utils/transparentRoute.dart';
+// import 'package:daf_plus_plus/utils/toast.dart';
+// import 'package:daf_plus_plus/utils/transparentRoute.dart';
 import 'package:daf_plus_plus/widgets/core/button.dart';
-import 'package:daf_plus_plus/widgets/core/questionDialog.dart';
+// import 'package:daf_plus_plus/widgets/core/questionDialog.dart';
 
 class GoogleAccountWidget extends StatefulWidget {
   @override
@@ -21,58 +21,58 @@ class _GoogleAccountWidgetState extends State<GoogleAccountWidget> {
   bool _isAuthed = false;
   bool _connectionLoading = false;
 
-  Future<bool> _getProgress() async {
-    ResponseModel progressResponse =
-        await firestoreService.progress.getProgress();
-    if (progressResponse.isSuccessful())
-      return _existingUserBackup();
-    else if (progressResponse.code == ResponsesConst.DOCUMENT_NOT_FOUND.code)
-      return progressAction.backup();
-    else
-      return false;
-  }
+  // Future<bool> _getProgress() async {
+  //   ResponseModel progressResponse =
+  //       await firestoreService.progress.getAllProgress();
+  //   if (progressResponse.isSuccessful())
+  //     return _existingUserBackup();
+  //   else if (progressResponse.code == ResponsesConst.DOCUMENT_NOT_FOUND.code)
+  //     return progressAction.();
+  //   else
+  //     return false;
+  // }
 
-  Future<bool> _existingUserBackup() async {
-    DateTime lastUpdated = hiveService.settings.getLastUpdated();
-    if (lastUpdated == null) return progressAction.restore();
-    bool restore = await Navigator.of(context).push(
-      TransparentRoute(
-        builder: (BuildContext context) => QuestionDialogWidget(
-          title: localizationUtil.translate('worning_title'),
-          text: localizationUtil.translate('backup_worning_text'),
-          trueActionText: localizationUtil.translate('use_backup_button'),
-          falseActionText: localizationUtil.translate('delete_backup_button'),
-        ),
-      ),
-    );
-    if (restore) return progressAction.restore();
-    return progressAction.backup();
-  }
+  // Future<bool> _existingUserBackup() async {
+  //   DateTime lastUpdated = hiveService.settings.getLastUpdated();
+  //   if (lastUpdated == null) return progressAction.restore();
+  //   bool restore = await Navigator.of(context).push(
+  //     TransparentRoute(
+  //       builder: (BuildContext context) => QuestionDialogWidget(
+  //         title: localizationUtil.translate('worning_title'),
+  //         text: localizationUtil.translate('backup_worning_text'),
+  //         trueActionText: localizationUtil.translate('use_backup_button'),
+  //         falseActionText: localizationUtil.translate('delete_backup_button'),
+  //       ),
+  //     ),
+  //   );
+  //   if (restore) return progressAction.restore();
+  //   return progressAction.backup();
+  // }
 
-  void _onConnectGoogleAccount() async {
-    setState(() => _connectionLoading = true);
-    String userId = await authService.loginWithGoogle();
-    if (userId == null) {
-      setState(() => _connectionLoading = false);
-      toastUtil.showInformation(
-          localizationUtil.translate('toast_fail_connect_account'));
-      return;
-    }
-    await _getAuthedState();
-    await _getProgress();
-    toastUtil.showInformation(
-        localizationUtil.translate('toast_success_connect_account'));
-    setState(() => _connectionLoading = false);
-  }
+  // void _onConnectGoogleAccount() async {
+  //   setState(() => _connectionLoading = true);
+  //   String userId = await authService.loginWithGoogle();
+  //   if (userId == null) {
+  //     setState(() => _connectionLoading = false);
+  //     toastUtil.showInformation(
+  //         localizationUtil.translate('toast_fail_connect_account'));
+  //     return;
+  //   }
+  //   await _getAuthedState();
+  //   await _getProgress();
+  //   toastUtil.showInformation(
+  //       localizationUtil.translate('toast_success_connect_account'));
+  //   setState(() => _connectionLoading = false);
+  // }
 
-  void _onDisconnectGoogleAcount() async {
-    setState(() => _connectionLoading = true);
-    await authService.signOut();
-    await _getAuthedState();
-    toastUtil.showInformation(
-        localizationUtil.translate('toast_success_disconnect_account'));
-    setState(() => _connectionLoading = false);
-  }
+  // void _onDisconnectGoogleAcount() async {
+  //   setState(() => _connectionLoading = true);
+  //   await authService.signOut();
+  //   await _getAuthedState();
+  //   toastUtil.showInformation(
+  //       localizationUtil.translate('toast_success_disconnect_account'));
+  //   setState(() => _connectionLoading = false);
+  // }
 
   Future<void> _getAuthedState() async {
     setState(() => _connectionLoading = true);
@@ -102,7 +102,8 @@ class _GoogleAccountWidgetState extends State<GoogleAccountWidget> {
           color: Theme.of(context).primaryColor,
           loading: _connectionLoading,
           disabled: _connectionLoading,
-          onPressed: _onConnectGoogleAccount,
+          // onPressed: _onConnectGoogleAccount,
+          onPressed: () {},
         ),
       ),
     );
@@ -119,7 +120,8 @@ class _GoogleAccountWidgetState extends State<GoogleAccountWidget> {
           color: Theme.of(context).primaryColor,
           loading: _connectionLoading,
           disabled: _connectionLoading,
-          onPressed: _onDisconnectGoogleAcount,
+          // onPressed: _onDisconnectGoogleAcount,
+          onPressed: () {},
         ),
       ),
     );

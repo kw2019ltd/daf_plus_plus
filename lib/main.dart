@@ -1,3 +1,4 @@
+import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/stores/progress.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,7 +16,8 @@ void main() async {
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   await hiveService.initHive();
   await localizationUtil.init();
-  runApp(MyApp());
+  runApp(
+      Provider<ProgressStore>(create: (_) => ProgressStore(), child: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -33,6 +35,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    progressAction.setProgressContext(context);
     localizationUtil.onLocaleChangedCallback = _onLocaleChanged;
   }
 
@@ -46,10 +49,7 @@ class _MyAppState extends State<MyApp> {
       ],
       supportedLocales: Consts.LOCALES,
       locale: _locale,
-      home: Provider<ProgressStore>(
-        create: (_) => ProgressStore(),
-        child: SplashPage(),
-      ),
+      home: SplashPage(),
       theme: themeUtil.getTheme(context),
     );
   }

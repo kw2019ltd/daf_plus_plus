@@ -50,7 +50,6 @@ class _HomePageState extends State<HomePage> {
     }
     _updateTabs(hiveService.settings.getIsDafYomi());
     _listenToIsDafYomiUpdate();
-    progressAction.setProgressContext(context);
     progressAction.localToStore();
   }
 

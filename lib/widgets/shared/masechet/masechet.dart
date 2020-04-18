@@ -65,8 +65,9 @@ class _MasechetWidgetState extends State<MasechetWidget> {
 
   @override
   Widget build(BuildContext context) {
+    BuildContext progressContext = progressAction.getProgressContext();
     return Observer(builder: (context) {
-      ProgressStore progressStore = Provider.of<ProgressStore>(context);
+      ProgressStore progressStore = Provider.of<ProgressStore>(progressContext);
       ProgressModel progress = progressStore.getProgressMap[widget.masechetId];
       MasechetModel masechet = MasechetsData.THE_MASECHETS[widget.masechetId];
       return SliverStickyHeader(

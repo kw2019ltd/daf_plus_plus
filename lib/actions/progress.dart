@@ -11,6 +11,7 @@ class ProgressAction {
   BuildContext _progressContext;
 
   void setProgressContext(BuildContext progressContext) => _progressContext = progressContext;
+  BuildContext getProgressContext() => _progressContext;
 
   /// return the progress store object
   ProgressStore _getProgressStore([bool listen = false]) =>

@@ -1,6 +1,6 @@
 import 'package:daf_plus_plus/consts/consts.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
-import 'package:daf_plus_plus/models/dafLocation.dart';
+import 'package:daf_plus_plus/models/daf.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
 
 class DafsDatesStore {
@@ -11,7 +11,7 @@ class DafsDatesStore {
   void _getMasechetDates() {
     Map<String, List<DateTime>> masechetsDates = {};
     DateTime nextDate = DateTime.parse(Consts.DAF_YOMI_START_DATE);
-    MasechetsData.THE_MASECHETS.forEach((MasechetModel masechet) {
+    MasechetsData.THE_MASECHETS.values.forEach((MasechetModel masechet) {
       masechetsDates[masechet.id] = List.generate(
         masechet.numOfDafs,
         ((int dafIndex) => nextDate.add(Duration(days: dafIndex))),
@@ -25,19 +25,19 @@ class DafsDatesStore {
     if (_masechetsDates.length < 1) _getMasechetDates();
   }
 
-  DateTime getDateByDaf(DafLocationModel daf) {
+  DateTime getDateByDaf(DafModel daf) {
     _checkLoadedDates();
-    return _masechetsDates[daf.masechetId][daf.dafIndex];
+    return _masechetsDates[daf.masechetId][daf.number];
   }
 
-  DafLocationModel getDafByDate(DateTime date) {
+  DafModel getDafByDate(DateTime date) {
     _checkLoadedDates();
     // TODO: return error if no matching date
-    DafLocationModel dafLocation = DafLocationModel();
+    DafModel dafLocation = DafModel();
     _masechetsDates.forEach((String masechetId, List<DateTime> dates) {
       if (dates.contains(date)) {
-        dafLocation = DafLocationModel(
-            masechetId: masechetId, dafIndex: dates.indexOf(date));
+        dafLocation = DafModel(
+            masechetId: masechetId, number: dates.indexOf(date));
       }
     });
     return dafLocation;

@@ -1,7 +1,7 @@
 import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/consts/consts.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
-import 'package:daf_plus_plus/dialogs/FirstUseDialogFillIn.dart';
+import 'package:daf_plus_plus/dialogs/firstUseDialogFillIn.dart';
 import 'package:daf_plus_plus/models/daf.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:daf_plus_plus/models/progress.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:daf_plus_plus/actions/progress.dart';
-import 'package:daf_plus_plus/dialogs/FirstUseDialogLanguage.dart';
+import 'package:daf_plus_plus/dialogs/firstUseDialogLanguage.dart';
 import 'package:daf_plus_plus/dialogs/userSettings.dart';
 import 'package:daf_plus_plus/pages/allShas.dart';
 import 'package:daf_plus_plus/pages/dafYomi.dart';

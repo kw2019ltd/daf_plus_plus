@@ -9,7 +9,7 @@ import 'package:daf_plus_plus/pages/todaysDaf.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/utils/transparentRoute.dart';
-import 'package:daf_plus_plus/widgets/dafYomiFab.dart';
+import 'package:daf_plus_plus/widgets/home/dafYomiFab.dart';
 
 class HomePage extends StatefulWidget {
   @override

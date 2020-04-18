@@ -1,8 +1,7 @@
+import 'package:daf_plus_plus/models/progress.dart';
 import 'package:flutter/material.dart';
 
-import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
-import 'package:daf_plus_plus/utils/masechetConverter.dart';
 import 'package:daf_plus_plus/widgets/core/button.dart';
 import 'package:daf_plus_plus/widgets/core/dialog.dart';
 import 'package:daf_plus_plus/widgets/core/title.dart';
@@ -14,15 +13,15 @@ class MasechetOptionsDialog extends StatelessWidget {
   });
 
   final String masechetId;
-  final List<int> progress;
+  final ProgressModel progress;
 
   _learnMasechet(BuildContext context) {
     // TODO: this is probably the worst code i have written in this project.
     // but this needs to change to a counter and not a bool...
-    String progress =
-        masechetConverterUtil.encode(this.progress.map((daf) => 1).toList());
-    progressAction.update(masechetId, progress);
-    Navigator.pop(context);
+    // String progress =
+    //     masechetConverterUtil.encode(this.progress.map((daf) => 1).toList());
+    // progressAction.updateMasechetProgress(context, masechetProgress);
+    // Navigator.pop(context);
   }
 
   @override

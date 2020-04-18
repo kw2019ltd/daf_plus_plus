@@ -8,8 +8,8 @@ class ThemeUtil {
       // colors
       brightness: Brightness.light,
       primaryColor: Colors.indigo[500],
-      accentColor: Colors.teal[200],
-      backgroundColor: Colors.teal[50],
+      accentColor: Colors.blueGrey[700],
+      backgroundColor: Colors.blueGrey[50],
 
       // typography
       textTheme: GoogleFonts.alefTextTheme(

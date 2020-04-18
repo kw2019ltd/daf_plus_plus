@@ -1,11 +1,11 @@
 import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
+import 'package:daf_plus_plus/models/progress.dart';
 import 'package:daf_plus_plus/pages/home.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
-import 'package:daf_plus_plus/utils/masechetConverter.dart';
-import 'package:daf_plus_plus/widgets/SimpleMesechetWidget.dart';
+import 'package:daf_plus_plus/widgets/shared/simpleMesechetWidget.dart';
 import 'package:daf_plus_plus/widgets/core/button.dart';
 import 'package:daf_plus_plus/widgets/core/dialog.dart';
 import 'package:flutter/material.dart';
@@ -26,14 +26,12 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
     });
   }
 
-  _done(BuildContext context) {
+  _done() {
     for (int i = 0; i < _progress.length; i++) {
       if (_progress[i]) {
-        MasechetModel masechetModel = MasechetsData.THE_MASECHETS[i];
-        List<int> progressMap = List.filled(masechetModel.numOfDafs, 1);
-        String progressString =
-        masechetConverterUtil.encode(progressMap.map((daf) => 1).toList());
-        progressAction.update(masechetModel.id, progressString);
+        MasechetModel masechet = MasechetsData.THE_MASECHETS[i];
+        ProgressModel progress = ProgressModel(data: List.filled(masechet.numOfDafs, 1));
+        progressAction.update(masechet.id, progress);
       }
     }
 
@@ -91,7 +89,7 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
                   text: localizationUtil.translate("done"),
                   buttonType: ButtonType.Outline,
                   color: Theme.of(context).primaryColor,
-                  onPressed: () => _done(context),
+                  onPressed: _done,
                 ),
               ),
             ]),

@@ -25,6 +25,7 @@
   "settings_backuped_text": "Your data is backed up",
   "settings_lang_text": "Change a language",
   "settings_reset_text": "Ready to start from the beginning?",
+  "settings_reset_worning_text": "Are you sure you want to delete everything? This can NOT be undone.",
   "welcome": "Welcome to Daf++",
   "set_reminder": "Set a time to be reminded to learn the daf every day",
   "set": "Set",
@@ -51,6 +52,9 @@
   "english_months": ["January","February","March","April","May","June","July","August","September","October","November","December"],
   "display_hebrew_dates_as_gematria": false,
   "display_dapim_as_gematria": false,
+
+  "about_us": ["This open source project was created by developers from CAPSLOCK.", "Any contribution would be welcomed on ", "GitHub", "."],
+
   "brachos": "brachos",
   "shabbos": "shabbos",
   "eruvin": "eruvin",

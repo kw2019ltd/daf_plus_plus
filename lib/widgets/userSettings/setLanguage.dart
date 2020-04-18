@@ -41,7 +41,6 @@ class _SetLanguageWidgetState extends State<SetLanguageWidget> {
         title: Text(localizationUtil.translate('settings_lang_text')),
         trailing: DropdownButton<String>(
           value: _currentLanguage,
-          style: TextStyle(color: Colors.deepPurple),
           underline: Container(
             height: 2,
             color: Theme.of(context).primaryColor,

@@ -1,61 +1,47 @@
-import 'package:daf_plus_plus/consts/consts.dart';
-import 'package:daf_plus_plus/consts/firestore.dart';
-import 'package:daf_plus_plus/models/Response.dart';
-import 'package:daf_plus_plus/models/dafLocation.dart';
-import 'package:daf_plus_plus/services/firestore/index.dart';
+import 'package:daf_plus_plus/models/progress.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/stores/actionCounter.dart';
+import 'package:daf_plus_plus/stores/progress.dart';
 
 class ProgressAction {
-  Future<bool> backup() async {
-    // TODO: make this all a batch action
-    // TODO: return other a response model
-    hiveService.settings.setLastUpdatedNow();
-    Map<String, String> progress = hiveService.progress.getAllProgress();
-    DafLocationModel lastDaf =
-        hiveService.settings.getLastDaf() ?? DafLocationModel.empty();
-    DateTime lastUpdated = hiveService.settings.getLastUpdated();
-    // TODO: could wait for both together
-    await firestoreService.progress.setProgress(progress);
-    await firestoreService.settings.updateSettings({
-      FirestoreConsts.LAST_DAF: lastDaf.toString(),
-      FirestoreConsts.LAST_UPDATED: lastUpdated,
-    });
-    return true;
-  }
 
-  Future<bool> restore() async {
-    // TODO: return other a response model
-    // TODO: make this all a batch action
-    // TODO: could wait for both together
-    ResponseModel settingsResponse =
-        await firestoreService.settings.getSettings();
-    if (!settingsResponse.isSuccessful()) return false;
-    ResponseModel progressResponse =
-        await firestoreService.progress.getProgress();
-    if (!progressResponse.isSuccessful()) return false;
-    Map<String, dynamic> settings = settingsResponse.data;
-    Map<String, String> progress = progressResponse.data.map(
-        (String masechetId, dynamic progress) =>
-            MapEntry(masechetId, progress));
+  BuildContext _progressContext;
 
-    hiveService.settings.setLastDaf(
-        DafLocationModel.fromString(settings[FirestoreConsts.LAST_DAF]));
-    hiveService.settings
-        .setLastUpdated(settings[FirestoreConsts.LAST_UPDATED].toDate());
-    hiveService.progress.setAllProgress(progress);
-    return true;
-  }
+  void setProgressContext(BuildContext progressContext) => _progressContext = progressContext;
 
-  void update(String masechetId, String encodedProgress,
+  /// return the progress store object
+  ProgressStore _getProgressStore([bool listen = false]) =>
+      Provider.of<ProgressStore>(_progressContext, listen: listen);
+
+  void update(String masechetId, ProgressModel progress,
       [int incrementCounterBy = 1, bool checkCounter = true]) {
+    ProgressStore progressStore = _getProgressStore();
     actionCounterStore.increment(incrementCounterBy);
-    hiveService.progress.setMasechetProgress(masechetId, encodedProgress);
-    if (actionCounterStore.numberOfActions >=
-        Consts.PROGRESS_BACKUP_THRESHOLD) {
-      backup();
-      actionCounterStore.clear();
-    }
+    hiveService.progress.setProgress(masechetId, progress);
+    progressStore.setProgress(masechetId, progress);
+  }
+
+  void updateAll(Map<String, ProgressModel> progressMap,
+      [int incrementCounterBy = 1, bool checkCounter = true]) {
+    ProgressStore progressStore = _getProgressStore();
+    actionCounterStore.increment(incrementCounterBy);
+    hiveService.progress.setProgressMap(progressMap);
+    progressStore.setProgressMap(progressMap);
+  }
+
+  ProgressModel get(String masechetId) {
+    ProgressStore progressStore = _getProgressStore();
+    return progressStore.getProgressMap[masechetId];
+  }
+
+  void localToStore() {
+    ProgressStore progressStore = _getProgressStore();
+    Map<String, ProgressModel> progressMap =
+        hiveService.progress.getProgressMap();
+    progressStore.setProgressMap(progressMap);
   }
 }
 

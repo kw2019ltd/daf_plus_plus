@@ -1,15 +1,14 @@
 import 'package:daf_plus_plus/widgets/home/appBar.dart';
 import 'package:flutter/material.dart';
-
 import 'package:daf_plus_plus/actions/progress.dart';
-import 'package:daf_plus_plus/dialogs/FirstUseDialogLanguage.dart';
+import 'package:daf_plus_plus/dialogs/firstUseDialogLanguage.dart';
 import 'package:daf_plus_plus/pages/allShas.dart';
 import 'package:daf_plus_plus/pages/dafYomi.dart';
 import 'package:daf_plus_plus/pages/todaysDaf.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/utils/transparentRoute.dart';
-import 'package:daf_plus_plus/widgets/dafYomiFab.dart';
+import 'package:daf_plus_plus/widgets/home/dafYomiFab.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -20,20 +19,17 @@ class _HomePageState extends State<HomePage> {
   bool _areBoxesOpen = false;
   Map<String, Widget> _tabs = {};
 
-  Future<void> _openBoxes() async {
+  Future<void> _loadProgress() async {
     await hiveService.settings.open();
     await hiveService.progress.open();
     setState(() => _areBoxesOpen = true);
   }
 
   Future<bool> _exitApp() async {
-    await progressAction.backup();
     return Future.value(true);
   }
 
   bool isFirstRun() {
-    // uncomment for testing
-    //hiveService.settings.setHasOpened(false);
     return !hiveService.settings.getHasOpened();
   }
 
@@ -48,13 +44,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _loadApp() async {
-    await _openBoxes();
+    await _loadProgress();
     if (isFirstRun()) {
       loadFirstRun();
     }
     _updateTabs(hiveService.settings.getIsDafYomi());
     _listenToIsDafYomiUpdate();
-    progressAction.backup();
+    progressAction.setProgressContext(context);
+    progressAction.localToStore();
   }
 
   void _listenToIsDafYomiUpdate() {

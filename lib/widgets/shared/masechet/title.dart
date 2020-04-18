@@ -1,39 +1,36 @@
 import 'dart:math';
 
+import 'package:daf_plus_plus/models/progress.dart';
 import 'package:flutter/material.dart';
 
-import 'package:daf_plus_plus/dialogs/masechetOptions.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
-import 'package:daf_plus_plus/utils/masechetConverter.dart';
-import 'package:daf_plus_plus/utils/transparentRoute.dart';
 
-class MasechetWidget extends StatelessWidget {
-  MasechetWidget({
+class MasechetTitleWidget extends StatelessWidget {
+  MasechetTitleWidget({
     @required this.masechet,
+    @required this.progress,
     @required this.isExpanded,
     @required this.onChangeExpanded,
-    @required this.progress,
   });
 
   final MasechetModel masechet;
+  final ProgressModel progress;
   final bool isExpanded;
   final Function(bool) onChangeExpanded;
-  final List<int> progress;
 
   void _changeExpandedState() {
     this.onChangeExpanded(!this.isExpanded);
   }
 
   void _openMasechetOptions(BuildContext context) {
-    Navigator.of(context).push(
-      TransparentRoute(
-        builder: (BuildContext context) => MasechetOptionsDialog(
-          masechetId: this.masechet.id,
-          progress: this.progress,
-        ),
-      ),
-    );
+    // Navigator.of(context).push(
+    //   TransparentRoute(
+    //     builder: (BuildContext context) => MasechetOptionsDialog(
+    //       masechetId: this.masechet.id,
+    //     ),
+    //   ),
+    // );
   }
 
   @override
@@ -66,10 +63,11 @@ class MasechetWidget extends StatelessWidget {
                       localizationUtil.translate(this.masechet.id))),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                    masechetConverterUtil.countDone(progress).toString() +
-                        "/" +
-                        progress.length.toString()),
+                child: Text(""
+                    // progress.countDone().toString() +
+                    //     "/" +
+                    //     progress.data.length.toString()
+                        ),
               ),
             ],
           ),

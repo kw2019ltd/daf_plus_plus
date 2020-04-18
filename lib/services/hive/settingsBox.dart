@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 
 import 'package:daf_plus_plus/consts/hive.dart';
-import 'package:daf_plus_plus/models/dafLocation.dart';
+import 'package:daf_plus_plus/models/daf.dart';
 
 class SettingsBox {
   Future<void> open() async {
@@ -23,9 +23,9 @@ class SettingsBox {
   }
 
   // last daf
-  DafLocationModel getLastDaf() =>
-      DafLocationModel.fromString(_getByKey(HiveConsts.LAST_DAF));
-  void setLastDaf(DafLocationModel lastDaf) {
+  DafModel getLastDaf() =>
+      DafModel.fromString(_getByKey(HiveConsts.LAST_DAF));
+  void setLastDaf(DafModel lastDaf) {
     _setByKey(HiveConsts.LAST_DAF, lastDaf.toString());
     setLastUpdatedNow();
   }

@@ -1,14 +1,12 @@
+import 'package:daf_plus_plus/models/progress.dart';
 import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/actions/progress.dart';
-import 'package:daf_plus_plus/data/masechets.dart';
-import 'package:daf_plus_plus/models/dafLocation.dart';
-import 'package:daf_plus_plus/models/masechet.dart';
+import 'package:daf_plus_plus/models/daf.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/stores/dafsDates.dart';
 import 'package:daf_plus_plus/utils/dateConverter.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
-import 'package:daf_plus_plus/utils/masechetConverter.dart';
 import 'package:daf_plus_plus/utils/toast.dart';
 import 'package:daf_plus_plus/utils/transparentRoute.dart';
 import 'package:daf_plus_plus/widgets/core/infoDialog.dart';
@@ -21,7 +19,7 @@ import 'package:daf_plus_plus/widgets/core/infoDialog.dart';
 // 5. if not doing the daf yomi, dont show
 
 class DafYomiFabWidget extends StatelessWidget {
-  DafLocationModel _getTodaysDaf() {
+  DafModel _getTodaysDaf() {
     return dafsDatesStore.getDafByDate(dateConverterUtil.getToday());
   }
 
@@ -38,26 +36,22 @@ class DafYomiFabWidget extends StatelessWidget {
   }
 
   // TODO: the next two functions are from masechetCHildren.dart, it should be in one place only.
-  List<int> _generateNewProgress(String masechetId) => List.filled(
-      MasechetsData.THE_MASECHETS
-          .firstWhere((MasechetModel masechet) => masechet.id == masechetId)
-          .numOfDafs,
-      0);
+  // ProgressModel _generateNewProgress() => ProgressModel.empty(masechet.numOfDafs);
 
-  List<int> _getMasechetProgress(String masechetId) {
-    String encodedProgress =
-        hiveService.progress.getMasechetProgress(masechetId);
-    return encodedProgress != null
-        ? masechetConverterUtil.decode(encodedProgress)
-        : _generateNewProgress(masechetId);
+  ProgressModel _getMasechetProgress(String masechetId) {
+    ProgressModel progress =
+        hiveService.progress.getProgress(masechetId);
+    return progress;
+    // return encodedProgress != null
+    //     ? masechetConverterUtil.decode(encodedProgress)
+    //     : _generateNewProgress(masechetId);
   }
 
   void _learnedTodaysDaf() {
-    DafLocationModel todaysDaf = _getTodaysDaf();
-    List<int> progress = _getMasechetProgress(todaysDaf.masechetId);
-    progress[todaysDaf.dafIndex] = 1; // TODO: really not ideal.
-    String encodedProgress = masechetConverterUtil.encode(progress);
-    progressAction.update(todaysDaf.masechetId, encodedProgress);
+    DafModel todaysDaf = _getTodaysDaf();
+    ProgressModel progress = _getMasechetProgress(todaysDaf.masechetId);
+    progress.data[todaysDaf.number] = 1; // TODO: really not ideal.
+    progressAction.update(todaysDaf.masechetId, progress);
     hiveService.settings.setLastDaf(todaysDaf);
     toastUtil.showInformation(localizationUtil.translate('plus_plus_toast'));
   }

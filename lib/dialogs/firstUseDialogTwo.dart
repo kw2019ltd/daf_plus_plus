@@ -1,16 +1,16 @@
 import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/consts/consts.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
-import 'package:daf_plus_plus/dialogs/FirstUseDialogFillIn.dart';
-import 'package:daf_plus_plus/models/dafLocation.dart';
+import 'package:daf_plus_plus/dialogs/firstUseDialogFillIn.dart';
+import 'package:daf_plus_plus/models/daf.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
+import 'package:daf_plus_plus/models/progress.dart';
 import 'package:daf_plus_plus/pages/home.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/stores/dafsDates.dart';
 import 'package:daf_plus_plus/utils/dateConverter.dart';
 import 'package:daf_plus_plus/utils/gematriaConverter.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
-import 'package:daf_plus_plus/utils/masechetConverter.dart';
 import 'package:daf_plus_plus/utils/transparentRoute.dart';
 import 'package:daf_plus_plus/widgets/core/button.dart';
 import 'package:daf_plus_plus/widgets/core/dialog.dart';
@@ -26,28 +26,22 @@ class FirstUseDialogTwo extends StatelessWidget {
   }
 
   _fillIn() {
-    DafLocationModel todaysDaf =
+    DafModel todaysDaf =
     dafsDatesStore.getDafByDate(dateConverterUtil.getToday());
-    int mesechta = MasechetsData.THE_MASECHETS
-        .firstWhere((element) => element.id == todaysDaf.masechetId)
-        .index;
+    int mesechta = MasechetsData.THE_MASECHETS[todaysDaf.masechetId].index;
     if (mesechta > 0) {
       for (int i = 0; i < mesechta; i++) {
-        MasechetModel masechetModel = MasechetsData.THE_MASECHETS[i];
-        List<int> progressMap = List.filled(masechetModel.numOfDafs, 1);
-        String progressString =
-        masechetConverterUtil.encode(progressMap.map((daf) => 1).toList());
-        progressAction.update(masechetModel.id, progressString);
+        MasechetModel masechet = MasechetsData.THE_MASECHETS[i];
+        ProgressModel progress = ProgressModel(data: List.filled(masechet.numOfDafs, 1));
+        progressAction.update(masechet.id, progress);
       }
     }
-    MasechetModel currentMasechetModel = MasechetsData.THE_MASECHETS[mesechta];
-    List<int> dafMap = List.filled(currentMasechetModel.numOfDafs, 0);
-    for (int i = 0; i < todaysDaf.dafIndex; i++) {
-      dafMap[i] = 1;
+    MasechetModel currentMasechet = MasechetsData.THE_MASECHETS[mesechta];
+    ProgressModel progress = ProgressModel(data: List.filled(currentMasechet.numOfDafs, 0));
+    for (int i = 0; i < todaysDaf.number; i++) {
+      progress.data[i] = 1;
     }
-    String progressString =
-    masechetConverterUtil.encode(dafMap.map((daf) => daf).toList());
-    progressAction.update(currentMasechetModel.id, progressString);
+    progressAction.update(currentMasechet.id, progress);
   }
 
   _no(BuildContext context) {
@@ -69,10 +63,10 @@ class FirstUseDialogTwo extends StatelessWidget {
   String _getYesterdaysDaf() {
     DateTime yesterday =
     dateConverterUtil.getToday().subtract(Duration(days: 1));
-    DafLocationModel yesterdaysDaf = dafsDatesStore.getDafByDate(yesterday);
+    DafModel yesterdaysDaf = dafsDatesStore.getDafByDate(yesterday);
 
     String masechet = localizationUtil.translate(yesterdaysDaf.masechetId);
-    String daf = _getDafNumber(yesterdaysDaf.dafIndex);
+    String daf = _getDafNumber(yesterdaysDaf.number);
     return masechet + " " + daf;
   }
 

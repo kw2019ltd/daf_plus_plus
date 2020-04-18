@@ -1,4 +1,6 @@
 import 'package:daf_plus_plus/models/progress.dart';
+import 'package:daf_plus_plus/utils/transparentRoute.dart';
+import 'package:daf_plus_plus/widgets/core/questionDialog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/models/daf.dart';
@@ -13,6 +15,20 @@ class DeleteAllWidget extends StatefulWidget {
 
 class _DeleteAllWidgetState extends State<DeleteAllWidget> {
   bool _deleteAllLoading = false;
+
+    Future<bool> _comfirmFormatProgress() async {
+    bool shouldFormatProgress = await Navigator.of(context).push(
+      TransparentRoute(
+        builder: (BuildContext context) => QuestionDialogWidget(
+          title: localizationUtil.translate('worning_title'),
+          text: localizationUtil.translate('settings_reset_worning_text'),
+          trueActionText: localizationUtil.translate('yes'),
+          falseActionText: localizationUtil.translate('no'),
+        ),
+      ),
+    );
+    if (shouldFormatProgress) _formatProgress();
+  }
 
   void _formatProgress() {
     Map<String, ProgressModel> progressMap = hiveService.progress.getProgressMap();
@@ -36,7 +52,7 @@ class _DeleteAllWidgetState extends State<DeleteAllWidget> {
           color: Theme.of(context).primaryColor,
           loading: _deleteAllLoading,
           disabled: _deleteAllLoading,
-          onPressed: _formatProgress,
+          onPressed: _comfirmFormatProgress,
         ),
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/consts/consts.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
-import 'package:daf_plus_plus/dialogs/FirstUseDialogFillIn.dart';
+import 'package:daf_plus_plus/dialogs/firstUseDialogFillIn.dart';
 import 'package:daf_plus_plus/models/daf.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:daf_plus_plus/models/progress.dart';
@@ -19,13 +19,13 @@ import 'package:flutter/material.dart';
 
 class FirstUseDialogTwo extends StatelessWidget {
   _yes(BuildContext context) {
-    _fillIn(context);
+    _fillIn();
     hiveService.settings.setHasOpened(true);
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (BuildContext context) => HomePage()));
   }
 
-  _fillIn(BuildContext context) {
+  _fillIn() {
     DafModel todaysDaf =
     dafsDatesStore.getDafByDate(dateConverterUtil.getToday());
     int mesechta = MasechetsData.THE_MASECHETS[todaysDaf.masechetId].index;
@@ -33,7 +33,7 @@ class FirstUseDialogTwo extends StatelessWidget {
       for (int i = 0; i < mesechta; i++) {
         MasechetModel masechet = MasechetsData.THE_MASECHETS[i];
         ProgressModel progress = ProgressModel(data: List.filled(masechet.numOfDafs, 1));
-        progressAction.update(context, masechet.id, progress);
+        progressAction.update(masechet.id, progress);
       }
     }
     MasechetModel currentMasechet = MasechetsData.THE_MASECHETS[mesechta];
@@ -41,7 +41,7 @@ class FirstUseDialogTwo extends StatelessWidget {
     for (int i = 0; i < todaysDaf.number; i++) {
       progress.data[i] = 1;
     }
-    progressAction.update(context, currentMasechet.id, progress);
+    progressAction.update(currentMasechet.id, progress);
   }
 
   _no(BuildContext context) {

@@ -7,26 +7,38 @@ import 'package:daf_plus_plus/stores/actionCounter.dart';
 import 'package:daf_plus_plus/stores/progress.dart';
 
 class ProgressAction {
-  /// return the progress store object
-  ProgressStore _getProgressStore(BuildContext context,
-          [bool listen = false]) =>
-      Provider.of<ProgressStore>(context, listen: listen);
 
-  void update(BuildContext context, String masechetId, ProgressModel progress,
+  BuildContext _progressContext;
+
+  void setProgressContext(BuildContext progressContext) => _progressContext = progressContext;
+
+  /// return the progress store object
+  ProgressStore _getProgressStore([bool listen = false]) =>
+      Provider.of<ProgressStore>(_progressContext, listen: listen);
+
+  void update(String masechetId, ProgressModel progress,
       [int incrementCounterBy = 1, bool checkCounter = true]) {
-    ProgressStore progressStore = _getProgressStore(context);
+    ProgressStore progressStore = _getProgressStore();
     actionCounterStore.increment(incrementCounterBy);
     hiveService.progress.setProgress(masechetId, progress);
     progressStore.setProgress(masechetId, progress);
   }
 
-  ProgressModel get(BuildContext context, String masechetId) {
-    ProgressStore progressStore = _getProgressStore(context);
+  void updateAll(Map<String, ProgressModel> progressMap,
+      [int incrementCounterBy = 1, bool checkCounter = true]) {
+    ProgressStore progressStore = _getProgressStore();
+    actionCounterStore.increment(incrementCounterBy);
+    hiveService.progress.setProgressMap(progressMap);
+    progressStore.setProgressMap(progressMap);
+  }
+
+  ProgressModel get(String masechetId) {
+    ProgressStore progressStore = _getProgressStore();
     return progressStore.getProgressMap[masechetId];
   }
 
-  void localToStore(BuildContext context) {
-    ProgressStore progressStore = _getProgressStore(context);
+  void localToStore() {
+    ProgressStore progressStore = _getProgressStore();
     Map<String, ProgressModel> progressMap =
         hiveService.progress.getProgressMap();
     progressStore.setProgressMap(progressMap);

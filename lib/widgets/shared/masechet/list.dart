@@ -57,7 +57,7 @@ class _MasechetListWidgetState extends State<MasechetListWidget> {
             return Container(height: 100);
           return DafWidget(
             dafNumber: dafIndex,
-            dafCount: widget.progress.data[dafIndex],
+            dafCount: widget.progress?.data[dafIndex] ?? 0,
             dafDate: _dates != null &&
                     _dates.length > dafIndex &&
                     _dates[dafIndex] != null

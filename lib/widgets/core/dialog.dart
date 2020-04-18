@@ -5,7 +5,7 @@ class DialogWidget extends StatelessWidget {
     @required this.child,
     this.onTapBackground,
     this.alignment = Alignment.center,
-    this.margin = const EdgeInsets.symmetric(horizontal: 32, vertical: 96),
+    this.margin = const EdgeInsets.symmetric(horizontal: 16, vertical: 48),
     this.borderRadius = const BorderRadius.all(Radius.circular(10)),
     this.hasShadow = true,
   });

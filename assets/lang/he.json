@@ -25,6 +25,7 @@
   "settings_backuped_text": "המידע שלך מגובה",
   "settings_lang_text": "שנה שפה",
   "settings_reset_text": "מוכן להתחיל מההתחלה?",
+  "settings_reset_worning_text": "האם אתה בטוח רוצה למחוק הכל? לא ניתן לשחזר את המידע לאחר פעולה זו.",
   "reset_button": "אפס",
   "welcome": "ברוכים הבאים לדף++",
   "set_reminder": "תבחר שעה לתזכורת ללמוד הדף של היום",

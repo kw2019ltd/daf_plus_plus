@@ -26,12 +26,12 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
     });
   }
 
-  _done(BuildContext context) {
+  _done() {
     for (int i = 0; i < _progress.length; i++) {
       if (_progress[i]) {
         MasechetModel masechet = MasechetsData.THE_MASECHETS[i];
         ProgressModel progress = ProgressModel(data: List.filled(masechet.numOfDafs, 1));
-        progressAction.update(context, masechet.id, progress);
+        progressAction.update(masechet.id, progress);
       }
     }
 
@@ -89,7 +89,7 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
                   text: localizationUtil.translate("done"),
                   buttonType: ButtonType.Outline,
                   color: Theme.of(context).primaryColor,
-                  onPressed: () => _done(context),
+                  onPressed: _done,
                 ),
               ),
             ]),

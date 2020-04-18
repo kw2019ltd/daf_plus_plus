@@ -31,7 +31,7 @@ class _MasechetWidgetState extends State<MasechetWidget> {
   }
 
   void _onProgressChange(ProgressModel progress) {
-    progressAction.update(context, widget.masechetId, progress);
+    progressAction.update(widget.masechetId, progress);
   }
 
   @override

@@ -9,7 +9,7 @@ class ProgressModel {
   final List<int> data;
 
   factory ProgressModel.fromString(String data, [String masechetId]) {
-    if (data == null) {
+    if (data == null || data == "") {
       int length = masechetId == null
           ? 0
           : MasechetModel.byMasechetId(masechetId).numOfDafs;
@@ -22,7 +22,12 @@ class ProgressModel {
     return ProgressModel(data: dataAsList);
   }
 
-  factory ProgressModel.empty(int length) {
+  factory ProgressModel.empty(int length, [String masechetId]) {
+    if (length == null || length < 1) {
+      length = masechetId == null
+          ? 0
+          : MasechetModel.byMasechetId(masechetId).numOfDafs;
+    }
     return ProgressModel(data: List.filled(length, Consts.DEFAUT_DAF));
   }
 

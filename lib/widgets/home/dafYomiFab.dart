@@ -47,11 +47,11 @@ class DafYomiFabWidget extends StatelessWidget {
     //     : _generateNewProgress(masechetId);
   }
 
-  void _learnedTodaysDaf(BuildContext context) {
+  void _learnedTodaysDaf() {
     DafModel todaysDaf = _getTodaysDaf();
     ProgressModel progress = _getMasechetProgress(todaysDaf.masechetId);
     progress.data[todaysDaf.number] = 1; // TODO: really not ideal.
-    progressAction.update(context, todaysDaf.masechetId, progress);
+    progressAction.update(todaysDaf.masechetId, progress);
     hiveService.settings.setLastDaf(todaysDaf);
     toastUtil.showInformation(localizationUtil.translate('plus_plus_toast'));
   }
@@ -62,7 +62,7 @@ class DafYomiFabWidget extends StatelessWidget {
       _displayInfo(context);
       hiveService.settings.setUsedFab(true);
     } else
-      _learnedTodaysDaf(context);
+      _learnedTodaysDaf();
   }
 
   @override

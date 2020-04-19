@@ -66,10 +66,10 @@ class MasechetTitleWidget extends StatelessWidget {
                       localizationUtil.translate(this.masechet.id))),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Text(""
-                    // progress.countDone().toString() +
-                    //     "/" +
-                    //     progress.data.length.toString()
+                child: Text(
+                    progress.countDone().toString() +
+                        "/" +
+                        progress.data.length.toString()
                         ),
               ),
             ],

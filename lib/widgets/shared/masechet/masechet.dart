@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:provider/provider.dart';
 
+import 'package:daf_plus_plus/models/daf.dart';
 import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/consts/consts.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
@@ -14,10 +15,10 @@ import 'package:daf_plus_plus/widgets/shared/masechet/title.dart';
 
 class MasechetWidget extends StatefulWidget {
   MasechetWidget({
-    @required this.masechetId,
+    @required this.masechetAndDaf,
   });
 
-  final String masechetId;
+  final DafModel masechetAndDaf;
 
   @override
   _MasechetWidgetState createState() => _MasechetWidgetState();
@@ -31,7 +32,7 @@ class _MasechetWidgetState extends State<MasechetWidget> {
   }
 
   void _onProgressChange(ProgressModel progress) {
-    progressAction.update(widget.masechetId, progress);
+    progressAction.update(widget.masechetAndDaf.masechetId, progress);
   }
 
   @override
@@ -57,6 +58,7 @@ class _MasechetWidgetState extends State<MasechetWidget> {
               masechet: masechet,
               progress: progress,
               onProgressChange: _onProgressChange,
+              lastDafIndex: widget.masechetAndDaf.number,
             )),
         childCount: _isExpanded ? 1 : 0,
       ),
@@ -68,8 +70,8 @@ class _MasechetWidgetState extends State<MasechetWidget> {
     BuildContext progressContext = progressAction.getProgressContext();
     return Observer(builder: (context) {
       ProgressStore progressStore = Provider.of<ProgressStore>(progressContext);
-      ProgressModel progress = progressStore.getProgressMap[widget.masechetId];
-      MasechetModel masechet = MasechetsData.THE_MASECHETS[widget.masechetId];
+      ProgressModel progress = progressStore.getProgressMap[widget.masechetAndDaf.masechetId];
+      MasechetModel masechet = MasechetsData.THE_MASECHETS[widget.masechetAndDaf.masechetId];
       return SliverStickyHeader(
         header: _masechetTitle(masechet, progress),
         sliver: _masechetList(masechet, progress),

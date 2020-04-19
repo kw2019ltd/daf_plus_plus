@@ -1,7 +1,8 @@
-import 'package:daf_plus_plus/models/seder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
+import 'package:daf_plus_plus/models/daf.dart';
+import 'package:daf_plus_plus/models/seder.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/data/masechets.dart';
 import 'package:daf_plus_plus/data/seders.dart';
@@ -32,7 +33,7 @@ class AllShasPage extends StatelessWidget {
       }
       list.add(
         MasechetWidget(
-          masechetId: masechet.id,
+          masechetAndDaf: DafModel(masechetId: masechet.id),
         ),
       );
     });

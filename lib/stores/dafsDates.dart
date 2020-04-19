@@ -14,7 +14,8 @@ class DafsDatesStore {
     MasechetsData.THE_MASECHETS.values.forEach((MasechetModel masechet) {
       masechetsDates[masechet.id] = List.generate(
         masechet.numOfDafs,
-        ((int dafIndex) => nextDate.add(Duration(days: dafIndex))),
+        ((int dafIndex) =>
+            DateTime(nextDate.year, nextDate.month, nextDate.day + dafIndex)),
       );
       nextDate = nextDate.add(Duration(days: masechet.numOfDafs));
     });
@@ -36,8 +37,8 @@ class DafsDatesStore {
     DafModel dafLocation = DafModel();
     _masechetsDates.forEach((String masechetId, List<DateTime> dates) {
       if (dates.contains(date)) {
-        dafLocation = DafModel(
-            masechetId: masechetId, number: dates.indexOf(date));
+        dafLocation =
+            DafModel(masechetId: masechetId, number: dates.indexOf(date));
       }
     });
     return dafLocation;

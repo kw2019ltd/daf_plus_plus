@@ -1,7 +1,7 @@
+import 'package:daf_plus_plus/widgets/home/appBar.dart';
 import 'package:flutter/material.dart';
 import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/dialogs/firstUseDialogLanguage.dart';
-import 'package:daf_plus_plus/dialogs/userSettings.dart';
 import 'package:daf_plus_plus/pages/allShas.dart';
 import 'package:daf_plus_plus/pages/dafYomi.dart';
 import 'package:daf_plus_plus/pages/todaysDaf.dart';
@@ -50,16 +50,7 @@ class _HomePageState extends State<HomePage> {
     }
     _updateTabs(hiveService.settings.getIsDafYomi());
     _listenToIsDafYomiUpdate();
-    progressAction.setProgressContext(context);
     progressAction.localToStore();
-  }
-
-  void _openUserSettings(BuildContext context) {
-    Navigator.of(context).push(
-      TransparentRoute(
-        builder: (BuildContext context) => UserSettingsDialog(),
-      ),
-    );
   }
 
   void _listenToIsDafYomiUpdate() {
@@ -97,30 +88,7 @@ class _HomePageState extends State<HomePage> {
         onWillPop: _exitApp,
         child: _areBoxesOpen
             ? Scaffold(
-                appBar: AppBar(
-                  title: Text(
-                    localizationUtil.translate('app_name'),
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                  centerTitle: true,
-                  leading: Container(),
-                  actions: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.more_vert),
-                      onPressed: () => _openUserSettings(context),
-                    ),
-                  ],
-                  bottom: TabBar(
-                    tabs: _tabs.keys
-                        .map((text) => Tab(
-                              child: Text(
-                                localizationUtil.translate(text),
-                                style: Theme.of(context).textTheme.headline5,
-                              ),
-                            ))
-                        .toList(),
-                  ),
-                ),
+                appBar: AppBarWidget(tabs: _tabs.keys.toList()),
                 floatingActionButton: DafYomiFabWidget(),
                 body: TabBarView(children: _tabs.values.toList()),
               )

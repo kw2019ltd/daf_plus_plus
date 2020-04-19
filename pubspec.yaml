@@ -40,3 +40,5 @@ flutter:
   assets:
     - assets/lang/en.json
     - assets/lang/he.json
+    - assets/icon/daf-white-on-transperant.png
+    - assets/icon/pp-white-on-transperant.png

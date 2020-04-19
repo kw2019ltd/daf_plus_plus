@@ -45,14 +45,12 @@ class _AppBarWidgetState extends State<AppBarWidget> {
           textDirection: TextDirection.rtl,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Hero(
-              tag: 'app-icon',
-              child: Image.asset(
+             Image.asset(
                 "assets/icon/daf-white-on-transperant.png",
                 width: 30,
                 height: 36,
               ),
-            ),
+            
             AnimatedContainer(
               duration: Duration(milliseconds: 150),
               width: _plusPlusWidth,

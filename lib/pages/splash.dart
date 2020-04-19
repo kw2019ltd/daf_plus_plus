@@ -20,18 +20,6 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).primaryColor,
-      child: Center(
-        child: Hero(
-          tag: 'app-icon',
-          child: Image.asset(
-            "assets/icon/daf-white-on-transperant.png",
-            width: 54,
-            height: 54,
-          ),
-        ),
-      ),
-    );
+    return Container(color: Theme.of(context).primaryColor);
   }
 }

@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:daf_plus_plus/dialogs/masechetOptions.dart';
 import 'package:daf_plus_plus/models/progress.dart';
+import 'package:daf_plus_plus/utils/transparentRoute.dart';
 import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/models/masechet.dart';
@@ -24,13 +26,14 @@ class MasechetTitleWidget extends StatelessWidget {
   }
 
   void _openMasechetOptions(BuildContext context) {
-    // Navigator.of(context).push(
-    //   TransparentRoute(
-    //     builder: (BuildContext context) => MasechetOptionsDialog(
-    //       masechetId: this.masechet.id,
-    //     ),
-    //   ),
-    // );
+    Navigator.of(context).push(
+      TransparentRoute(
+        builder: (BuildContext context) => MasechetOptionsDialog(
+          masechetId: this.masechet.id,
+          progress: this.progress,
+        ),
+      ),
+    );
   }
 
   @override
@@ -63,10 +66,10 @@ class MasechetTitleWidget extends StatelessWidget {
                       localizationUtil.translate(this.masechet.id))),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Text(""
-                    // progress.countDone().toString() +
-                    //     "/" +
-                    //     progress.data.length.toString()
+                child: Text(
+                    progress.countDone().toString() +
+                        "/" +
+                        progress.data.length.toString()
                         ),
               ),
             ],

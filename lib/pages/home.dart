@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _areBoxesOpen = false;
+  bool _isDafYomi = true;
   Map<String, Widget> _tabs = {};
 
   Future<void> _loadProgress() async {
@@ -48,23 +49,29 @@ class _HomePageState extends State<HomePage> {
     if (isFirstRun()) {
       loadFirstRun();
     }
-    _updateTabs(hiveService.settings.getIsDafYomi());
     _listenToIsDafYomiUpdate();
     progressAction.localToStore();
   }
 
   void _listenToIsDafYomiUpdate() {
-    hiveService.settings.listenToIsDafYomi().listen(_updateTabs);
+    bool isDafYomi = hiveService.settings.getIsDafYomi();
+    _updateIsDafYomi(isDafYomi);
+    hiveService.settings.listenToIsDafYomi().listen((bool isDafYomi) {
+      _updateIsDafYomi(isDafYomi);
+    });
   }
 
-  void _updateTabs(bool isDafYomi) {
+  void _updateIsDafYomi(isDafYomi) {
     Map<String, Widget> tabs = {};
     if (isDafYomi)
       tabs['daf_yomi'] = DafYomiPage();
     else
       tabs['todays_daf'] = TodaysDafPage();
     tabs['all_shas'] = AllShasPage();
-    setState(() => _tabs = tabs);
+    setState(() {
+      _isDafYomi = isDafYomi;
+      _tabs = tabs;
+    });
   }
 
   @override
@@ -89,7 +96,7 @@ class _HomePageState extends State<HomePage> {
         child: _areBoxesOpen
             ? Scaffold(
                 appBar: AppBarWidget(tabs: _tabs.keys.toList()),
-                floatingActionButton: DafYomiFabWidget(),
+                floatingActionButton: _isDafYomi ? DafYomiFabWidget() : Container(),
                 body: TabBarView(children: _tabs.values.toList()),
               )
             : Container(),

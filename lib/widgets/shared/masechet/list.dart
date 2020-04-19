@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';
 
+import 'package:daf_plus_plus/models/daf.dart';
+import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/models/progress.dart';
 import 'package:daf_plus_plus/models/masechet.dart';
 import 'package:daf_plus_plus/stores/dafsDates.dart';
@@ -33,6 +35,7 @@ class _MasechetListWidgetState extends State<MasechetListWidget> {
   void _onClickDaf(int daf, int count) {
     ProgressModel progress = widget.progress;
     progress.data[daf] = count;
+    hiveService.settings.setLastDaf(DafModel(masechetId: widget.masechet.id, number: daf));
     widget.onProgressChange(progress);
   }
 

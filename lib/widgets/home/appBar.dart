@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+
 import 'package:daf_plus_plus/dialogs/userSettings.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/utils/transparentRoute.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 class AppBarWidget extends StatefulWidget with PreferredSizeWidget {
   AppBarWidget({this.tabs});
@@ -13,7 +14,7 @@ class AppBarWidget extends StatefulWidget with PreferredSizeWidget {
   _AppBarWidgetState createState() => _AppBarWidgetState();
 
   @override
-  Size get preferredSize => Size.fromHeight(86);
+  Size get preferredSize => Size.fromHeight(92);
 }
 
 class _AppBarWidgetState extends State<AppBarWidget> {

@@ -1,7 +1,7 @@
-import 'package:daf_plus_plus/models/progress.dart';
 import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/actions/progress.dart';
+import 'package:daf_plus_plus/models/progress.dart';
 import 'package:daf_plus_plus/models/daf.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/stores/dafsDates.dart';
@@ -35,21 +35,9 @@ class DafYomiFabWidget extends StatelessWidget {
     );
   }
 
-  // TODO: the next two functions are from masechetCHildren.dart, it should be in one place only.
-  // ProgressModel _generateNewProgress() => ProgressModel.empty(masechet.numOfDafs);
-
-  ProgressModel _getMasechetProgress(String masechetId) {
-    ProgressModel progress =
-        hiveService.progress.getProgress(masechetId);
-    return progress;
-    // return encodedProgress != null
-    //     ? masechetConverterUtil.decode(encodedProgress)
-    //     : _generateNewProgress(masechetId);
-  }
-
   void _learnedTodaysDaf() {
     DafModel todaysDaf = _getTodaysDaf();
-    ProgressModel progress = _getMasechetProgress(todaysDaf.masechetId);
+    ProgressModel progress = progressAction.get(todaysDaf.masechetId);
     progress.data[todaysDaf.number] = 1; // TODO: really not ideal.
     progressAction.update(todaysDaf.masechetId, progress);
     hiveService.settings.setLastDaf(todaysDaf);
@@ -70,9 +58,9 @@ class DafYomiFabWidget extends StatelessWidget {
     return FloatingActionButton(
       onPressed: () => _checkIfFirstTime(context),
       backgroundColor: Theme.of(context).primaryColor,
-      child: Text(
-        "++",
-        style: Theme.of(context).textTheme.headline5,
+      child: Icon(
+        Icons.check,
+        color: Theme.of(context).textTheme.headline5.color,
       ),
     );
   }

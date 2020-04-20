@@ -23,6 +23,7 @@
   "connect_button": "התחבר",
   "disconnect_button": "התנתק",
   "settings_backuped_text": "המידע שלך מגובה",
+  "settings_backuped_subtext": "גובה לאחרונה ב",
   "settings_lang_text": "שנה שפה",
   "settings_reset_text": "מוכן להתחיל מההתחלה?",
   "settings_reset_worning_text": "האם אתה בטוח רוצה למחוק הכל? לא ניתן לשחזר את המידע לאחר פעולה זו.",

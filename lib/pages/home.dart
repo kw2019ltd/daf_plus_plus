@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
     await hiveService.settings.open();
     await hiveService.progress.open();
     setState(() => _areBoxesOpen = true);
+    progressAction.backup();
   }
 
   Future<bool> _exitApp() async {

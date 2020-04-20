@@ -6,6 +6,7 @@ class HiveConsts {
   static const String SETTINGS_BOX = "settingsBox";
   static const String LAST_DAF = "lastDaf";
   static const String LAST_UPDATED = "lastUpdated";
+  static const String LAST_BACKUP = "lastBackup";
   static const String PREFERRED_LANGUAGE = "preferredLanguage";
 
   static const String HAS_OPENED = "hasOpened";

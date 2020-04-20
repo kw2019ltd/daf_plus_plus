@@ -36,6 +36,12 @@ class SettingsBox {
       _setByKey(HiveConsts.LAST_UPDATED, lastUpdated);
   DateTime getLastUpdated() => _getByKey(HiveConsts.LAST_UPDATED);
 
+  // last backup
+  void setLastBackupNow() => setLastBackup(DateTime.now());
+  void setLastBackup(DateTime lastBackup) =>
+      _setByKey(HiveConsts.LAST_BACKUP, lastBackup);
+  DateTime getLastBackup() => _getByKey(HiveConsts.LAST_BACKUP);
+
   // preferred language
   void setPreferredLanguage(String preferredLanguage) =>
       _setByKey(HiveConsts.PREFERRED_LANGUAGE, preferredLanguage);

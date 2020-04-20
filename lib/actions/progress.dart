@@ -53,13 +53,17 @@ class ProgressAction {
   Future<void> backup() async {
     Map<String, ProgressModel> progressMap =
         hiveService.progress.getProgressMap();
-    await firestoreService.progress.setProgressMap(progressMap);
+    ResponseModel backupResponse = await firestoreService.progress.setProgressMap(progressMap);
+    if (backupResponse.isSuccessful()) {
+      hiveService.settings.setLastBackupNow();
+    }
   }
 
   Future<void> restore() async {
     ResponseModel progressResponse =
         await firestoreService.progress.getProgressMap();
     if (progressResponse.isSuccessful()) {
+      hiveService.settings.setLastBackupNow();
       Map<String, ProgressModel> progressMap = progressResponse.data.map(
           (String masechetId, dynamic progress) => MapEntry(
               masechetId, ProgressModel.fromString(progress.toString())));

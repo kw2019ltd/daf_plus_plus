@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/consts/responses.dart';
@@ -103,8 +104,7 @@ class _GoogleAccountWidgetState extends State<GoogleAccountWidget> {
       padding: EdgeInsets.all(8),
       child: ListTile(
         title: Text(localizationUtil.translate('settings_not_backedup_text')),
-        subtitle:
-            Text(localizationUtil.translate('settings_not_backedup_subtext')),
+        subtitle: Text(localizationUtil.translate('settings_not_backedup_subtext')),
         trailing: ButtonWidget(
           text: localizationUtil.translate('connect_button'),
           buttonType: ButtonType.Filled,
@@ -122,6 +122,8 @@ class _GoogleAccountWidgetState extends State<GoogleAccountWidget> {
       padding: EdgeInsets.all(8),
       child: ListTile(
         title: Text(localizationUtil.translate('settings_backuped_text')),
+        subtitle: Text(hiveService.settings.getLastBackup() != null ? localizationUtil.translate('settings_backuped_subtext') +
+            DateFormat.yMd().add_Hm().format(hiveService.settings.getLastBackup()) : ""),
         trailing: ButtonWidget(
           text: localizationUtil.translate('disconnect_button'),
           buttonType: ButtonType.Outline,

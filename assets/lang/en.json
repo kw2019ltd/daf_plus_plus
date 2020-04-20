@@ -23,6 +23,7 @@
   "connect_button": "Connect",
   "disconnect_button": "Disconnect",
   "settings_backuped_text": "Your data is backed up",
+  "settings_backuped_subtext": "Laset backup at: ",
   "settings_lang_text": "Change a language",
   "settings_reset_text": "Ready to start from the beginning?",
   "settings_reset_worning_text": "Are you sure you want to delete everything? This can NOT be undone.",

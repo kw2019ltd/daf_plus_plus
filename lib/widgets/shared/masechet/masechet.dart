@@ -15,10 +15,12 @@ import 'package:daf_plus_plus/widgets/shared/masechet/title.dart';
 
 class MasechetWidget extends StatefulWidget {
   MasechetWidget({
-    @required this.masechetAndDaf,
+    @required this.daf,
+    this.inList = true,
   });
 
-  final DafModel masechetAndDaf;
+  final DafModel daf;
+  final bool inList;
 
   @override
   _MasechetWidgetState createState() => _MasechetWidgetState();
@@ -32,7 +34,7 @@ class _MasechetWidgetState extends State<MasechetWidget> {
   }
 
   void _onProgressChange(ProgressModel progress) {
-    progressAction.update(widget.masechetAndDaf.masechetId, progress);
+    progressAction.update(widget.daf.masechetId, progress);
   }
 
   @override
@@ -44,23 +46,37 @@ class _MasechetWidgetState extends State<MasechetWidget> {
     return MasechetTitleWidget(
       masechet: masechet,
       progress: progress,
+      inList: widget.inList,
       isExpanded: _isExpanded,
       onChangeExpanded: _onChangeExpandedState,
     );
   }
 
-  SliverList _masechetList(MasechetModel masechet, ProgressModel progress) {
+  SliverList _inListMasechetList(
+      MasechetModel masechet, ProgressModel progress) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, _) => Container(
-            height: Consts.MASECHET_LIST_HEIGHT,
+            height:
+                widget.inList ? Consts.MASECHET_LIST_HEIGHT : double.maxFinite,
             child: MasechetListWidget(
               masechet: masechet,
               progress: progress,
               onProgressChange: _onProgressChange,
-              lastDafIndex: widget.masechetAndDaf.number,
+              lastDafIndex: widget.daf.number,
             )),
         childCount: _isExpanded ? 1 : 0,
+      ),
+    );
+  }
+
+  Widget _masechetList(MasechetModel masechet, ProgressModel progress) {
+    return Expanded(
+      child: MasechetListWidget(
+        masechet: masechet,
+        progress: progress,
+        onProgressChange: _onProgressChange,
+        lastDafIndex: widget.daf.number,
       ),
     );
   }
@@ -70,12 +86,24 @@ class _MasechetWidgetState extends State<MasechetWidget> {
     BuildContext progressContext = progressAction.getProgressContext();
     return Observer(builder: (context) {
       ProgressStore progressStore = Provider.of<ProgressStore>(progressContext);
-      ProgressModel progress = progressStore.getProgressMap[widget.masechetAndDaf.masechetId];
-      MasechetModel masechet = MasechetsData.THE_MASECHETS[widget.masechetAndDaf.masechetId];
-      return SliverStickyHeader(
-        header: _masechetTitle(masechet, progress),
-        sliver: _masechetList(masechet, progress),
-      );
+      ProgressModel progress =
+          progressStore.getProgressMap[widget.daf.masechetId];
+      MasechetModel masechet =
+          MasechetsData.THE_MASECHETS[widget.daf.masechetId];
+      if (widget.inList) {
+        return SliverStickyHeader(
+          header: _masechetTitle(masechet, progress),
+          sliver: _inListMasechetList(masechet, progress),
+        );
+      } else {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _masechetTitle(masechet, progress),
+            _masechetList(masechet, progress),
+          ],
+        );
+      }
     });
   }
 }

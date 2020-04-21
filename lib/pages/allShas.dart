@@ -33,7 +33,7 @@ class AllShasPage extends StatelessWidget {
       }
       list.add(
         MasechetWidget(
-          masechetAndDaf: DafModel(masechetId: masechet.id),
+          daf: DafModel(masechetId: masechet.id),
         ),
       );
     });

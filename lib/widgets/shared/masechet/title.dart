@@ -12,12 +12,14 @@ class MasechetTitleWidget extends StatelessWidget {
   MasechetTitleWidget({
     @required this.masechet,
     @required this.progress,
+    @required this.inList,
     @required this.isExpanded,
     @required this.onChangeExpanded,
   });
 
   final MasechetModel masechet;
   final ProgressModel progress;
+  final bool inList;
   final bool isExpanded;
   final Function(bool) onChangeExpanded;
 
@@ -39,7 +41,7 @@ class MasechetTitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _changeExpandedState,
+      onTap: inList ? _changeExpandedState : () {},
       onLongPress: () => _openMasechetOptions(context),
       child: Container(
         padding: const EdgeInsets.only(top: 16),
@@ -53,13 +55,13 @@ class MasechetTitleWidget extends StatelessWidget {
           ),
           child: Row(
             children: <Widget>[
-              Transform.rotate(
+              inList ? Transform.rotate(
                 angle: this.isExpanded ? pi / 1 : 0,
                 child: IconButton(
                   icon: Icon(Icons.keyboard_arrow_down),
                   onPressed: _changeExpandedState,
                 ),
-              ),
+              ) : Container(),
               Expanded(
                   child: Text(localizationUtil.translate('masechet') +
                       " " +

@@ -42,7 +42,6 @@ jobs:
       env:
         FIREBASE_ANDROID_APPID: ${{ secrets.FIREBASE_ANDROID_APPID }}
         FIREBASE_CI_TOKEN: ${{ secrets.FIREBASE_CI_TOKEN }}
-        BUILD_NUMBER: ${{secrets.BUILD_NUMBER}}
       run: |
         cd android
         fastlane distribute_beta

@@ -10,7 +10,8 @@ platform :android do
       firebase_app_distribution(
           app: APP_ID,
           groups: "testers",
-          release_notes: BUILD_NUMBER,
+          token: FIREBASE_TOKEN,
+          release_notes: "a new version,
           firebase_cli_path: "C:/Users/zvi/AppData/Roaming/npm/firebase",
           apk_path: "../build/app/outputs/apk/release/app-release.apk"
       )

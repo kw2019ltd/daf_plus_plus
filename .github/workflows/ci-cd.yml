@@ -41,5 +41,5 @@ jobs:
           FIREBASE_ANDROID_APPID: ${{ secrets.FIREBASE_ANDROID_APPID }}
           FIREBASE_CI_TOKEN: ${{ secrets.FIREBASE_CI_TOKEN }}
         run: |
-          cd android
+          cd $HOME/android
           fastlane distribute_beta

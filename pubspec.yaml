@@ -1,6 +1,6 @@
 name: daf_plus_plus
 description: A daf a day...
-version: 0.3.0
+version: 0.3.0+3
 
 environment:
   sdk: ">=2.6.0 <3.0.0"

@@ -16,11 +16,11 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## Android
-### android deploy_play_store
+### android distribute_beta
 ```
-fastlane android deploy_play_store
+fastlane android distribute_beta
 ```
-Push the built release APK to alpha or beta depending on current branch
+Deploy a new beta
 
 ----
 

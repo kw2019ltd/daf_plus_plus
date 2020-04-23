@@ -40,6 +40,6 @@ jobs:
         env:
           FIREBASE_ANDROID_APPID: ${{ secrets.FIREBASE_ANDROID_APPID }}
           FIREBASE_CI_TOKEN: ${{ secrets.FIREBASE_CI_TOKEN }}
-        working-directorey: ./android
+        working-directory: ./android
         run: |
           fastlane distribute_beta

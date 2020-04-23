@@ -1,10 +1,7 @@
 name: CI/CD
-on: [pull_request]
+on: [pull_request, push]
 
 jobs:
-  if: github.ref == 'refs/heads/test' && github.event_name == 'pull_request'
-  - name: increment build version
-    run: |
 
   build_apk:
     name: Build Android
@@ -38,7 +35,7 @@ jobs:
     name: Deploy Android
     runs-on: ubuntu-latest
     steps:
-      if: github.ref == 'refs/heads/test' && github.event_name == 'pull_request'
+      if: (github.ref == 'refs/heads/test' && github.event_name == 'pull_request') || (github.event_name == 'push')
       env:
         FIREBASE_ANDROID_APPID: ${{ secrets.FIREBASE_ANDROID_APPID }}
         FIREBASE_CI_TOKEN: ${{ secrets.FIREBASE_CI_TOKEN }}

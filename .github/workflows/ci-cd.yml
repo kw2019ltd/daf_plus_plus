@@ -40,8 +40,8 @@ jobs:
         env:
           FIREBASE_ANDROID_APPID: ${{ secrets.FIREBASE_ANDROID_APPID }}
           FIREBASE_CI_TOKEN: ${{ secrets.FIREBASE_CI_TOKEN }}
-        working-directory: ./android
         uses: maierj/fastlane-action@v1.4.0
         with:
           lane: 'beta'
+          subdirectory: './android'
           options: '{"FIREBASE_CI_TOKEN": FIREBASE_CI_TOKEN, "FIREBASE_CI_TOKEN": FIREBASE_CI_TOKEN'

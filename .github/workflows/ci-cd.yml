@@ -34,11 +34,12 @@ jobs:
   deploy:
     name: Deploy Android
     runs-on: ubuntu-latest
+    if: (github.ref == 'refs/heads/test' && github.event_name == 'pull_request') || (github.event_name == 'push')
     steps:
-      if: (github.ref == 'refs/heads/test' && github.event_name == 'pull_request') || (github.event_name == 'push')
-      env:
-        FIREBASE_ANDROID_APPID: ${{ secrets.FIREBASE_ANDROID_APPID }}
-        FIREBASE_CI_TOKEN: ${{ secrets.FIREBASE_CI_TOKEN }}
-      run: |
-        cd android
-        fastlane distribute_beta
+      - name: Run Fastlane
+        env:
+          FIREBASE_ANDROID_APPID: ${{ secrets.FIREBASE_ANDROID_APPID }}
+          FIREBASE_CI_TOKEN: ${{ secrets.FIREBASE_CI_TOKEN }}
+        run: |
+          cd android
+          fastlane distribute_beta

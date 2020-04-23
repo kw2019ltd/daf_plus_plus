@@ -1,16 +1,12 @@
 default_platform(:android)
 
-APP_ID = ENV['FIREBASE_ANDROID_APPID']
-FIREBASE_TOKEN = ENV['FIREBASE_CI_TOKEN']
-BUILD_NUMBER = ENV["BUILD_NUMBER"]
-
-platform :android do
+platform :android do |lane, options|
   desc "Deploy a new beta"
-  lane :distribute_beta do
+  lane :beta do
       firebase_app_distribution(
-          app: APP_ID,
+          app: options[:APP_ID],
           groups: "testers",
-          token: FIREBASE_TOKEN,
+          token: options[:FIREBASE_TOKEN],
           release_notes: "a new version",
           firebase_cli_path: "C:/Users/zvi/AppData/Roaming/npm/firebase",
           apk_path: "../build/app/outputs/apk/release/app-release.apk"

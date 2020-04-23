@@ -40,7 +40,6 @@ jobs:
         env:
           FIREBASE_ANDROID_APPID: ${{ secrets.FIREBASE_ANDROID_APPID }}
           FIREBASE_CI_TOKEN: ${{ secrets.FIREBASE_CI_TOKEN }}
+        working-directorey: ./android
         run: |
-          ls $HOME/work/daf_plus_plus/daf_plus_plus/android
-          cd $HOME/work/daf_plus_plus/daf_plus_plus/android
           fastlane distribute_beta

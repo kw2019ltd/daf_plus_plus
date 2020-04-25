@@ -4,7 +4,7 @@ on: [pull_request, push]
 jobs:
 
   build_apk:
-    name: Build Android
+    name: Build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -30,12 +30,18 @@ jobs:
       with:
         name: apk-build
         path: build/app/outputs/bundle/release
+    # - name: Create a Release APK
+    #   uses: ncipollo/release-action@v1
+    #   with:
+    #     artifacts: "build/app/outputs/apk/debug/*.apk"
+    #     token: ${{ secrets.TOKEN }}
 
   deploy:
     name: Deploy Android
     runs-on: ubuntu-latest
     if: (github.ref == 'refs/heads/test' && github.event_name == 'pull_request') || (github.event_name == 'push')
     steps:
+      - run: ls
       - name: Run Fastlane
         env:
           FIREBASE_ANDROID_APPID: ${{ secrets.FIREBASE_ANDROID_APPID }}

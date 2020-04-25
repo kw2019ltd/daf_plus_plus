@@ -39,12 +39,10 @@ jobs:
 
     - name: deploy
       # if: (github.ref == 'refs/heads/test' && github.event_name == 'pull_request') || (github.event_name == 'push')
-      uses: actions/checkout@v1
-      - name: upload artifact to Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
-        with:
-          appId: ${{secrets.FIREBASE_ANDROID_APPID}}
-          token: ${{secrets.FIREBASE_CI_TOKEN}}
-          groups: testers
-          release_notes: "a new version"
-          file: build/app/outputs/apk/release/app-release.apk
+      uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
+      with:
+        appId: ${{secrets.FIREBASE_ANDROID_APPID}}
+        token: ${{secrets.FIREBASE_CI_TOKEN}}
+        groups: testers
+        release_notes: "a new version"
+        file: build/app/outputs/apk/release/app-release.apk

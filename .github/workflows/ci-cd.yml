@@ -38,15 +38,15 @@ jobs:
 
   deploy:
     name: Deploy
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     if: (github.ref == 'refs/heads/test' && github.event_name == 'pull_request') || (github.event_name == 'push')
     steps:
       - name: Run Fastlane
-        working-directory: ./android
         env:
           FIREBASE_ANDROID_APPID: ${{ secrets.FIREBASE_ANDROID_APPID }}
           FIREBASE_CI_TOKEN: ${{ secrets.FIREBASE_CI_TOKEN }}
         uses: maierj/fastlane-action@v1.4.0
         with:
           lane: 'beta'
+          subdirectory: 'android'
           options: '{"FIREBASE_CI_TOKEN": FIREBASE_CI_TOKEN, "FIREBASE_CI_TOKEN": FIREBASE_CI_TOKEN'

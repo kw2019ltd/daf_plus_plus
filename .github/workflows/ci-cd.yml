@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     if: (github.ref == 'refs/heads/test' && github.event_name == 'pull_request') || (github.event_name == 'push')
     steps:
-      - run: ls
+      - run: ls $HOME
       - name: Run Fastlane
         env:
           FIREBASE_ANDROID_APPID: ${{ secrets.FIREBASE_ANDROID_APPID }}

@@ -46,6 +46,7 @@ lib/generated_plugin_registrant.dart
 **/android/**/GeneratedPluginRegistrant.java
 
 # Keys
+**/.env*
 **/android/**/google-services.json
 **/android/**/key.properties
 **/android/**/key.jks

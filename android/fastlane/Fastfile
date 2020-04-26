@@ -1,17 +1,15 @@
-platform :android do
-  desc 'Push the built release APK to alpha or beta depending on current branch'
-  lane :deploy_play_store do
-    begin
-      upload_to_play_store(
-        track: 'alpha',
-        aab: '../build/app/outputs/bundle/release/app-release.aab',
-        json_key: './app/serviceAccount.json',
-        skip_upload_screenshots: true,
-        skip_upload_images: true
+default_platform(:android)
+
+platform :android do |lane, options|
+  desc "Deploy a new beta"
+  lane :beta do
+      firebase_app_distribution(
+          app: options[:APP_ID],
+          groups: "testers",
+          token: options[:FIREBASE_TOKEN],
+          release_notes: "a new version",
+          firebase_cli_path: "C:/Users/zvi/AppData/Roaming/npm/firebase",
+          apk_path: "../build/app/outputs/apk/release/app-release.apk"
       )
-    rescue => exception
-      raise exception unless exception.message.include?('apkUpgradeVersionConflict')
-      puts 'Current version already present on the Play Store. Omitting this upload.'
-    end
   end
 end

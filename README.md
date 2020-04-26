@@ -1,7 +1,6 @@
 # Daf++
 
-![Build Status](https://github.com/capslock-bmdc/daf_plus_plus/workflows/Continuous%20Integration/badge.svg)
-[![GitHub license](https://img.shields.io/github/license/capslock-bmdc/daf_plus_plus)](https://github.com/capslock-bmdc/daf_plus_plus/blob/develop/LICENSE)
+![CI/CD](https://github.com/capslock-bmdc/daf_plus_plus/workflows/CI/CD/badge.svg)[![GitHub license](https://img.shields.io/github/license/capslock-bmdc/daf_plus_plus)](https://github.com/capslock-bmdc/daf_plus_plus/blob/develop/LICENSE)
 
 A daf a day...
 

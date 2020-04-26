@@ -16,7 +16,7 @@ jobs:
       with:
           channel: 'beta'
     - run: flutter pub get
-    - name: Build APK
+    - name: Build
       run: |
         mkdir $HOME/secrets
         gpg --quiet --batch --yes --decrypt --passphrase="$SECRET_PASSPHRASE" \
@@ -26,20 +26,19 @@ jobs:
         flutter build apk
       env:
         SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}
-    - name: Upload APK
+    - name: Upload
       uses: actions/upload-artifact@master
       with:
         name: apk-build
         path: build/app/outputs/bundle/release
-    # - name: Create a Release APK
+    # - name: Release
     #   uses: ncipollo/release-action@v1
     #   with:
-    #     artifacts: "build/app/outputs/apk/debug/*.apk"
+    #     artifacts: "build/app/outputs/apk/release/app-release.apk"
     #     token: ${{ secrets.TOKEN }}
 
-
-    - name: deploy
-      if: (github.ref == 'refs/heads/test' && github.event_name == 'pull_request') || (github.event_name == 'push')
+    - name: Deploy
+      if: (github.ref == 'refs/heads/test' && github.event_name == 'pull_request')
       uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
       with:
         appId: ${{secrets.FIREBASE_ANDROID_APPID}}

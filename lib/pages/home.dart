@@ -1,5 +1,6 @@
-import 'package:daf_plus_plus/widgets/home/appBar.dart';
 import 'package:flutter/material.dart';
+
+import 'package:daf_plus_plus/widgets/home/appBar.dart';
 import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/dialogs/firstUseDialogLanguage.dart';
 import 'package:daf_plus_plus/pages/allShas.dart';
@@ -7,7 +8,6 @@ import 'package:daf_plus_plus/pages/dafYomi.dart';
 import 'package:daf_plus_plus/pages/todaysDaf.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
-import 'package:daf_plus_plus/utils/transparentRoute.dart';
 import 'package:daf_plus_plus/widgets/home/dafYomiFab.dart';
 
 class HomePage extends StatefulWidget {
@@ -38,8 +38,9 @@ class _HomePageState extends State<HomePage> {
   loadFirstRun() {
     localizationUtil
         .setPreferredLanguage(Localizations.localeOf(context).languageCode);
-    Navigator.of(context).push(
-      TransparentRoute(
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
         builder: (BuildContext context) => FirstUseDialogLanguage(),
       ),
     );
@@ -97,7 +98,8 @@ class _HomePageState extends State<HomePage> {
         child: _areBoxesOpen
             ? Scaffold(
                 appBar: AppBarWidget(tabs: _tabs.keys.toList()),
-                floatingActionButton: _isDafYomi ? DafYomiFabWidget() : Container(),
+                floatingActionButton:
+                    _isDafYomi ? DafYomiFabWidget() : Container(),
                 body: TabBarView(children: _tabs.values.toList()),
               )
             : Container(),

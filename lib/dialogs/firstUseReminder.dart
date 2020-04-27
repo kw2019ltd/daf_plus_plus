@@ -69,10 +69,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
                     padding: EdgeInsets.only(top: 16),
                     child: Text(localizationUtil.translate("set_reminder"))),
                 ListTile(
-                  title: Text(
-                    formattedTime,
-                    textScaleFactor: 1.2,
-                  ),
+                  title: Text(formattedTime),
                   leading: Icon(Icons.access_time),
                   onTap: () async {
                     var pickedTime = await selectTime(context);
@@ -110,11 +107,11 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
   Future setNotification() async {
     if (timeOfDay != null) {
       FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      new FlutterLocalNotificationsPlugin();
+          new FlutterLocalNotificationsPlugin();
 
       // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
       var initializationSettingsAndroid =
-      new AndroidInitializationSettings('ic_launcher');
+          new AndroidInitializationSettings('ic_launcher');
       var initializationSettingsIOS = new IOSInitializationSettings(
           onDidReceiveLocalNotification: onDidReceiveLocalNotification);
       var initializationSettings = new InitializationSettings(
@@ -148,7 +145,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
     }
   }
 
-    String _getDafNumber(int daf) {
+  String _getDafNumber(int daf) {
     if (localizationUtil.translate('display_dapim_as_gematria'))
       return gematriaConverterUtil
           .toGematria((daf + Consts.FIST_DAF))
@@ -157,8 +154,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
   }
 
   String _getTodaysDaf() {
-    DateTime today =
-    dateConverterUtil.getToday();
+    DateTime today = dateConverterUtil.getToday();
     DafModel todaysDaf = dafsDatesStore.getDafByDate(today);
 
     String masechet = localizationUtil.translate(todaysDaf.masechetId);

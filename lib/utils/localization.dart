@@ -43,7 +43,6 @@ class LocalizationUtil {
   }
 
   Future<void> setPreferredLanguage([String language]) async {
-    await hiveService.settings.open();
     _locale = _languageToLocale(language);
     await _loadTranslations();
     hiveService.settings.setPreferredLanguage(language);

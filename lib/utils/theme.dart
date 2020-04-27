@@ -25,6 +25,9 @@ class ThemeUtil {
           headline6: TextStyle(
             fontSize: 24,
           ),
+          caption: TextStyle(
+            fontWeight: FontWeight.bold
+          ),
         ),
       ),
     );

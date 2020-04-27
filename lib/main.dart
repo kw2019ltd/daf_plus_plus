@@ -1,23 +1,27 @@
-import 'package:daf_plus_plus/actions/progress.dart';
-import 'package:daf_plus_plus/stores/progress.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
+import 'package:daf_plus_plus/actions/progress.dart';
+import 'package:daf_plus_plus/stores/progress.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/consts/consts.dart';
 import 'package:daf_plus_plus/utils/theme.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/pages/splash.dart';
-import 'package:provider/provider.dart';
 
 void main() async {
-  Crashlytics.instance.enableInDevMode = false;
+  Crashlytics.instance.enableInDevMode = true;
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   await hiveService.initHive();
   await localizationUtil.init();
-  runApp(
-      Provider<ProgressStore>(create: (_) => ProgressStore(), child: MyApp()));
+  runZoned(() {
+    runApp(Provider<ProgressStore>(
+        create: (_) => ProgressStore(), child: MyApp()));
+  }, onError: Crashlytics.instance.recordError);
 }
 
 class MyApp extends StatefulWidget {

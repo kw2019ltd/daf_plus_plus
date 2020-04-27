@@ -7,7 +7,6 @@ import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/widgets/shared/simpleMesechetWidget.dart';
 import 'package:daf_plus_plus/widgets/core/button.dart';
-import 'package:daf_plus_plus/widgets/core/dialog.dart';
 import 'package:flutter/material.dart';
 
 class FirstUseDialogFillIn extends StatefulWidget {
@@ -18,18 +17,24 @@ class FirstUseDialogFillIn extends StatefulWidget {
 class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
   List<bool> _progress = [];
 
+  void openHiveBoxes() {
+    hiveService.settings.open();
+    hiveService.progress.open();
+  }
+
   @override
   void initState() {
     super.initState();
+    openHiveBoxes();
     setState(() {
       _progress = List.filled(MasechetsData.THE_MASECHETS.length, false);
     });
   }
 
   _done() {
-    for (int i = 0; i < _progress.length; i++) {
-      if (_progress[i]) {
-        MasechetModel masechet = MasechetsData.THE_MASECHETS[i];
+    for (int index = 0; index < _progress.length; index++) {
+      if (_progress[index]) {
+        MasechetModel masechet = MasechetsData.THE_MASECHETS.values.firstWhere((MasechetModel masechet) => masechet.index == index);
         ProgressModel progress = ProgressModel(data: List.filled(masechet.numOfDafs, 1));
         progressAction.update(masechet.id, progress);
       }
@@ -58,11 +63,21 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
   }
 
   @override
+  void dispose() {
+    hiveService.settings.close();
+    hiveService.progress.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return DialogWidget(
-      hasShadow: false,
-      onTapBackground: () => Navigator.pop(context),
-      child: Center(
+    List<MasechetModel> masechetsList = MasechetsData.THE_MASECHETS.values.toList();
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(localizationUtil.translate("welcome")),
+      ),
+      body: SafeArea(
         child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,16 +85,15 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(10),
-                child: Text(localizationUtil.translate("what_have_you_learned"),
-                    textScaleFactor: 1.2),
+                child: Text(localizationUtil.translate("what_have_you_learned")),
               ),
               Expanded(
                   child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: MasechetsData.THE_MASECHETS.length,
+                itemCount: masechetsList.length,
                 itemBuilder: (context, dafIndex) => SimpleMesechetWidget(
                   name: localizationUtil
-                      .translate(MasechetsData.THE_MASECHETS[dafIndex].id),
+                      .translate(masechetsList[dafIndex].id),
                   checked: _progress[dafIndex],
                   onChange: (bool state) => _onClickDaf(dafIndex, state),
                 ),

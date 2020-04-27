@@ -7,6 +7,9 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
+    - run: |
+        echo "$github.base_ref"
+        echo "$github.event_name"
     - uses: actions/checkout@v2
     - uses: actions/checkout@v1
     - uses: actions/setup-java@v1

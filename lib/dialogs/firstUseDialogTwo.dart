@@ -76,23 +76,6 @@ class _FirstUseDialogTwoState extends State<FirstUseDialogTwo> {
     return masechet + " " + daf;
   }
 
-  void openHiveBoxes() {
-    hiveService.settings.open();
-    hiveService.progress.open();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    openHiveBoxes();
-  }
-
-  @override
-  void dispose() {
-    hiveService.settings.close();
-    hiveService.progress.close();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

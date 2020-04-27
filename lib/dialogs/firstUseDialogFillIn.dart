@@ -17,15 +17,9 @@ class FirstUseDialogFillIn extends StatefulWidget {
 class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
   List<bool> _progress = [];
 
-  void openHiveBoxes() {
-    hiveService.settings.open();
-    hiveService.progress.open();
-  }
-
   @override
   void initState() {
     super.initState();
-    openHiveBoxes();
     setState(() {
       _progress = List.filled(MasechetsData.THE_MASECHETS.length, false);
     });
@@ -62,12 +56,6 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
     }
   }
 
-  @override
-  void dispose() {
-    hiveService.settings.close();
-    hiveService.progress.close();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -17,6 +17,8 @@ void main() async {
   Crashlytics.instance.enableInDevMode = true;
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   await hiveService.initHive();
+  await hiveService.settings.open();
+  await hiveService.progress.open();
   await localizationUtil.init();
   runZoned(() {
     runApp(Provider<ProgressStore>(

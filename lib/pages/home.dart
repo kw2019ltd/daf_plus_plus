@@ -38,8 +38,10 @@ class _HomePageState extends State<HomePage> {
   loadFirstRun() {
     localizationUtil
         .setPreferredLanguage(Localizations.localeOf(context).languageCode);
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (BuildContext context) =>  FirstUseDialogLanguage(),
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => FirstUseDialogLanguage(),
       ),
     );
   }
@@ -96,7 +98,8 @@ class _HomePageState extends State<HomePage> {
         child: _areBoxesOpen
             ? Scaffold(
                 appBar: AppBarWidget(tabs: _tabs.keys.toList()),
-                floatingActionButton: _isDafYomi ? DafYomiFabWidget() : Container(),
+                floatingActionButton:
+                    _isDafYomi ? DafYomiFabWidget() : Container(),
                 body: TabBarView(children: _tabs.values.toList()),
               )
             : Container(),

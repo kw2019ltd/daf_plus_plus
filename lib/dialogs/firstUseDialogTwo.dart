@@ -11,13 +11,15 @@ import 'package:daf_plus_plus/stores/dafsDates.dart';
 import 'package:daf_plus_plus/utils/dateConverter.dart';
 import 'package:daf_plus_plus/utils/gematriaConverter.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
-import 'package:daf_plus_plus/utils/transparentRoute.dart';
 import 'package:daf_plus_plus/widgets/core/button.dart';
-import 'package:daf_plus_plus/widgets/core/dialog.dart';
-import 'package:daf_plus_plus/widgets/core/title.dart';
 import 'package:flutter/material.dart';
 
-class FirstUseDialogTwo extends StatelessWidget {
+class FirstUseDialogTwo extends StatefulWidget {
+  @override
+  _FirstUseDialogTwoState createState() => _FirstUseDialogTwoState();
+}
+
+class _FirstUseDialogTwoState extends State<FirstUseDialogTwo> {
   _yes(BuildContext context) {
     _fillIn();
     hiveService.settings.setHasOpened(true);
@@ -27,17 +29,20 @@ class FirstUseDialogTwo extends StatelessWidget {
 
   _fillIn() {
     DafModel todaysDaf =
-    dafsDatesStore.getDafByDate(dateConverterUtil.getToday());
-    int mesechta = MasechetsData.THE_MASECHETS[todaysDaf.masechetId].index;
-    if (mesechta > 0) {
-      for (int i = 0; i < mesechta; i++) {
-        MasechetModel masechet = MasechetsData.THE_MASECHETS[i];
-        ProgressModel progress = ProgressModel(data: List.filled(masechet.numOfDafs, 1));
+        dafsDatesStore.getDafByDate(dateConverterUtil.getToday());
+    int mesechtIndex = MasechetsData.THE_MASECHETS[todaysDaf.masechetId].index;
+    if (mesechtIndex > 0) {
+      for (int index = 0; index < mesechtIndex; index++) {
+        MasechetModel masechet = MasechetsData.THE_MASECHETS.values
+            .firstWhere((MasechetModel masechet) => masechet.index == index);
+        ProgressModel progress =
+            ProgressModel(data: List.filled(masechet.numOfDafs, 1));
         progressAction.update(masechet.id, progress);
       }
     }
-    MasechetModel currentMasechet = MasechetsData.THE_MASECHETS[mesechta];
-    ProgressModel progress = ProgressModel(data: List.filled(currentMasechet.numOfDafs, 0));
+    MasechetModel currentMasechet = MasechetsData.THE_MASECHETS[todaysDaf.masechetId];
+    ProgressModel progress =
+        ProgressModel(data: List.filled(currentMasechet.numOfDafs, 0));
     for (int i = 0; i < todaysDaf.number; i++) {
       progress.data[i] = 1;
     }
@@ -45,8 +50,9 @@ class FirstUseDialogTwo extends StatelessWidget {
   }
 
   _no(BuildContext context) {
-    Navigator.of(context).push(
-      TransparentRoute(
+    Navigator.push(
+      context,
+      MaterialPageRoute(
         builder: (BuildContext context) => FirstUseDialogFillIn(),
       ),
     );
@@ -62,7 +68,7 @@ class FirstUseDialogTwo extends StatelessWidget {
 
   String _getYesterdaysDaf() {
     DateTime yesterday =
-    dateConverterUtil.getToday().subtract(Duration(days: 1));
+        dateConverterUtil.getToday().subtract(Duration(days: 1));
     DafModel yesterdaysDaf = dafsDatesStore.getDafByDate(yesterday);
 
     String masechet = localizationUtil.translate(yesterdaysDaf.masechetId);
@@ -70,54 +76,63 @@ class FirstUseDialogTwo extends StatelessWidget {
     return masechet + " " + daf;
   }
 
+  void openHiveBoxes() {
+    hiveService.settings.open();
+    hiveService.progress.open();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    openHiveBoxes();
+  }
+
+  @override
+  void dispose() {
+    hiveService.settings.close();
+    hiveService.progress.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DialogWidget(
-      hasShadow: false,
-      onTapBackground: () => Navigator.pop(context),
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            TitleWidget(
-              title: localizationUtil.translate("welcome"),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
-            ),
-            ListView(
-              shrinkWrap: true,
-              padding: EdgeInsets.all(16),
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.only(top: 16),
-                    child: Text(
-                      localizationUtil.translate("daf_holding"),
-                      textScaleFactor: 1.2,
-                    )),
-                Text(
-                    localizationUtil.translate("daf_yesterday") +
-                        _getYesterdaysDaf(),
-                    style: TextStyle(
-                        color: Colors.blueGrey, fontWeight: FontWeight.bold),
-                    textScaleFactor: 0.8),
-                ListTile(
-                  title: ButtonWidget(
-                    text: localizationUtil.translate("yes"),
-                    buttonType: ButtonType.Outline,
-                    color: Theme.of(context).primaryColor,
-                    onPressed: () => _yes(context),
-                  ),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(localizationUtil.translate("welcome")),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: Text(
+                    localizationUtil.translate("daf_holding"),
+                  )),
+              Text(
+                  localizationUtil.translate("daf_yesterday") +
+                      _getYesterdaysDaf(),
+                  style: Theme.of(context).textTheme.caption),
+              ListTile(
+                title: ButtonWidget(
+                  text: localizationUtil.translate("yes"),
+                  buttonType: ButtonType.Outline,
+                  color: Theme.of(context).primaryColor,
+                  onPressed: () => _yes(context),
                 ),
-                ListTile(
-                  title: ButtonWidget(
-                    text: localizationUtil.translate("no"),
-                    buttonType: ButtonType.Outline,
-                    color: Theme.of(context).primaryColor,
-                    onPressed: () => _no(context),
-                  ),
+              ),
+              ListTile(
+                title: ButtonWidget(
+                  text: localizationUtil.translate("no"),
+                  buttonType: ButtonType.Outline,
+                  color: Theme.of(context).primaryColor,
+                  onPressed: () => _no(context),
                 ),
-              ],
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -43,7 +43,6 @@ class DafWidget extends StatelessWidget {
           dateConverterUtil.getDayInWeek(dafDate) +
               ", " +
               dateConverterUtil.toEnglishDate(dafDate),
-          textScaleFactor: 0.8,
           style: TextStyle(color: Colors.blueGrey),
         ),
         title: Text(localizationUtil.translate('daf') + " " + _getDafNumber()),

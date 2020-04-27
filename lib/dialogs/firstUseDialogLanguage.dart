@@ -1,68 +1,67 @@
-import 'package:daf_plus_plus/dialogs/firstUseDialogOne.dart';
-import 'package:daf_plus_plus/utils/localization.dart';
-import 'package:daf_plus_plus/utils/transparentRoute.dart';
-import 'package:daf_plus_plus/widgets/core/button.dart';
-import 'package:daf_plus_plus/widgets/core/dialog.dart';
-import 'package:daf_plus_plus/widgets/core/title.dart';
 import 'package:flutter/material.dart';
 
-class FirstUseDialogLanguage extends StatelessWidget {
-  _heb(BuildContext context) async {
-    await localizationUtil
-        .setPreferredLanguage("he")
-        .then((value) => _navForward(context));
-  }
+import 'package:daf_plus_plus/consts/consts.dart';
+import 'package:daf_plus_plus/dialogs/firstUseDialogOne.dart';
+import 'package:daf_plus_plus/utils/localization.dart';
+import 'package:daf_plus_plus/widgets/core/button.dart';
 
-  _navForward(BuildContext context) {
-    Navigator.pop(context);
-    Navigator.of(context).push(
-      TransparentRoute(
+class FirstUseDialogLanguage extends StatefulWidget {
+  @override
+  _FirstUseDialogLanguageState createState() => _FirstUseDialogLanguageState();
+}
+
+class _FirstUseDialogLanguageState extends State<FirstUseDialogLanguage> {
+  List<String> _listOfLanguages = [""];
+
+  void _changeLanguage(BuildContext context, String language) async {
+    await localizationUtil.setPreferredLanguage(language);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
         builder: (BuildContext context) => FirstUseDialogOne(),
       ),
     );
   }
 
-  _en(BuildContext context) async {
-    await localizationUtil
-        .setPreferredLanguage("en")
-        .then((value) => _navForward(context));
+  void _getLanguages() {
+    List<String> listOfLanguages =
+        Consts.LOCALES.map((Locale language) => language.languageCode).toList();
+    setState(() {
+      _listOfLanguages = listOfLanguages;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getLanguages();
   }
 
   @override
   Widget build(BuildContext context) {
-    return DialogWidget(
-      onTapBackground: () => Navigator.pop(context),
-      child: Center(
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(localizationUtil.translate("welcome")),
+      ),
+      body: SafeArea(
         child: Column(
-          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            TitleWidget(
-              title: localizationUtil.translate("welcome"),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
-            ),
+            Container(height: 16),
+            Text(localizationUtil.translate("choose_language")),
             ListView(
               shrinkWrap: true,
               padding: EdgeInsets.all(16),
-              children: <Widget>[
-                Text(localizationUtil.translate("choose_language"),
-                    textScaleFactor: 1.2),
-                ListTile(
-                  title: ButtonWidget(
-                    text: "עברית",
-                    buttonType: ButtonType.Outline,
-                    color: Theme.of(context).primaryColor,
-                    onPressed: () => _heb(context),
-                  ),
-                ),
-                ListTile(
-                  title: ButtonWidget(
-                    text: "English",
-                    buttonType: ButtonType.Outline,
-                    color: Theme.of(context).primaryColor,
-                    onPressed: () => _en(context),
-                  ),
-                ),
-              ],
+              children: _listOfLanguages
+                  .map((language) => ListTile(
+                        title: ButtonWidget(
+                          text: localizationUtil.translate(language),
+                          buttonType: ButtonType.Outline,
+                          color: Theme.of(context).primaryColor,
+                          onPressed: () => _changeLanguage(context, language),
+                        ),
+                      ))
+                  .toList(),
             )
           ],
         ),

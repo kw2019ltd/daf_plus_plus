@@ -104,11 +104,17 @@ class _DafYomiFabWidgetState extends State<DafYomiFabWidget>
         ),
         duration: Duration(milliseconds: 200),
         curve: Curves.easeOut,
-        margin: EdgeInsets.only(left: _popupPadding),
+        margin: localizationUtil.isRtl
+            ? EdgeInsets.only(left: _popupPadding)
+            : EdgeInsets.only(right: _popupPadding),
         width: _popupWidth,
         height: _fabHeight,
         child: ClipRect(
-          child: Center(child: Text(localizationUtil.translate('plus_plus_toast'))),
+          child: Center(
+              child: Text(
+            localizationUtil.translate('plus_plus_toast'),
+            textAlign: TextAlign.center,
+          )),
         ),
       ),
     );

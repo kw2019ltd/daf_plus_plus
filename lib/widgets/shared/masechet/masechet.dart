@@ -90,6 +90,7 @@ class _MasechetWidgetState extends State<MasechetWidget> {
           progressStore.getProgressMap[widget.daf.masechetId];
       MasechetModel masechet =
           MasechetsData.THE_MASECHETS[widget.daf.masechetId];
+      if (progress == null) progress = ProgressModel.empty(masechet.numOfDafs);
       if (widget.inList) {
         return SliverStickyHeader(
           header: _masechetTitle(masechet, progress),

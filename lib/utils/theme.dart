@@ -21,6 +21,8 @@ class ThemeUtil {
           ),
           headline5: TextStyle(
             color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
           ),
           headline6: TextStyle(
             fontSize: 24,

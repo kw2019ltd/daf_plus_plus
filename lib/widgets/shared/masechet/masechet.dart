@@ -77,6 +77,7 @@ class _MasechetWidgetState extends State<MasechetWidget> {
         progress: progress,
         onProgressChange: _onProgressChange,
         lastDafIndex: widget.daf.number,
+        hasPadding: true,
       ),
     );
   }

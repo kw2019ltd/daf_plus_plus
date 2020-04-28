@@ -57,6 +57,8 @@ class LocalizationUtil {
 
   get locale => _locale;
 
+  get isRtl => _locale.languageCode == "he";
+
   static final LocalizationUtil _translations =
       new LocalizationUtil._internal();
   factory LocalizationUtil() {

@@ -14,9 +14,11 @@ import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/pages/splash.dart';
 
 void main() async {
-  Crashlytics.instance.enableInDevMode = true;
+  Crashlytics.instance.enableInDevMode = false;
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   await hiveService.initHive();
+  await hiveService.settings.open();
+  await hiveService.progress.open();
   await localizationUtil.init();
   runZoned(() {
     runApp(Provider<ProgressStore>(

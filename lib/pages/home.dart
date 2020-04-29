@@ -16,14 +16,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool _areBoxesOpen = false;
   bool _isDafYomi = true;
   Map<String, Widget> _tabs = {};
 
   Future<void> _loadProgress() async {
-    await hiveService.settings.open();
-    await hiveService.progress.open();
-    setState(() => _areBoxesOpen = true);
     progressAction.backup();
   }
 
@@ -83,27 +79,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  void dispose() {
-    hiveService.settings.close();
-    hiveService.progress.close();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: _tabs.length,
       child: WillPopScope(
-        onWillPop: _exitApp,
-        child: _areBoxesOpen
-            ? Scaffold(
-                appBar: AppBarWidget(tabs: _tabs.keys.toList()),
-                floatingActionButton:
-                    _isDafYomi ? DafYomiFabWidget() : Container(),
-                body: TabBarView(children: _tabs.values.toList()),
-              )
-            : Container(),
-      ),
+          onWillPop: _exitApp,
+          child: Scaffold(
+            appBar: AppBarWidget(tabs: _tabs.keys.toList()),
+            floatingActionButton: _isDafYomi ? DafYomiFabWidget() : Container(),
+            body: TabBarView(children: _tabs.values.toList()),
+          )),
     );
   }
 }

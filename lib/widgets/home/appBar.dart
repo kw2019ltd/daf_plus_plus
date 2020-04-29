@@ -71,11 +71,12 @@ class _AppBarWidgetState extends State<AppBarWidget> {
       leading: Container(),
       actions: <Widget>[
         IconButton(
-          icon: Icon(Icons.more_vert),
+          icon: Icon(Icons.settings),
           onPressed: () => _openUserSettings(context),
         ),
       ],
       bottom: TabBar(
+        indicatorWeight: 3,
         indicatorColor: Theme.of(context).textTheme.headline5.color,
         tabs: widget.tabs
             .map((text) => Tab(

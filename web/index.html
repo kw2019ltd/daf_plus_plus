@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -11,9 +12,10 @@
   <meta name="apple-mobile-web-app-title" content="daf_plus_plus">
   <link rel="apple-touch-icon" href="/icons/Icon-192.png">
 
-  <title>דף++</title>
+  <title>Daf++</title>
   <link rel="manifest" href="/manifest.json">
 </head>
+
 <body>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
@@ -25,6 +27,26 @@
       });
     }
   </script>
+  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
+
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyAW7gu7F9gvXxywdKx6ucUdI3a5Erg1IoY",
+      authDomain: "daf-checker.firebaseapp.com",
+      databaseURL: "https://daf-checker.firebaseio.com",
+      projectId: "daf-checker",
+      storageBucket: "daf-checker.appspot.com",
+      messagingSenderId: "528104545477",
+      appId: "1:528104545477:web:430153bdd20bd5c38424ac",
+      measurementId: "G-4BM93BKCHM"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
+
 </html>

@@ -1,16 +1,25 @@
-# daf_plus_plus
+# Daf++
 
-A new Flutter project.
+![CI/CD](https://github.com/capslock-bmdc/daf_plus_plus/workflows/CI/CD/badge.svg)[![GitHub license](https://img.shields.io/github/license/capslock-bmdc/daf_plus_plus)](https://github.com/capslock-bmdc/daf_plus_plus/blob/develop/LICENSE)
+
+A daf a day...
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-A few resources to get you started if this is your first Flutter project:
+### Prerequisites
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+* Make sure you have flutter beta installed.
+* Run `flutter doctor` in your terminal to make sure everything is fine.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Installing
+
+* Clone the project.
+* Add the `google-services.json` file to `android/app`.
+* Run `flutter get packages`.
+* Run the project on your device.
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.

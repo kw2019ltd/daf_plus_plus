@@ -1,7 +1,8 @@
-import 'package:daf_plus_plus/services/hive/progressBox.dart';
-import 'package:daf_plus_plus/services/hive/settingsBox.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import 'package:daf_plus_plus/services/hive/progressBox.dart';
+import 'package:daf_plus_plus/services/hive/settingsBox.dart';
 
 class HiveService {
   ProgressBox progress = progressBox;

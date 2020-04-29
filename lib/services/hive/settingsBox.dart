@@ -1,6 +1,7 @@
-import 'package:daf_plus_plus/consts/hive.dart';
-import 'package:daf_plus_plus/models/dafLocation.dart';
 import 'package:hive/hive.dart';
+
+import 'package:daf_plus_plus/consts/hive.dart';
+import 'package:daf_plus_plus/models/daf.dart';
 
 class SettingsBox {
   Future<void> open() async {
@@ -11,32 +12,59 @@ class SettingsBox {
     Hive.box(HiveConsts.SETTINGS_BOX).close();
   }
 
-  DafLocationModel getLastDaf() {
+  void _setByKey(dynamic key, dynamic value) {
     Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-    String lastDaf = settingsBox.get(HiveConsts.LAST_DAF);
-    return DafLocationModel.fromString(lastDaf);
+    settingsBox.put(key, value);
   }
 
-  void setLastDaf(DafLocationModel lastDaf) {
+  dynamic _getByKey(dynamic key) {
     Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-    settingsBox.put(HiveConsts.LAST_DAF, lastDaf.toString());
+    return settingsBox.get(key);
+  }
+
+  // last daf
+  DafModel getLastDaf() =>
+      DafModel.fromString(_getByKey(HiveConsts.LAST_DAF));
+  void setLastDaf(DafModel lastDaf) {
+    _setByKey(HiveConsts.LAST_DAF, lastDaf.toString());
     setLastUpdatedNow();
   }
 
-  DateTime getLastUpdated() {
+  // last updated
+  void setLastUpdatedNow() => setLastUpdated(DateTime.now());
+  void setLastUpdated(DateTime lastUpdated) =>
+      _setByKey(HiveConsts.LAST_UPDATED, lastUpdated);
+  DateTime getLastUpdated() => _getByKey(HiveConsts.LAST_UPDATED);
+
+  // last backup
+  void setLastBackupNow() => setLastBackup(DateTime.now());
+  void setLastBackup(DateTime lastBackup) =>
+      _setByKey(HiveConsts.LAST_BACKUP, lastBackup);
+  DateTime getLastBackup() => _getByKey(HiveConsts.LAST_BACKUP);
+
+  // preferred language
+  void setPreferredLanguage(String preferredLanguage) =>
+      _setByKey(HiveConsts.PREFERRED_LANGUAGE, preferredLanguage);
+  String getPreferredLanguage() => _getByKey(HiveConsts.PREFERRED_LANGUAGE);
+
+  // is daf yomi
+  void setIsDafYomi(bool isDaf) => _setByKey(HiveConsts.IS_DAF_YOMI, isDaf);
+
+  bool getIsDafYomi() => _getByKey(HiveConsts.IS_DAF_YOMI) ?? false;
+
+  Stream<bool> listenToIsDafYomi() {
     Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-    DateTime lastUpdated = settingsBox.get(HiveConsts.LAST_UPDATED);
-    return lastUpdated;
+    return settingsBox.watch(key: HiveConsts.IS_DAF_YOMI).map((BoxEvent setting) => setting.value);
   }
 
-  void setLastUpdatedNow() {
-    setLastUpdated(DateTime.now());
-  }
+  // has opened
+  void setHasOpened(bool hasOpened) =>
+      _setByKey(HiveConsts.HAS_OPENED, hasOpened);
+  bool getHasOpened() => _getByKey(HiveConsts.HAS_OPENED) ?? false;
 
-  void setLastUpdated(DateTime lastUpdated) {
-    Box settingsBox = Hive.box(HiveConsts.SETTINGS_BOX);
-    settingsBox.put(HiveConsts.LAST_UPDATED, lastUpdated);
-  }
+  // used fab
+  void setUsedFab(bool usedFab) => _setByKey(HiveConsts.USED_FAB, usedFab);
+  bool getUsedFab() => _getByKey(HiveConsts.USED_FAB) ?? false;
 }
 
 final SettingsBox settingsBox = SettingsBox();

@@ -44,8 +44,11 @@ lib/generated_plugin_registrant.dart
 **/android/gradlew.bat
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
-**/android/**/google-services.json
 
-# keytool
-**/key.properties
-**/key.jks
+# Keys
+**/.env*
+**/android/**/google-services.json
+**/android/**/key.properties
+**/android/**/key.jks
+**/android/**/serviceAccount.json
+**/secrets.tar

@@ -8,7 +8,8 @@ class ThemeUtil {
       // colors
       brightness: Brightness.light,
       primaryColor: Colors.indigo[500],
-      accentColor: Colors.teal[200],
+      accentColor: Colors.blueGrey[700],
+      backgroundColor: Colors.blueGrey[50],
 
       // typography
       textTheme: GoogleFonts.alefTextTheme(
@@ -18,8 +19,16 @@ class ThemeUtil {
           bodyText2: TextStyle(
             fontSize: 18,
           ),
+          headline5: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
           headline6: TextStyle(
             fontSize: 24,
+          ),
+          caption: TextStyle(
+            fontWeight: FontWeight.bold
           ),
         ),
       ),

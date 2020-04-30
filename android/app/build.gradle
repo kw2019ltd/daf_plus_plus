@@ -47,9 +47,6 @@ android {
     }
 
     defaultConfig {
-        ndk {
-            abiFilters 'armeabi-v7a'
-        }
         applicationId "com.zektec.daf_plus_plus"
         minSdkVersion 21
         targetSdkVersion 28

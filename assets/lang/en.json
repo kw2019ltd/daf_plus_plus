@@ -39,10 +39,15 @@
     "settings_backuped_text": "Your data is backed up",
     "settings_backuped_subtext": "Laset backup at: ",
     "settings_lang_text": "Change a language",
+    "settings_calendar_text": "Change the calendar",
     "settings_reset_text": "Ready to start from the beginning?",
     "settings_reset_worning_text": "Are you sure you want to delete everything? This can NOT be undone.",
     "reset_button": "Reset",
     "do_you_daf": "Do you learn Daf Yomi?",
+    "calendar_types": {
+      "english_calendar": "English Calender",
+      "hebrew_calendar": "Hebrew Calender"
+    },
     "about_us": [
       "This open source project was created by developers from CAPSLOCK.",
       "Any contribution would be welcomed on ",
@@ -65,21 +70,22 @@
     "daf_yesterday": "Yesterday's Daf was: "
   },
 
-  "calander": {
+  "calendar": {
     "days_in_week": ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"],
     "hebrew_months": [
+      "Nisan",
+      "Iar",
+      "Sivan",
+      "Tamuz",
+      "Av",
+      "Elul",
       "Tishrai",
       "Cheshvan",
       "Cislev",
       "Tevet",
       "Shvat",
       "Adar",
-      "Nisan",
-      "Iar",
-      "Sivan",
-      "Tamuz",
-      "Av",
-      "Elul"
+      "Adar Bet"
     ],
     "english_months": [
       "January",

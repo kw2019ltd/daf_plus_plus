@@ -1,3 +1,4 @@
+import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/utils/dateConverter.dart';
@@ -23,11 +24,20 @@ class DafWidget extends StatelessWidget {
   }
 
   String _getDafNumber() {
-    if (localizationUtil.translate("calander", "display_dapim_as_gematria"))
+    if (localizationUtil.translate("calendar", "display_dapim_as_gematria"))
       return gematriaConverterUtil
           .toGematria((dafNumber + Consts.FIST_DAF))
           .toString();
     return (dafNumber + Consts.FIST_DAF).toString();
+  }
+
+  String _theDate(dafDate) {
+    String calendarType = hiveService.settings.getPreferredCalendar() ?? Consts.DEFAULT_CALENDAR_TYPE;
+    if (calendarType == "english_calendar")
+      return dateConverterUtil.toEnglishDate(dafDate);
+    else if (calendarType == "hebrew_calendar")
+      return dateConverterUtil.toHebrewDate(dafDate);
+    return ""; 
   }
 
   @override
@@ -42,10 +52,12 @@ class DafWidget extends StatelessWidget {
         trailing: Text(
           dateConverterUtil.getDayInWeek(dafDate) +
               ", " +
-              dateConverterUtil.toEnglishDate(dafDate),
+              _theDate(dafDate),
           style: TextStyle(color: Colors.blueGrey),
         ),
-        title: Text(localizationUtil.translate("general", "daf") + " " + _getDafNumber()),
+        title: Text(localizationUtil.translate("general", "daf") +
+            " " +
+            _getDafNumber()),
       ),
     );
   }

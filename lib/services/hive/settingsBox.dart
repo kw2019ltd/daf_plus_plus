@@ -47,6 +47,11 @@ class SettingsBox {
       _setByKey(HiveConsts.PREFERRED_LANGUAGE, preferredLanguage);
   String getPreferredLanguage() => _getByKey(HiveConsts.PREFERRED_LANGUAGE);
 
+  // preferred calendar
+  void setPreferredCalendar(String preferredCalendar) =>
+      _setByKey(HiveConsts.PREFERRED_CALENDAR, preferredCalendar);
+  String getPreferredCalendar() => _getByKey(HiveConsts.PREFERRED_CALENDAR);
+
   // is daf yomi
   void setIsDafYomi(bool isDaf) => _setByKey(HiveConsts.IS_DAF_YOMI, isDaf);
 

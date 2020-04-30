@@ -28,15 +28,19 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
   _done() {
     for (int index = 0; index < _progress.length; index++) {
       if (_progress[index]) {
-        MasechetModel masechet = MasechetsData.THE_MASECHETS.values.firstWhere((MasechetModel masechet) => masechet.index == index);
-        ProgressModel progress = ProgressModel(data: List.filled(masechet.numOfDafs, 1));
+        MasechetModel masechet = MasechetsData.THE_MASECHETS.values
+            .firstWhere((MasechetModel masechet) => masechet.index == index);
+        ProgressModel progress =
+            ProgressModel(data: List.filled(masechet.numOfDafs, 1));
         progressAction.update(masechet.id, progress);
       }
     }
 
     hiveService.settings.setHasOpened(true);
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+        ModalRoute.withName('/'));
   }
 
   void _onClickDaf(int masechetIndex, bool state) {
@@ -56,10 +60,10 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-    List<MasechetModel> masechetsList = MasechetsData.THE_MASECHETS.values.toList();
+    List<MasechetModel> masechetsList =
+        MasechetsData.THE_MASECHETS.values.toList();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -73,15 +77,16 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(10),
-                child: Text(localizationUtil.translate("onbording", "what_have_you_learned")),
+                child: Text(localizationUtil.translate(
+                    "onbording", "what_have_you_learned")),
               ),
               Expanded(
                   child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: masechetsList.length,
                 itemBuilder: (context, dafIndex) => SimpleMesechetWidget(
-                  name: localizationUtil
-                      .translate("shas", masechetsList[dafIndex].id),
+                  name: localizationUtil.translate(
+                      "shas", masechetsList[dafIndex].id),
                   checked: _progress[dafIndex],
                   onChange: (bool state) => _onClickDaf(dafIndex, state),
                 ),

@@ -1,3 +1,4 @@
+import 'package:daf_plus_plus/pages/settings.dart';
 import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/widgets/home/appBar.dart';
@@ -66,6 +67,7 @@ class _HomePageState extends State<HomePage> {
     else
       tabs['todays_daf'] = TodaysDafPage();
     tabs['all_shas'] = AllShasPage();
+    tabs['settings'] = SettingsPage();
     setState(() {
       _isDafYomi = isDafYomi;
       _tabs = tabs;

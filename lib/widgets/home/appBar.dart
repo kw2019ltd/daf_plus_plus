@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-import 'package:daf_plus_plus/dialogs/userSettings.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
-import 'package:daf_plus_plus/utils/transparentRoute.dart';
 
 class AppBarWidget extends StatefulWidget with PreferredSizeWidget {
   AppBarWidget({this.tabs});
@@ -20,12 +18,19 @@ class AppBarWidget extends StatefulWidget with PreferredSizeWidget {
 class _AppBarWidgetState extends State<AppBarWidget> {
   double _plusPlusWidth = 0;
 
-  void _openUserSettings(BuildContext context) {
-    Navigator.of(context).push(
-      TransparentRoute(
-        builder: (BuildContext context) => UserSettingsDialog(),
-      ),
+  Widget _textTab(String text, double width) {
+    return Container(
+      width: width,
+      child: Tab(
+          child: Text(
+        localizationUtil.translate("home", text),
+        style: Theme.of(context).textTheme.headline5,
+      )),
     );
+  }
+
+  Widget _iconTab(IconData icon, double width) {
+    return Container(width: width, child: Icon(icon));
   }
 
   @override
@@ -40,18 +45,20 @@ class _AppBarWidgetState extends State<AppBarWidget> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double settingsButtonWidth = 56;
+
     return AppBar(
       title: SafeArea(
         child: Row(
           textDirection: TextDirection.rtl,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-             Image.asset(
-                "assets/icon/daf-white-on-transperant.png",
-                width: 30,
-                height: 36,
-              ),
-            
+            Image.asset(
+              "assets/icon/daf-white-on-transperant.png",
+              width: 30,
+              height: 36,
+            ),
             AnimatedContainer(
               duration: Duration(milliseconds: 150),
               width: _plusPlusWidth,
@@ -68,23 +75,17 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         ),
       ),
       centerTitle: true,
-      leading: Container(),
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.settings),
-          onPressed: () => _openUserSettings(context),
-        ),
-      ],
       bottom: TabBar(
         indicatorWeight: 3,
+        isScrollable: true,
         indicatorColor: Theme.of(context).textTheme.headline5.color,
+        labelPadding: EdgeInsets.all(0),
         tabs: widget.tabs
-            .map((text) => Tab(
-                  child: Text(
-                    localizationUtil.translate("home", text),
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                ))
+            .map(
+              (text) => text != "settings"
+                  ? _textTab(text, ((screenWidth - settingsButtonWidth) / 2))
+                  : _iconTab(Icons.settings, settingsButtonWidth),
+            )
             .toList(),
       ),
     );

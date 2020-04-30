@@ -39,10 +39,15 @@
     "settings_backuped_text": "המידע שלך מגובה",
     "settings_backuped_subtext": "גובה לאחרונה ב",
     "settings_lang_text": "שנה שפה",
+    "settings_calendar_text": "שנה לוח שנה",
     "settings_reset_text": "מוכן להתחיל מההתחלה?",
     "settings_reset_worning_text": "האם אתה בטוח רוצה למחוק הכל? לא ניתן לשחזר את המידע לאחר פעולה זו.",
     "reset_button": "אפס",
     "do_you_daf": "האם אתה לומד את הדף היומי?",
+    "calendar_types": {
+      "english_calendar": "לוח שנה לועזי",
+      "hebrew_calendar": "לוח שנה עברי"
+    },
     "about_us": [
       "הפרויקט נוצר על ידי מתכנתים מCAPSLOCK כקוד פתוח.",
       "כל השתתפות בתכנות תתקבל בברכה ב",
@@ -65,7 +70,7 @@
     "daf_yesterday": "הדף של אתמול היה: "
   },
 
-  "calander": {
+  "calendar": {
     "days_in_week": [
       "יום א'",
       "יום ב'",
@@ -76,18 +81,19 @@
       "שבת"
     ],
     "hebrew_months": [
+      "ניסן",
+      "אייר",
+      "סיון",
+      "תמוז",
+      "אב",
+      "אלול",
       "תשרי",
       "חשוון",
       "כסלו",
       "טבת",
       "שבט",
       "אדר",
-      "ניסן",
-      "אייר",
-      "סיון",
-      "תמוז",
-      "אב",
-      "אלול"
+      "אדר ב"
     ],
     "english_months": [
       "ינואר",

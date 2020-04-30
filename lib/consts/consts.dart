@@ -15,4 +15,5 @@ class Consts {
 
   static const List<Locale> LOCALES = [Locale("he", "IL"), Locale("en", "US")];
   static const Locale DEFAULT_LOCALE = Locale("he", "IL");
+  static const String DEFAULT_CALENDAR_TYPE = "english_calendar";
 }

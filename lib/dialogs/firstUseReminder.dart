@@ -146,7 +146,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
   }
 
   String _getDafNumber(int daf) {
-    if (localizationUtil.translate("calander", "display_dapim_as_gematria"))
+    if (localizationUtil.translate("calendar", "display_dapim_as_gematria"))
       return gematriaConverterUtil
           .toGematria((daf + Consts.FIST_DAF))
           .toString();

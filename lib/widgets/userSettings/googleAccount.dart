@@ -104,7 +104,7 @@ class _GoogleAccountWidgetState extends State<GoogleAccountWidget> {
       padding: EdgeInsets.all(8),
       child: ListTile(
         title: Text(localizationUtil.translate("settings", "settings_not_backedup_text")),
-        subtitle: Text(localizationUtil.translate("settings", "settings_not_backedup_subtext'")),
+        subtitle: Text(localizationUtil.translate("settings", "settings_not_backedup_subtext")),
         trailing: ButtonWidget(
           text: localizationUtil.translate("settings", "connect_button"),
           buttonType: ButtonType.Filled,

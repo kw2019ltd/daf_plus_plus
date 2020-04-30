@@ -8,6 +8,7 @@ class HiveConsts {
   static const String LAST_UPDATED = "lastUpdated";
   static const String LAST_BACKUP = "lastBackup";
   static const String PREFERRED_LANGUAGE = "preferredLanguage";
+  static const String PREFERRED_CALENDAR = "preferredCalendar";
 
   static const String HAS_OPENED = "hasOpened";
   static const String USED_FAB = "usedFab";

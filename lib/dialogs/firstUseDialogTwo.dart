@@ -23,8 +23,8 @@ class _FirstUseDialogTwoState extends State<FirstUseDialogTwo> {
   _yes(BuildContext context) {
     _fillIn();
     hiveService.settings.setHasOpened(true);
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (BuildContext context) => HomePage()), ModalRoute.withName('/'));
   }
 
   _fillIn() {

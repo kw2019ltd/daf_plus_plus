@@ -95,6 +95,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
     return AppBar(
       title: _appBarTitle(),
       centerTitle: true,
+      leading: Container(),
       bottom: _tabBar(),
     );
   }

@@ -4,9 +4,10 @@ import 'package:flutter/scheduler.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 
 class AppBarWidget extends StatefulWidget with PreferredSizeWidget {
-  AppBarWidget({this.tabs});
+  AppBarWidget({this.tabs, this.onchangeSelectedTab});
 
   final List<String> tabs;
+  final Function(int) onchangeSelectedTab;
 
   @override
   _AppBarWidgetState createState() => _AppBarWidgetState();
@@ -33,6 +34,54 @@ class _AppBarWidgetState extends State<AppBarWidget> {
     return Container(width: width, child: Icon(icon));
   }
 
+  Widget _appBarTitle() {
+    return SafeArea(
+      child: Row(
+        textDirection: TextDirection.rtl,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Image.asset(
+            "assets/icon/daf-white-on-transperant.png",
+            width: 30,
+            height: 36,
+          ),
+          AnimatedContainer(
+            duration: Duration(milliseconds: 150),
+            width: _plusPlusWidth,
+            height: 36,
+            child: Image.asset(
+              "assets/icon/pp-white-on-transperant.png",
+              width: 36,
+              height: 36,
+              fit: BoxFit.fitHeight,
+              alignment: Alignment.centerLeft,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _tabBar() {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double settingsButtonWidth = 56;
+
+    return TabBar(
+      indicatorWeight: 3,
+      isScrollable: true,
+      onTap: widget.onchangeSelectedTab,
+      indicatorColor: Theme.of(context).textTheme.headline5.color,
+      labelPadding: EdgeInsets.all(0),
+      tabs: widget.tabs
+          .map(
+            (text) => text != "settings"
+                ? _textTab(text, ((screenWidth - settingsButtonWidth) / 2))
+                : _iconTab(Icons.settings, settingsButtonWidth),
+          )
+          .toList(),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -45,49 +94,10 @@ class _AppBarWidgetState extends State<AppBarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double settingsButtonWidth = 56;
-
     return AppBar(
-      title: SafeArea(
-        child: Row(
-          textDirection: TextDirection.rtl,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Image.asset(
-              "assets/icon/daf-white-on-transperant.png",
-              width: 30,
-              height: 36,
-            ),
-            AnimatedContainer(
-              duration: Duration(milliseconds: 150),
-              width: _plusPlusWidth,
-              height: 36,
-              child: Image.asset(
-                "assets/icon/pp-white-on-transperant.png",
-                width: 36,
-                height: 36,
-                fit: BoxFit.fitHeight,
-                alignment: Alignment.centerLeft,
-              ),
-            ),
-          ],
-        ),
-      ),
+      title: _appBarTitle(),
       centerTitle: true,
-      bottom: TabBar(
-        indicatorWeight: 3,
-        isScrollable: true,
-        indicatorColor: Theme.of(context).textTheme.headline5.color,
-        labelPadding: EdgeInsets.all(0),
-        tabs: widget.tabs
-            .map(
-              (text) => text != "settings"
-                  ? _textTab(text, ((screenWidth - settingsButtonWidth) / 2))
-                  : _iconTab(Icons.settings, settingsButtonWidth),
-            )
-            .toList(),
-      ),
+      bottom: _tabBar(),
     );
   }
 }

@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool _isDafYomi = true;
   Map<String, Widget> _tabs = {};
+  int _selectedTab = 0;
 
   Future<void> _loadProgress() async {
     progressAction.backup();
@@ -60,6 +61,18 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  bool _showDafYomiFab() {
+    if (!_isDafYomi)
+      return false;
+    else if (_tabs.keys.toList()[_selectedTab] == "settings")
+      return false;
+    return true;
+  }
+
+  void _changeSelectedTab(int index) {
+    setState(() => _selectedTab = index);
+  } 
+
   void _updateIsDafYomi(isDafYomi) {
     Map<String, Widget> tabs = {};
     if (isDafYomi)
@@ -87,8 +100,12 @@ class _HomePageState extends State<HomePage> {
       child: WillPopScope(
           onWillPop: _exitApp,
           child: Scaffold(
-            appBar: AppBarWidget(tabs: _tabs.keys.toList()),
-            floatingActionButton: _isDafYomi ? DafYomiFabWidget() : Container(),
+            appBar: AppBarWidget(
+              tabs: _tabs.keys.toList(),
+              onchangeSelectedTab: _changeSelectedTab,
+            ),
+            floatingActionButton:
+                _showDafYomiFab() ? DafYomiFabWidget() : Container(),
             body: TabBarView(children: _tabs.values.toList()),
           )),
     );

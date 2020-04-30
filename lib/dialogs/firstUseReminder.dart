@@ -27,7 +27,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
   void initState() {
     super.initState();
     setState(() {
-      formattedTime = localizationUtil.translate("select_time") + ":";
+      formattedTime = localizationUtil.translate("onbording", "select_time") + ":";
     });
   }
 
@@ -58,7 +58,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             TitleWidget(
-              title: localizationUtil.translate("welcome"),
+              title: localizationUtil.translate("onbording", "welcome"),
               borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
             ),
             ListView(
@@ -67,7 +67,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
               children: <Widget>[
                 Padding(
                     padding: EdgeInsets.only(top: 16),
-                    child: Text(localizationUtil.translate("set_reminder"))),
+                    child: Text(localizationUtil.translate("onbording", "set_reminder"))),
                 ListTile(
                   title: Text(formattedTime),
                   leading: Icon(Icons.access_time),
@@ -82,7 +82,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
                 ),
                 ListTile(
                   title: ButtonWidget(
-                    text: localizationUtil.translate("set"),
+                    text: localizationUtil.translate("onbording", "set"),
                     buttonType: ButtonType.Outline,
                     color: Theme.of(context).primaryColor,
                     onPressed: () => _set(context),
@@ -90,7 +90,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
                 ),
                 ListTile(
                   title: ButtonWidget(
-                    text: localizationUtil.translate("dont_set"),
+                    text: localizationUtil.translate("onbording", "dont_set"),
                     buttonType: ButtonType.Outline,
                     color: Theme.of(context).primaryColor,
                     onPressed: () => _no(context),
@@ -130,12 +130,12 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
 
       await flutterLocalNotificationsPlugin.showDailyAtTime(
           0,
-          localizationUtil.translate('did_you_daf'),
+          localizationUtil.translate("onbording", "did_you_daf"),
           'd',
           time,
           platformChannelSpecifics);
     } else {
-      toastUtil.showInformation(localizationUtil.translate("select_time"));
+      toastUtil.showInformation(localizationUtil.translate("onbording", "select_time"));
     }
   }
 
@@ -146,7 +146,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
   }
 
   String _getDafNumber(int daf) {
-    if (localizationUtil.translate('display_dapim_as_gematria'))
+    if (localizationUtil.translate("calander", "display_dapim_as_gematria"))
       return gematriaConverterUtil
           .toGematria((daf + Consts.FIST_DAF))
           .toString();
@@ -157,7 +157,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
     DateTime today = dateConverterUtil.getToday();
     DafModel todaysDaf = dafsDatesStore.getDafByDate(today);
 
-    String masechet = localizationUtil.translate(todaysDaf.masechetId);
+    String masechet = localizationUtil.translate("shas", todaysDaf.masechetId);
     String daf = _getDafNumber(todaysDaf.number);
     return masechet + " " + daf;
   }
@@ -173,7 +173,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
         actions: [
           CupertinoDialogAction(
             isDefaultAction: true,
-            child: new Text(localizationUtil.translate('confirm_button')),
+            child: new Text(localizationUtil.translate("general", "confirm_button")),
             onPressed: () async {
               Navigator.of(context, rootNavigator: true).pop();
             },

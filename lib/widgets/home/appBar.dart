@@ -81,7 +81,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         tabs: widget.tabs
             .map((text) => Tab(
                   child: Text(
-                    localizationUtil.translate(text),
+                    localizationUtil.translate("home", text),
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 ))

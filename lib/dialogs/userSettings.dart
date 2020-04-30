@@ -23,7 +23,7 @@ class _UserSettingsDialogState extends State<UserSettingsDialog> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             TitleWidget(
-              title: localizationUtil.translate('settings_title'),
+              title: localizationUtil.translate("settings", "settings_title"),
               borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
             ),
             Expanded(

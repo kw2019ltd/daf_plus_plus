@@ -63,9 +63,9 @@ class MasechetTitleWidget extends StatelessWidget {
                 ),
               ) : Container(),
               Expanded(
-                  child: Text(localizationUtil.translate('masechet') +
+                  child: Text(localizationUtil.translate("general", "masechet") +
                       " " +
-                      localizationUtil.translate(this.masechet.id))),
+                      localizationUtil.translate("shas", this.masechet.id))),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text(

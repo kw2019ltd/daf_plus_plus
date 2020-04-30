@@ -20,9 +20,9 @@ class AllShasPage extends StatelessWidget {
           SliverStickyHeader(
             sticky: false,
             header: SectionHeaderWidget(
-              header: localizationUtil.translate('seder') +
+              header: localizationUtil.translate("general", "seder") +
                   " " +
-                  localizationUtil.translate(SedersData.THE_SEDERS
+                  localizationUtil.translate("shas", SedersData.THE_SEDERS
                       .firstWhere(
                           (SederModel seder) => seder.id == masechet.sederId)
                       .id),

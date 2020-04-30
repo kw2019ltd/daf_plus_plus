@@ -23,7 +23,7 @@ class DafWidget extends StatelessWidget {
   }
 
   String _getDafNumber() {
-    if (localizationUtil.translate('display_dapim_as_gematria'))
+    if (localizationUtil.translate("calander", "display_dapim_as_gematria"))
       return gematriaConverterUtil
           .toGematria((dafNumber + Consts.FIST_DAF))
           .toString();
@@ -45,7 +45,7 @@ class DafWidget extends StatelessWidget {
               dateConverterUtil.toEnglishDate(dafDate),
           style: TextStyle(color: Colors.blueGrey),
         ),
-        title: Text(localizationUtil.translate('daf') + " " + _getDafNumber()),
+        title: Text(localizationUtil.translate("general", "daf") + " " + _getDafNumber()),
       ),
     );
   }

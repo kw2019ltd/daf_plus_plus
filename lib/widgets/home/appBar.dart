@@ -4,10 +4,9 @@ import 'package:flutter/scheduler.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 
 class AppBarWidget extends StatefulWidget with PreferredSizeWidget {
-  AppBarWidget({this.tabs, this.onchangeSelectedTab});
+  AppBarWidget({this.tabs});
 
   final List<String> tabs;
-  final Function(int) onchangeSelectedTab;
 
   @override
   _AppBarWidgetState createState() => _AppBarWidgetState();
@@ -31,7 +30,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   }
 
   Widget _iconTab(IconData icon, double width) {
-    return Container(width: width, child: Icon(icon));
+    return Container(width: width, child: Tab(child: Icon(icon)));
   }
 
   Widget _appBarTitle() {
@@ -69,7 +68,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
     return TabBar(
       indicatorWeight: 3,
       isScrollable: true,
-      onTap: widget.onchangeSelectedTab,
       indicatorColor: Theme.of(context).textTheme.headline5.color,
       labelPadding: EdgeInsets.all(0),
       tabs: widget.tabs

@@ -1,3 +1,4 @@
+import 'package:daf_plus_plus/widgets/home/dafYomiFab.dart';
 import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/stores/dafsDates.dart';
@@ -11,9 +12,13 @@ class DafYomiPage extends StatelessWidget {
     DateTime today = dateConverterUtil.getToday();
     DafModel daf = dafsDatesStore.getDafByDate(today);
 
-    return MasechetWidget(
-      daf: daf,
-      inList: false,
+    return Scaffold(
+          body: MasechetWidget(
+        daf: daf,
+        inList: false,
+      ),
+      floatingActionButton:
+                DafYomiFabWidget(),
     );
   }
 }

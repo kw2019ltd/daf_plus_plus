@@ -32,21 +32,21 @@ class FirstUseDialogOne extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(localizationUtil.translate("welcome")),
+        title: Text(localizationUtil.translate("onbording", "welcome")),
       ),
       body: SafeArea(
         child: Column(
           children: <Widget>[
             Container(height: 16),
-            Text(localizationUtil.translate("a_few_questions")),
+            Text(localizationUtil.translate("onbording", "a_few_questions")),
             Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: Text(
-                  localizationUtil.translate("do_you_daf"),
+                  localizationUtil.translate("settings", "do_you_daf"),
                   )),
             ListTile(
               title: ButtonWidget(
-                text: localizationUtil.translate("yes"),
+                text: localizationUtil.translate("general", "yes"),
                 buttonType: ButtonType.Outline,
                 color: Theme.of(context).primaryColor,
                 onPressed: () => _yes(context),
@@ -54,7 +54,7 @@ class FirstUseDialogOne extends StatelessWidget {
             ),
             ListTile(
               title: ButtonWidget(
-                text: localizationUtil.translate("no"),
+                text: localizationUtil.translate("general", "no"),
                 buttonType: ButtonType.Outline,
                 color: Theme.of(context).primaryColor,
                 onPressed: () => _no(context),

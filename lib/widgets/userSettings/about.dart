@@ -13,7 +13,7 @@ class AboutWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> text = localizationUtil
-        .translate("about_us")
+        .translate("settings", "about_us")
         .map<String>((dynamic text) => text.toString())
         .toList();
 

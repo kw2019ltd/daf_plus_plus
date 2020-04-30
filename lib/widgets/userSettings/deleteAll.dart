@@ -20,10 +20,10 @@ class _DeleteAllWidgetState extends State<DeleteAllWidget> {
     bool shouldFormatProgress = await Navigator.of(context).push(
       TransparentRoute(
         builder: (BuildContext context) => QuestionDialogWidget(
-          title: localizationUtil.translate('worning_title'),
-          text: localizationUtil.translate('settings_reset_worning_text'),
-          trueActionText: localizationUtil.translate('yes'),
-          falseActionText: localizationUtil.translate('no'),
+          title: localizationUtil.translate("settings", "worning_title"),
+          text: localizationUtil.translate("settings", "settings_reset_worning_text"),
+          trueActionText: localizationUtil.translate("general", "yes"),
+          falseActionText: localizationUtil.translate("general", "no"),
         ),
       ),
     );
@@ -45,9 +45,9 @@ class _DeleteAllWidgetState extends State<DeleteAllWidget> {
     return Padding(
         padding: EdgeInsets.all(8),
         child: ListTile(
-          title: Text(localizationUtil.translate('settings_reset_text')),
+          title: Text(localizationUtil.translate("settings", "settings_reset_text")),
           trailing: ButtonWidget(
-            text: localizationUtil.translate('reset_button'),
+            text: localizationUtil.translate("settings", "reset_button"),
             buttonType: ButtonType.Outline,
             color: Theme.of(context).primaryColor,
             loading: _deleteAllLoading,

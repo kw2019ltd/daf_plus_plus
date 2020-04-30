@@ -63,7 +63,7 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(localizationUtil.translate("welcome")),
+        title: Text(localizationUtil.translate("onbording", "welcome")),
       ),
       body: SafeArea(
         child: Column(
@@ -73,7 +73,7 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(10),
-                child: Text(localizationUtil.translate("what_have_you_learned")),
+                child: Text(localizationUtil.translate("onbording", "what_have_you_learned")),
               ),
               Expanded(
                   child: ListView.builder(
@@ -81,14 +81,14 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
                 itemCount: masechetsList.length,
                 itemBuilder: (context, dafIndex) => SimpleMesechetWidget(
                   name: localizationUtil
-                      .translate(masechetsList[dafIndex].id),
+                      .translate("shas", masechetsList[dafIndex].id),
                   checked: _progress[dafIndex],
                   onChange: (bool state) => _onClickDaf(dafIndex, state),
                 ),
               )),
               ListTile(
                 title: ButtonWidget(
-                  text: localizationUtil.translate("done"),
+                  text: localizationUtil.translate("general", "done"),
                   buttonType: ButtonType.Outline,
                   color: Theme.of(context).primaryColor,
                   onPressed: _done,

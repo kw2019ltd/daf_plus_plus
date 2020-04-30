@@ -39,9 +39,9 @@ class _DafYomiFabWidgetState extends State<DafYomiFabWidget>
     Navigator.of(context).push(
       TransparentRoute(
         builder: (BuildContext context) => InfoDialogWidget(
-          title: localizationUtil.translate('plus_plus_dialog_title'),
-          text: localizationUtil.translate('plus_plus_dialog_text'),
-          actionText: localizationUtil.translate('confirm_button'),
+          title: localizationUtil.translate("home", "plus_plus_dialog_title"),
+          text: localizationUtil.translate("home", "plus_plus_dialog_text"),
+          actionText: localizationUtil.translate("general", "confirm_button"),
         ),
       ),
     );
@@ -112,7 +112,7 @@ class _DafYomiFabWidgetState extends State<DafYomiFabWidget>
         child: ClipRect(
           child: Center(
               child: Text(
-            localizationUtil.translate('plus_plus_toast'),
+            localizationUtil.translate("home", "plus_plus_toast"),
             textAlign: TextAlign.center,
           )),
         ),

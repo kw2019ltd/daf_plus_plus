@@ -42,20 +42,20 @@ class _FirstUseDialogLanguageState extends State<FirstUseDialogLanguage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(localizationUtil.translate("welcome")),
+        title: Text(localizationUtil.translate("onbording", "welcome")),
       ),
       body: SafeArea(
         child: Column(
           children: <Widget>[
             Container(height: 16),
-            Text(localizationUtil.translate("choose_language")),
+            Text(localizationUtil.translate("onbording", "choose_language")),
             ListView(
               shrinkWrap: true,
               padding: EdgeInsets.all(16),
               children: _listOfLanguages
                   .map((language) => ListTile(
                         title: ButtonWidget(
-                          text: localizationUtil.translate(language),
+                          text: localizationUtil.translate("settings", language),
                           buttonType: ButtonType.Outline,
                           color: Theme.of(context).primaryColor,
                           onPressed: () => _changeLanguage(context, language),

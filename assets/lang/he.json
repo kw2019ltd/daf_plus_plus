@@ -4,7 +4,7 @@
     "seder": "סדר",
     "masechet": "מסכת",
     "daf": "דף",
-    "worning_title": "אזהרה",
+    "warning_title": "אזהרה",
     "yes": "כן",
     "no": "לא",
     "confirm_button": "בסדר",
@@ -25,7 +25,7 @@
   "settings": {
     "he": "עברית",
     "en": "English",
-    "backup_worning_text": "נראה שיש לך מידע בגיבוי, האם תרצה למחוק את הנתונים הקיימים ולהשתמש בגיבוי?",
+    "backup_warning_text": "נראה שיש לך מידע בגיבוי, האם תרצה למחוק את הנתונים הקיימים ולהשתמש בגיבוי?",
     "use_backup_button": "השתמש בגיבוי",
     "delete_backup_button": "מחק את הגיבוי",
     "toast_fail_connect_account": "חיבור לחשבון כשל",
@@ -41,7 +41,7 @@
     "settings_lang_text": "שנה שפה",
     "settings_calendar_text": "שנה לוח שנה",
     "settings_reset_text": "מוכן להתחיל מההתחלה?",
-    "settings_reset_worning_text": "האם אתה בטוח רוצה למחוק הכל? לא ניתן לשחזר את המידע לאחר פעולה זו.",
+    "settings_reset_warning_text": "האם אתה בטוח רוצה למחוק הכל? לא ניתן לשחזר את המידע לאחר פעולה זו.",
     "reset_button": "אפס",
     "do_you_daf": "האם אתה לומד את הדף היומי?",
     "calendar_types": {

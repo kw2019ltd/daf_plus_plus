@@ -30,8 +30,8 @@ class _GoogleAccountWidgetState extends State<GoogleAccountWidget> {
       bool restore = await Navigator.of(context).push(
         TransparentRoute(
           builder: (BuildContext context) => QuestionDialogWidget(
-            title: localizationUtil.translate("settings", "worning_title"),
-            text: localizationUtil.translate("settings", "backup_worning_text"),
+            title: localizationUtil.translate("general", "warning_title"),
+            text: localizationUtil.translate("settings", "backup_warning_text"),
             trueActionText: localizationUtil.translate("settings", "use_backup_button"),
             falseActionText: localizationUtil.translate("settings", "delete_backup_button"),
           ),

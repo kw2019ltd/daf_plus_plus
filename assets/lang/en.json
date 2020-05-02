@@ -4,7 +4,7 @@
     "seder": "Seder",
     "masechet": "Masechet",
     "daf": "Daf",
-    "worning_title": "Warning",
+    "warning_title": "Warning",
     "yes": "yes",
     "no": "no",
     "done": "Done",
@@ -25,7 +25,7 @@
   "settings": {
     "he": "עברית",
     "en": "English",
-    "backup_worning_text": "You have a backup, do you want to use it?",
+    "backup_warning_text": "You have a backup, do you want to use it?",
     "use_backup_button": "Use Backup",
     "delete_backup_button": "Delete Backup",
     "toast_fail_connect_account": "Failed to connect to your account",
@@ -41,7 +41,7 @@
     "settings_lang_text": "Change a language",
     "settings_calendar_text": "Change the calendar",
     "settings_reset_text": "Ready to start from the beginning?",
-    "settings_reset_worning_text": "Are you sure you want to delete everything? This can NOT be undone.",
+    "settings_reset_warning_text": "Are you sure you want to delete everything? This can NOT be undone.",
     "reset_button": "Reset",
     "do_you_daf": "Do you learn Daf Yomi?",
     "calendar_types": {

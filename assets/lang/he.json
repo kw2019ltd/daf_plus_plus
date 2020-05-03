@@ -17,9 +17,9 @@
     "all_shas": "כל השס",
     "masechet_options_title": "אפשרויות נוספות",
     "learned_masechet": "למדתי את כל המסכת",
-    "plus_plus_dialog_title": "קיצור חדש!",
-    "plus_plus_dialog_text": "לחץ על הכפתור כדי לסמן שלמדת את הדף היומי.",
-    "plus_plus_toast": "כל הכבוד שלמדת את הדף היום!"
+    "daf_yomi_dialog_title": "קיצור חדש!",
+    "daf_yomi_dialog_text": "לחץ על הכפתור כדי לסמן שלמדת את הדף היומי.",
+    "daf_yomi_toast": "סומן כנלמד"
   },
 
   "settings": {

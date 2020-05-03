@@ -17,9 +17,9 @@
     "all_shas": "All Shas",
     "masechet_options_title": "More Options",
     "learned_masechet": "I learned the masechet",
-    "plus_plus_dialog_title": "New Shortcut!",
-    "plus_plus_dialog_text": "Click this button to automatically check today's daf.",
-    "plus_plus_toast": "We checked todays daf for you!"
+    "daf_yomi_dialog_title": "New Shortcut!",
+    "daf_yomi_dialog_text": "Click this button to automatically check today's daf.",
+    "daf_yomi_toast": "marked as learned"
   },
 
   "settings": {

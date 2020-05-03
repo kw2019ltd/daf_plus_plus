@@ -58,7 +58,7 @@ class _DafYomiFabWidgetState extends State<DafYomiFabWidget>
     DafModel todaysDaf = _getTodaysDaf();
     ProgressModel progress = progressAction.get(todaysDaf.masechetId);
     progress.data[todaysDaf.number] = 1; // TODO: really not ideal.
-    progressAction.update(todaysDaf.masechetId, progress);
+    progressAction.update(todaysDaf.masechetId, progress, 5);
     hiveService.settings.setLastDaf(todaysDaf);
     String masechet = localizationUtil.translate("general", "masechet") + " " + localizationUtil.translate("shas", todaysDaf.masechetId);
     String daf = localizationUtil.translate("general", "daf") + " " + _getDafNumber(todaysDaf.number);

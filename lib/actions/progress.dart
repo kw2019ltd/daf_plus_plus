@@ -21,7 +21,7 @@ class ProgressAction {
       Provider.of<ProgressStore>(_progressContext, listen: listen);
 
   void update(String masechetId, ProgressModel progress,
-      [int incrementCounterBy = 1, bool checkCounter = true]) {
+      [int incrementCounterBy = 1]) {
     ProgressStore progressStore = _getProgressStore();
     actionCounterStore.increment(incrementCounterBy);
     hiveService.progress.setProgress(masechetId, progress);
@@ -30,7 +30,7 @@ class ProgressAction {
   }
 
   void updateAll(Map<String, ProgressModel> progressMap,
-      [int incrementCounterBy = 5, bool checkCounter = true]) {
+      [int incrementCounterBy = 5]) {
     ProgressStore progressStore = _getProgressStore();
     actionCounterStore.increment(incrementCounterBy);
     hiveService.progress.setProgressMap(progressMap);

@@ -59,7 +59,6 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
           children: <Widget>[
             TitleWidget(
               title: localizationUtil.translate("onbording", "welcome"),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
             ),
             ListView(
               shrinkWrap: true,

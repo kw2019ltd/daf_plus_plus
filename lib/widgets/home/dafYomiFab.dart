@@ -38,7 +38,6 @@ class _DafYomiFabWidgetState extends State<DafYomiFabWidget>
     Navigator.of(context).push(
       TransparentRoute(
         builder: (BuildContext context) => InfoDialogWidget(
-          title: localizationUtil.translate("home", "daf_yomi_dialog_title"),
           text: localizationUtil.translate("home", "daf_yomi_dialog_text"),
           actionText: localizationUtil.translate("general", "confirm_button"),
         ),

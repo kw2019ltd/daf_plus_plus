@@ -1,11 +1,14 @@
+import 'package:daf_plus_plus/utils/toast.dart';
 import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/actions/progress.dart';
 import 'package:daf_plus_plus/models/progress.dart';
 import 'package:daf_plus_plus/models/daf.dart';
+import 'package:daf_plus_plus/consts/consts.dart';
 import 'package:daf_plus_plus/services/hive/index.dart';
 import 'package:daf_plus_plus/stores/dafsDates.dart';
 import 'package:daf_plus_plus/utils/dateConverter.dart';
+import 'package:daf_plus_plus/utils/gematriaConverter.dart';
 import 'package:daf_plus_plus/utils/localization.dart';
 import 'package:daf_plus_plus/utils/transparentRoute.dart';
 import 'package:daf_plus_plus/widgets/core/infoDialog.dart';
@@ -24,13 +27,9 @@ class DafYomiFabWidget extends StatefulWidget {
 
 class _DafYomiFabWidgetState extends State<DafYomiFabWidget>
     with SingleTickerProviderStateMixin {
-  bool isOpened = false;
-  double _fabHeight = 56;
-  double _padding = 18;
-  double _gap = 8;
-  double _popupWidth = 0;
+  double _scale;
+  AnimationController _controller;
 
-  double _popupPadding = 8;
   DafModel _getTodaysDaf() {
     return dafsDatesStore.getDafByDate(dateConverterUtil.getToday());
   }
@@ -39,92 +38,49 @@ class _DafYomiFabWidgetState extends State<DafYomiFabWidget>
     Navigator.of(context).push(
       TransparentRoute(
         builder: (BuildContext context) => InfoDialogWidget(
-          title: localizationUtil.translate("home", "plus_plus_dialog_title"),
-          text: localizationUtil.translate("home", "plus_plus_dialog_text"),
+          text: localizationUtil.translate("home", "daf_yomi_dialog_text"),
           actionText: localizationUtil.translate("general", "confirm_button"),
         ),
       ),
     );
   }
 
+  String _getDafNumber(dafNumber) {
+    if (localizationUtil.translate("calendar", "display_dapim_as_gematria"))
+      return gematriaConverterUtil
+          .toGematria((dafNumber + Consts.FIST_DAF))
+          .toString();
+    return (dafNumber + Consts.FIST_DAF).toString();
+  }
+
   void _learnedTodaysDaf() {
     DafModel todaysDaf = _getTodaysDaf();
     ProgressModel progress = progressAction.get(todaysDaf.masechetId);
     progress.data[todaysDaf.number] = 1; // TODO: really not ideal.
-    progressAction.update(todaysDaf.masechetId, progress);
+    progressAction.update(todaysDaf.masechetId, progress, 5);
     hiveService.settings.setLastDaf(todaysDaf);
+    String masechet = localizationUtil.translate("general", "masechet") + " " + localizationUtil.translate("shas", todaysDaf.masechetId);
+    String daf = localizationUtil.translate("general", "daf") + " " + _getDafNumber(todaysDaf.number);
+    toastUtil
+        .showInformation(masechet + " " + daf + " " + localizationUtil.translate("home", "daf_yomi_toast"));
   }
 
   void _onClick(BuildContext context, double width) async {
-    if (!isOpened) {
-      setState(() => isOpened = !isOpened);
-      bool isFirst = !hiveService.settings.getUsedFab();
-      if (isFirst) {
-        _displayInfo(context);
-        hiveService.settings.setUsedFab(true);
-      } else {
-        _learnedTodaysDaf();
-        _open(width);
-        await Future.delayed(Duration(seconds: 3));
-        _close();
-      }
-      setState(() => isOpened = !isOpened);
+    _controller.reverse();
+    bool isFirst = !hiveService.settings.getUsedFab();
+    if (isFirst) {
+      _displayInfo(context);
+      hiveService.settings.setUsedFab(true);
+    } else {
+      _learnedTodaysDaf();
     }
-  }
-
-  void _open(double width) {
-    setState(() {
-      _popupWidth = width - (_fabHeight + _gap + _padding * 2);
-      _popupPadding = _fabHeight + _gap;
-    });
-  }
-
-  void _close() {
-    setState(() {
-      _popupWidth = 0;
-      _popupPadding = _gap;
-    });
-  }
-
-  Widget popout() {
-    return Transform(
-      transform: Matrix4.translationValues(0, _fabHeight, 0),
-      child: AnimatedContainer(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: 10.0,
-              spreadRadius: 0.0,
-              offset: Offset(0, 10),
-            )
-          ],
-        ),
-        duration: Duration(milliseconds: 200),
-        curve: Curves.easeOut,
-        margin: localizationUtil.isRtl
-            ? EdgeInsets.only(left: _popupPadding)
-            : EdgeInsets.only(right: _popupPadding),
-        width: _popupWidth,
-        height: _fabHeight,
-        child: ClipRect(
-          child: Center(
-              child: Text(
-            localizationUtil.translate("home", "plus_plus_toast"),
-            textAlign: TextAlign.center,
-          )),
-        ),
-      ),
-    );
   }
 
   Widget button() {
     return Container(
       child: FloatingActionButton(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16.0))),
+            borderRadius: BorderRadius.all(Radius.circular(8.0))),
         onPressed: () => _onClick(context, MediaQuery.of(context).size.width),
         backgroundColor: Theme.of(context).primaryColor,
         child: Icon(
@@ -136,14 +92,38 @@ class _DafYomiFabWidgetState extends State<DafYomiFabWidget>
   }
 
   @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 200),
+      lowerBound: 0.0,
+      upperBound: 0.05,
+    )..addListener(() {
+        setState(() {});
+      });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onTapDown(TapDownDetails details) {
+    _controller.forward();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: <Widget>[
-        popout(),
-        button(),
-      ],
+    _scale = 1 - _controller.value;
+
+    return GestureDetector(
+      onTapDown: _onTapDown,
+      child: Transform.scale(
+        scale: _scale,
+        child: button(),
+      ),
     );
   }
 }

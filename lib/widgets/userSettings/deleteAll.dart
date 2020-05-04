@@ -20,8 +20,8 @@ class _DeleteAllWidgetState extends State<DeleteAllWidget> {
     bool shouldFormatProgress = await Navigator.of(context).push(
       TransparentRoute(
         builder: (BuildContext context) => QuestionDialogWidget(
-          title: localizationUtil.translate("settings", "worning_title"),
-          text: localizationUtil.translate("settings", "settings_reset_worning_text"),
+          icon: Icons.warning,
+          text: localizationUtil.translate("settings", "settings_reset_warning_text"),
           trueActionText: localizationUtil.translate("general", "yes"),
           falseActionText: localizationUtil.translate("general", "no"),
         ),

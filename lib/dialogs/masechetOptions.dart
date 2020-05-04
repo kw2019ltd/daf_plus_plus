@@ -34,7 +34,6 @@ class MasechetOptionsDialog extends StatelessWidget {
           children: <Widget>[
             TitleWidget(
               title: localizationUtil.translate("home", "masechet_options_title"),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
             ),
             ListView(
               shrinkWrap: true,

@@ -6,12 +6,14 @@ import 'package:daf_plus_plus/widgets/core/title.dart';
 
 class InfoDialogWidget extends StatelessWidget {
   InfoDialogWidget({
-    @required this.title,
+    this.title,
+    this.icon,
     @required this.text,
     @required this.actionText,
   });
 
   final String title;
+  final IconData icon;
   final String text;
   final String actionText;
 
@@ -32,10 +34,10 @@ class InfoDialogWidget extends StatelessWidget {
         children: <Widget>[
           TitleWidget(
             title: this.title,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+            icon: this.icon,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Text(this.text),
           ),
           _actionSection(context),

@@ -133,7 +133,7 @@ packages:
       name: cloud_firestore_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.1"
+    version: "0.1.1+2"
   code_builder:
     dependency: transitive
     description:
@@ -434,6 +434,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+  kosher_dart:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: bd24b59f866fd04d0e4493469118ff792ae88971
+      url: "https://github.com/yakir8/kosher_dart.git"
+    source: git
+    version: "0.0.1"
   logging:
     dependency: transitive
     description:

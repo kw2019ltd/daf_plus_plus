@@ -17,10 +17,10 @@ class LocalizationUtil {
     await setPreferredLanguage();
   }
 
-  dynamic translate(String text) {
-    return (_localizedStrings == null || _localizedStrings[text] == null)
+  dynamic translate(String category, String text) {
+    return (_localizedStrings == null || _localizedStrings[category] == null ||  _localizedStrings[category][text] == null)
         ? '** $text not found'
-        : _localizedStrings[text];
+        : _localizedStrings[category][text];
   }
 
   Locale _languageToLocale(String language) {

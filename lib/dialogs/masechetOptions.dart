@@ -33,15 +33,14 @@ class MasechetOptionsDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             TitleWidget(
-              title: localizationUtil.translate('masechet_options_title'),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+              title: localizationUtil.translate("home", "masechet_options_title"),
             ),
             ListView(
               shrinkWrap: true,
               children: <Widget>[
                 ListTile(
                   title: ButtonWidget(
-                    text: localizationUtil.translate('learned_masechet'),
+                    text: localizationUtil.translate("home", "learned_masechet"),
                     buttonType: ButtonType.Outline,
                     color: Theme.of(context).primaryColor,
                     onPressed: () => _learnMasechet(context),

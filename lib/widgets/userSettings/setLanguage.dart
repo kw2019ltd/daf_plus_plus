@@ -38,7 +38,8 @@ class _SetLanguageWidgetState extends State<SetLanguageWidget> {
     return Padding(
       padding: EdgeInsets.all(8),
       child: ListTile(
-        title: Text(localizationUtil.translate('settings_lang_text')),
+        title:
+            Text(localizationUtil.translate("settings", "settings_lang_text")),
         trailing: DropdownButton<String>(
           value: _currentLanguage,
           underline: Container(
@@ -50,7 +51,7 @@ class _SetLanguageWidgetState extends State<SetLanguageWidget> {
               _listOfLanguages.map<DropdownMenuItem<String>>((String language) {
             return DropdownMenuItem<String>(
               value: language,
-              child: Text(localizationUtil.translate(language)),
+              child: Text(localizationUtil.translate("settings", language)),
             );
           }).toList(),
         ),

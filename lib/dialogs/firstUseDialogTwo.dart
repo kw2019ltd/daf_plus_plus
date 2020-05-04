@@ -23,8 +23,8 @@ class _FirstUseDialogTwoState extends State<FirstUseDialogTwo> {
   _yes(BuildContext context) {
     _fillIn();
     hiveService.settings.setHasOpened(true);
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (BuildContext context) => HomePage()), ModalRoute.withName('/'));
   }
 
   _fillIn() {
@@ -59,7 +59,7 @@ class _FirstUseDialogTwoState extends State<FirstUseDialogTwo> {
   }
 
   String _getDafNumber(int daf) {
-    if (localizationUtil.translate('display_dapim_as_gematria'))
+    if (localizationUtil.translate("calendar", "display_dapim_as_gematria"))
       return gematriaConverterUtil
           .toGematria((daf + Consts.FIST_DAF))
           .toString();
@@ -71,7 +71,7 @@ class _FirstUseDialogTwoState extends State<FirstUseDialogTwo> {
         dateConverterUtil.getToday().subtract(Duration(days: 1));
     DafModel yesterdaysDaf = dafsDatesStore.getDafByDate(yesterday);
 
-    String masechet = localizationUtil.translate(yesterdaysDaf.masechetId);
+    String masechet = localizationUtil.translate("shas", yesterdaysDaf.masechetId);
     String daf = _getDafNumber(yesterdaysDaf.number);
     return masechet + " " + daf;
   }
@@ -82,7 +82,7 @@ class _FirstUseDialogTwoState extends State<FirstUseDialogTwo> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(localizationUtil.translate("welcome")),
+        title: Text(localizationUtil.translate("onbording", "welcome")),
       ),
       body: SafeArea(
         child: Padding(
@@ -92,15 +92,15 @@ class _FirstUseDialogTwoState extends State<FirstUseDialogTwo> {
               Padding(
                   padding: EdgeInsets.symmetric(vertical: 16),
                   child: Text(
-                    localizationUtil.translate("daf_holding"),
+                    localizationUtil.translate("onbording", "daf_holding"),
                   )),
               Text(
-                  localizationUtil.translate("daf_yesterday") +
+                  localizationUtil.translate("onbording", "daf_yesterday") +
                       _getYesterdaysDaf(),
                   style: Theme.of(context).textTheme.caption),
               ListTile(
                 title: ButtonWidget(
-                  text: localizationUtil.translate("yes"),
+                  text: localizationUtil.translate("general", "yes"),
                   buttonType: ButtonType.Outline,
                   color: Theme.of(context).primaryColor,
                   onPressed: () => _yes(context),
@@ -108,7 +108,7 @@ class _FirstUseDialogTwoState extends State<FirstUseDialogTwo> {
               ),
               ListTile(
                 title: ButtonWidget(
-                  text: localizationUtil.translate("no"),
+                  text: localizationUtil.translate("general", "no"),
                   buttonType: ButtonType.Outline,
                   color: Theme.of(context).primaryColor,
                   onPressed: () => _no(context),

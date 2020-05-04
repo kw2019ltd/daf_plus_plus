@@ -30,10 +30,10 @@ class _GoogleAccountWidgetState extends State<GoogleAccountWidget> {
       bool restore = await Navigator.of(context).push(
         TransparentRoute(
           builder: (BuildContext context) => QuestionDialogWidget(
-            title: localizationUtil.translate('worning_title'),
-            text: localizationUtil.translate('backup_worning_text'),
-            trueActionText: localizationUtil.translate('use_backup_button'),
-            falseActionText: localizationUtil.translate('delete_backup_button'),
+            icon: Icons.warning,
+            text: localizationUtil.translate("settings", "backup_warning_text"),
+            trueActionText: localizationUtil.translate("settings", "use_backup_button"),
+            falseActionText: localizationUtil.translate("settings", "delete_backup_button"),
           ),
         ),
       );
@@ -44,7 +44,7 @@ class _GoogleAccountWidgetState extends State<GoogleAccountWidget> {
 
   void _onConnectFail() {
     toastUtil.showInformation(
-        localizationUtil.translate('toast_fail_connect_account'));
+        localizationUtil.translate("settings", "toast_fail_connect_account"));
   }
 
   Future<void> _onConnectionSuccess() async {
@@ -57,10 +57,10 @@ class _GoogleAccountWidgetState extends State<GoogleAccountWidget> {
         ResponsesConst.DOCUMENT_NOT_FOUND.code) {
       await progressAction.backup();
       toastUtil.showInformation(
-          localizationUtil.translate('toast_success_connect_account'));
+          localizationUtil.translate("settings", "toast_success_connect_account"));
     } else {
       toastUtil.showInformation(
-          localizationUtil.translate('toast_fail_connect_account'));
+          localizationUtil.translate("settings", "toast_fail_connect_account"));
     }
   }
 
@@ -80,7 +80,7 @@ class _GoogleAccountWidgetState extends State<GoogleAccountWidget> {
     await authService.signOut();
     await _getAuthedState();
     toastUtil.showInformation(
-        localizationUtil.translate('toast_success_disconnect_account'));
+        localizationUtil.translate("settings", "toast_success_disconnect_account"));
     setState(() => _connectionLoading = false);
   }
 
@@ -103,10 +103,10 @@ class _GoogleAccountWidgetState extends State<GoogleAccountWidget> {
     return Padding(
       padding: EdgeInsets.all(8),
       child: ListTile(
-        title: Text(localizationUtil.translate('settings_not_backedup_text')),
-        subtitle: Text(localizationUtil.translate('settings_not_backedup_subtext')),
+        title: Text(localizationUtil.translate("settings", "settings_not_backedup_text")),
+        subtitle: Text(localizationUtil.translate("settings", "settings_not_backedup_subtext")),
         trailing: ButtonWidget(
-          text: localizationUtil.translate('connect_button'),
+          text: localizationUtil.translate("settings", "connect_button"),
           buttonType: ButtonType.Filled,
           color: Theme.of(context).primaryColor,
           loading: _connectionLoading,
@@ -121,11 +121,11 @@ class _GoogleAccountWidgetState extends State<GoogleAccountWidget> {
     return Padding(
       padding: EdgeInsets.all(8),
       child: ListTile(
-        title: Text(localizationUtil.translate('settings_backuped_text')),
-        subtitle: Text(hiveService.settings.getLastBackup() != null ? localizationUtil.translate('settings_backuped_subtext') +
+        title: Text(localizationUtil.translate("settings", "settings_backuped_text")),
+        subtitle: Text(hiveService.settings.getLastBackup() != null ? localizationUtil.translate("settings", "settings_backuped_subtext") +
             DateFormat.yMd().add_Hm().format(hiveService.settings.getLastBackup()) : ""),
         trailing: ButtonWidget(
-          text: localizationUtil.translate('disconnect_button'),
+          text: localizationUtil.translate("settings", "disconnect_button"),
           buttonType: ButtonType.Outline,
           color: Theme.of(context).primaryColor,
           loading: _connectionLoading,

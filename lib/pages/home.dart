@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:daf_plus_plus/widgets/home/appBar.dart';
 import 'package:daf_plus_plus/actions/progress.dart';
-import 'package:daf_plus_plus/dialogs/firstUseDialogLanguage.dart';
+import 'package:daf_plus_plus/pages/onboarding/welcome.dart';
 import 'package:daf_plus_plus/pages/allShas.dart';
 import 'package:daf_plus_plus/pages/dafYomi.dart';
 import 'package:daf_plus_plus/pages/todaysDaf.dart';
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (BuildContext context) => FirstUseDialogLanguage(),
+        builder: (BuildContext context) => WelcomeOnboardingPage(),
       ),
     );
   }
@@ -75,6 +75,13 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _loadApp();
+  }
+
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
   }
 
   @override

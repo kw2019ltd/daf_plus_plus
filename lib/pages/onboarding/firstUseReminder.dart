@@ -27,7 +27,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
   void initState() {
     super.initState();
     setState(() {
-      formattedTime = localizationUtil.translate("onbording", "select_time") + ":";
+      formattedTime = localizationUtil.translate("onboarding", "select_time") + ":";
     });
   }
 
@@ -58,7 +58,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             TitleWidget(
-              title: localizationUtil.translate("onbording", "welcome"),
+              title: localizationUtil.translate("onboarding", "welcome"),
             ),
             ListView(
               shrinkWrap: true,
@@ -66,7 +66,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
               children: <Widget>[
                 Padding(
                     padding: EdgeInsets.only(top: 16),
-                    child: Text(localizationUtil.translate("onbording", "set_reminder"))),
+                    child: Text(localizationUtil.translate("onboarding", "set_reminder"))),
                 ListTile(
                   title: Text(formattedTime),
                   leading: Icon(Icons.access_time),
@@ -81,7 +81,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
                 ),
                 ListTile(
                   title: ButtonWidget(
-                    text: localizationUtil.translate("onbording", "set"),
+                    text: localizationUtil.translate("onboarding", "set"),
                     buttonType: ButtonType.Outline,
                     color: Theme.of(context).primaryColor,
                     onPressed: () => _set(context),
@@ -89,7 +89,7 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
                 ),
                 ListTile(
                   title: ButtonWidget(
-                    text: localizationUtil.translate("onbording", "dont_set"),
+                    text: localizationUtil.translate("onboarding", "dont_set"),
                     buttonType: ButtonType.Outline,
                     color: Theme.of(context).primaryColor,
                     onPressed: () => _no(context),
@@ -129,12 +129,12 @@ class _FirstUseReminderState extends State<FirstUseReminder> {
 
       await flutterLocalNotificationsPlugin.showDailyAtTime(
           0,
-          localizationUtil.translate("onbording", "did_you_daf"),
+          localizationUtil.translate("onboarding", "did_you_daf"),
           'd',
           time,
           platformChannelSpecifics);
     } else {
-      toastUtil.showInformation(localizationUtil.translate("onbording", "select_time"));
+      toastUtil.showInformation(localizationUtil.translate("onboarding", "select_time"));
     }
   }
 

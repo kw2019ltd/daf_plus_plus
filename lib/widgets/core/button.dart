@@ -59,23 +59,30 @@ class ButtonWidget extends StatelessWidget {
   }
 
   Widget _buttonContent(BuildContext context, ButtonColors buttonColors) {
-    return Column(
-      children: <Widget>[
-        Text(
-          text,
-          style: Theme.of(context).textTheme.button.merge(
-                TextStyle(color: buttonColors.textColor),
-              ),
-        ),
-        if (subtext != null)
+    if (subtext != null)
+      return Column(
+        children: <Widget>[
+          Text(
+            text,
+            style: Theme.of(context).textTheme.button.merge(
+                  TextStyle(color: buttonColors.textColor),
+                ),
+          ),
           Text(
             subtext,
             style: Theme.of(context).textTheme.caption.merge(
                   TextStyle(color: buttonColors.textColor),
                 ),
           ),
-      ],
-    );
+        ],
+      );
+    else
+      return Text(
+        text,
+        style: Theme.of(context).textTheme.button.merge(
+              TextStyle(color: buttonColors.textColor),
+            ),
+      );
   }
 
   Widget _loadingButton(ButtonColors buttonColors) {

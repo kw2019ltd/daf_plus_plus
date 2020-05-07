@@ -24,7 +24,7 @@ class ThemeUtil {
             color: Colors.white,
           ),
           bodyText2: TextStyle(
-            fontSize: 18,
+            fontSize: 16,
           ),
           headline3: TextStyle(
             color: Colors.white,

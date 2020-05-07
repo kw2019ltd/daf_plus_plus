@@ -8,7 +8,7 @@
     "yes": "כן",
     "no": "לא",
     "confirm_button": "בסדר",
-    "done": "הבא"
+    "done": "סיים"
   },
 
   "home": {
@@ -56,18 +56,22 @@
     ]
   },
 
-  "onbording": {
+  "onboarding": {
     "welcome": "ברוכים הבאים לדף++",
+    "welcome_subtitle": "עקוב אחרי לימוד הדף יומי שלך בקלות בעזרת האפליקציה הפשוטה ונוחה לשימוש",
+    "choose_he": "המשך בעברית",
+    "choose_en": "Continue in English",
+    "onboarding1_title": "רגע לפני שמתחילים",
+    "onboarding1_subtitle": "רצינו לעדכן כמה הגדרות כך שהאפליקציה תתאים לאופן לימוד שלכם",
+    "learning_daf_in_sync": "לומד את הדף היומי עם כולם",
+    "learning_daf_in_sync_subtext": "אנו נסמן שלמדת את הדפים עד היום, ניתן לערוך את זה באפליקציה בכל עת",
+    "learning_daf_alone": "לומד את הדף היומי בקצב שלי",
+    "not_learning_daf": "לא לומד במסגרת הדף היומי",
+    "choose_masechets": "בחר את המסכתות שלמדת, כדי שיסומנו באפליקציה. תמיד תוכל לשנות את זה אחר כך.",
     "set_reminder": "תבחר שעה לתזכורת ללמוד הדף של היום",
-    "select_time": "תבחר שעה",
     "set": "קבע",
-    "did_you_daf": "האם כבר למדת הדף של היום?",
     "dont_set": "אל תזכיר לי",
-    "choose_language": "תבחר שפה:",
-    "a_few_questions": "כדי להתחיל, כמה שאלות קצרות:",
-    "daf_holding": "האם אתה אוחז בדף של היום?",
-    "what_have_you_learned": "איזה מסכתות למדת כבר:",
-    "daf_yesterday": "הדף של אתמול היה: "
+    "select_time": "תבחר שעה"
   },
 
   "calendar": {

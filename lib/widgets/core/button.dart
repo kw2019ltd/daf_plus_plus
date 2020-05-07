@@ -23,6 +23,7 @@ class ButtonWidget extends StatelessWidget {
     Key key,
     @required this.text,
     @required this.onPressed,
+    this.subtext,
     this.onPressedDisabled,
     this.disabled = false,
     this.loading = false,
@@ -32,6 +33,7 @@ class ButtonWidget extends StatelessWidget {
 
   final String text;
   final Function onPressed;
+  final String subtext;
   final Function onPressedDisabled;
   final bool disabled;
   final bool loading;
@@ -57,12 +59,30 @@ class ButtonWidget extends StatelessWidget {
   }
 
   Widget _buttonContent(BuildContext context, ButtonColors buttonColors) {
-    return Text(
-      text,
-      style: Theme.of(context).textTheme.button.merge(
-            TextStyle(color: buttonColors.textColor),
+    if (subtext != null)
+      return Column(
+        children: <Widget>[
+          Text(
+            text,
+            style: Theme.of(context).textTheme.button.merge(
+                  TextStyle(color: buttonColors.textColor),
+                ),
           ),
-    );
+          Text(
+            subtext,
+            style: Theme.of(context).textTheme.caption.merge(
+                  TextStyle(color: buttonColors.textColor),
+                ),
+          ),
+        ],
+      );
+    else
+      return Text(
+        text,
+        style: Theme.of(context).textTheme.button.merge(
+              TextStyle(color: buttonColors.textColor),
+            ),
+      );
   }
 
   Widget _loadingButton(ButtonColors buttonColors) {
@@ -91,9 +111,12 @@ class ButtonWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(5.0),
           side: BorderSide(color: buttonColors.outlineColor, width: 2),
         ),
-        child: loading
-            ? _loadingButton(buttonColors)
-            : _buttonContent(context, buttonColors),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          child: loading
+              ? _loadingButton(buttonColors)
+              : _buttonContent(context, buttonColors),
+        ),
       ),
     );
   }

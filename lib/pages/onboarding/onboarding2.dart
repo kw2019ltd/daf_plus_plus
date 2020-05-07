@@ -9,12 +9,12 @@ import 'package:daf_plus_plus/widgets/shared/simpleMesechetWidget.dart';
 import 'package:daf_plus_plus/widgets/core/button.dart';
 import 'package:flutter/material.dart';
 
-class FirstUseDialogFillIn extends StatefulWidget {
+class Onboarding2Page extends StatefulWidget {
   @override
-  _FirstUseDialogFillInState createState() => _FirstUseDialogFillInState();
+  _Onboarding2PageState createState() => _Onboarding2PageState();
 }
 
-class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
+class _Onboarding2PageState extends State<Onboarding2Page> {
   List<bool> _progress = [];
 
   @override
@@ -65,42 +65,48 @@ class _FirstUseDialogFillInState extends State<FirstUseDialogFillIn> {
     List<MasechetModel> masechetsList =
         MasechetsData.THE_MASECHETS.values.toList();
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(localizationUtil.translate("onbording", "welcome")),
-      ),
-      body: SafeArea(
-        child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: Text(localizationUtil.translate(
-                    "onbording", "what_have_you_learned")),
-              ),
-              Expanded(
-                  child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: masechetsList.length,
-                itemBuilder: (context, dafIndex) => SimpleMesechetWidget(
-                  name: localizationUtil.translate(
-                      "shas", masechetsList[dafIndex].id),
-                  checked: _progress[dafIndex],
-                  onChange: (bool state) => _onClickDaf(dafIndex, state),
-                ),
-              )),
-              ListTile(
-                title: ButtonWidget(
-                  text: localizationUtil.translate("general", "done"),
-                  buttonType: ButtonType.Outline,
-                  color: Theme.of(context).primaryColor,
-                  onPressed: _done,
+      body: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Hero(
+              tag: "onboardingHero",
+              child: Container(
+                color: Theme.of(context).primaryColor,
+                child: SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 48, horizontal: 32),
+                    child: Text(
+                      localizationUtil.translate(
+                          "onboarding", "choose_masechets"),
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ),
                 ),
               ),
-            ]),
-      ),
+            ),
+            Expanded(
+                child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: masechetsList.length,
+              itemBuilder: (context, dafIndex) => SimpleMesechetWidget(
+                name: localizationUtil.translate(
+                    "shas", masechetsList[dafIndex].id),
+                checked: _progress[dafIndex],
+                onChange: (bool state) => _onClickDaf(dafIndex, state),
+              ),
+            )),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 24, horizontal: 32),
+              child: ButtonWidget(
+                text: localizationUtil.translate("general", "done"),
+                buttonType: ButtonType.Outline,
+                color: Theme.of(context).primaryColor,
+                onPressed: _done,
+              ),
+            ),
+          ]),
     );
   }
 }

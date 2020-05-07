@@ -15,21 +15,13 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
+    return ListView(
       children: <Widget>[
-        Expanded(
-          child: ListView(
-            shrinkWrap: true,
-            children: <Widget>[
-              GoogleAccountWidget(),
-              SetLanguageWidget(),
-              SetCalendarWidget(),
-              SetDafYomiWidget(),
-              DeleteAllWidget(),
-            ],
-          ),
-        ),
+        GoogleAccountWidget(),
+        SetLanguageWidget(),
+        SetCalendarWidget(),
+        SetDafYomiWidget(),
+        DeleteAllWidget(),
         Divider(),
         AboutWidget(),
       ],

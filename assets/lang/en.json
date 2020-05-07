@@ -56,18 +56,22 @@
     ]
   },
 
-  "onbording": {
+  "onboarding": {
     "welcome": "Welcome to Daf++",
+    "welcome_subtitle": "Keep track of your Daf Yomi learning with this simple and easy to use app",
+    "choose_he": "המשך בעברית",
+    "choose_en": "Continue in English",
+    "onboarding1_title": "Just before we start",
+    "onboarding1_subtitle": "We wanted to update some settings so that the app fits your learning preferences",
+    "learning_daf_in_sync": "Leaning the Daf Yomi with everyone",
+    "learning_daf_in_sync_subtext": "We will mark that you have learned the Dapim until today, it can be edited in the app at any time",
+    "learning_daf_alone": "Learning the Daf Yomi at my own pace",
+    "not_learning_daf": "Not leaning as part of the Daf Yomi",
+    "choose_masechets": "Select the Masechetas you learned snd they will be marked in the app. You can always change it later.",
     "set_reminder": "Set a time to be reminded to learn the daf every day",
     "set": "Set",
     "select_time": "Select Time",
-    "did_you_daf": "Did you learn today's daf?",
-    "dont_set": "Don't remind me",
-    "choose_language": "Please select preferred language:",
-    "a_few_questions": "A few quick questions:",
-    "what_have_you_learned": "Which Masechtas have you already completed:",
-    "daf_holding": "Are you holding with the Daf Yomi cycle?",
-    "daf_yesterday": "Yesterday's Daf was: "
+    "dont_set": "Don't remind me"
   },
 
   "calendar": {

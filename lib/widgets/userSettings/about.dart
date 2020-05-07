@@ -23,7 +23,7 @@ class AboutWidget extends StatelessWidget {
           children: <Widget>[
             Text(
               text[0],
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyText2,
               textAlign: TextAlign.center,
             ),
             SizedBox(
@@ -34,7 +34,7 @@ class AboutWidget extends StatelessWidget {
                 text: TextSpan(children: [
                   TextSpan(
                       text: text[1],
-                      style: Theme.of(context).textTheme.bodyText1),
+                      style: Theme.of(context).textTheme.bodyText2),
                   TextSpan(
                       text: text[2],
                       style: TextStyle(
@@ -43,7 +43,7 @@ class AboutWidget extends StatelessWidget {
                       recognizer: TapGestureRecognizer()..onTap = _openSite),
                   TextSpan(
                       text: text[3],
-                      style: Theme.of(context).textTheme.bodyText1),
+                      style: Theme.of(context).textTheme.bodyText2),
                 ])),
           ],
         ));
